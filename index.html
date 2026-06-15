@@ -58,6 +58,16 @@ img{max-width:100%;display:block}
 .btn.ghost{background:transparent;color:var(--navy)}
 .btn.ghost:hover{background:var(--navy);color:#fff}
 
+/* LOGO BAR */
+.logo-bar-section{padding:36px 0;border-bottom:1px solid var(--line);background:var(--cream)}
+.logo-bar-label{text-align:center;font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+.logo-bar{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:36px}
+.logo-item{display:flex;align-items:center;justify-content:center;height:36px}
+.logo-item img{height:32px;width:auto;max-width:120px;object-fit:contain;filter:grayscale(100%) opacity(55%);transition:.2s}
+.logo-item img:hover{filter:grayscale(0%) opacity(100%)}
+.logo-fallback{display:none;font-size:.82rem;font-weight:600;color:var(--muted);letter-spacing:.04em}
+@media(max-width:600px){.logo-bar{gap:24px}.logo-item img{height:26px;max-width:90px}}
+
 /* NAV */
 header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
@@ -253,13 +263,42 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   </div>
 </section>
 
+<!-- PAST RESIDENTS -->
+<section class="logo-bar-section">
+  <div class="wrap">
+    <p class="logo-bar-label">Past residents have come from</p>
+    <div class="logo-bar">
+      <div class="logo-item">
+        <img src="https://logo.clearbit.com/generaldynamics.com" alt="General Dynamics" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <span class="logo-fallback">General Dynamics</span>
+      </div>
+      <div class="logo-item">
+        <img src="https://logo.clearbit.com/terminix.com" alt="Terminix" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <span class="logo-fallback">Terminix</span>
+      </div>
+      <div class="logo-item">
+        <img src="https://logo.clearbit.com/providence.edu" alt="Providence College" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <span class="logo-fallback">Providence College</span>
+      </div>
+      <div class="logo-item">
+        <img src="https://logo.clearbit.com/risd.edu" alt="RISD" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <span class="logo-fallback">RISD</span>
+      </div>
+      <div class="logo-item">
+        <img src="https://logo.clearbit.com/jwu.edu" alt="Johnson & Wales" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <span class="logo-fallback">Johnson &amp; Wales</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- OVERVIEW -->
 <section id="home">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">The Residence</span>
       <h2>Move-in ready, in a neighborhood that has it all.</h2>
-      <p>184 Oakland Avenue is a fully furnished duplex unit offering bright, comfortable space in Providence's Elmhurst neighborhood — minutes from Providence College and RIC, with an easy commute to the city's hospitals. Each unit comes completely turnkey: beds, sofas, dining set, smart TVs, and a fully equipped kitchen, so you can move in with just a suitcase. A shared washer and dryer are on-site in the building — a real convenience in Providence. Units are separately metered; tenants pay their own electric and gas, while the owner covers water and sewer. Flexible lease terms make this an ideal fit for graduate students, visiting faculty, and traveling healthcare professionals who want a quiet, secure, ready-to-live home.</p>
+      <p>184 Oakland Avenue is a fully furnished duplex unit offering bright, comfortable space in Providence's Elmhurst neighborhood — minutes from Providence College and RIC, with an easy commute to the city's hospitals. Each unit comes completely turnkey: beds, sofas, dining set, smart TVs, and a fully equipped kitchen, so you can move in with just a suitcase. A shared washer and dryer are on-site in the building — a real convenience in Providence. Units are separately metered; tenants pay their own electric and gas, while the owner covers water and sewer. Flexible lease terms make this an ideal fit for students, healthcare professionals, and contractors who want a quiet, secure, ready-to-live home.</p>
     </div>
     <div class="specs">
       <div class="spec">
