@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Confirm Viewing — Noble Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f4f1ea;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{background:#fff;border-radius:16px;padding:40px;max-width:520px;width:100%;box-shadow:0 12px 40px rgba(0,0,0,.12)}
+.logo{display:flex;align-items:center;gap:.6rem;font-size:1.25rem;font-weight:700;letter-spacing:.3px;margin-bottom:28px;color:#1b2733}
+.logo svg{width:32px;height:32px}
+h1{font-size:1.4rem;font-weight:600;color:#13171c;margin-bottom:6px}
+p.sub{font-size:.9rem;color:#727b85;margin-bottom:28px}
+label{display:block;font-size:.82rem;font-weight:600;color:#3a4149;margin-bottom:5px;letter-spacing:.02em}
+input,select,textarea{width:100%;padding:.7rem .9rem;border:1.5px solid #e7e3da;border-radius:9px;font-size:.92rem;font-family:inherit;color:#13171c;background:#fff;margin-bottom:18px;transition:.2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#b8893b}
+textarea{resize:vertical;min-height:120px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn{width:100%;padding:.9rem;background:#b8893b;color:#fff;border:none;border-radius:50px;font-size:1rem;font-weight:600;cursor:pointer;transition:.2s;margin-top:4px}
+.btn:hover{background:#c9a25b}
+.btn:disabled{opacity:.5;cursor:default}
+.msg{margin-top:16px;padding:14px 16px;border-radius:10px;font-size:.9rem;display:none}
+.msg.ok{background:#edf7f0;color:#1a7340;border:1px solid #a8dab5}
+.msg.err{background:#fdf2f2;color:#b91c1c;border:1px solid #f5c6c6}
+.preview{background:#f7f4ec;border:1px solid #e7e3da;border-radius:10px;padding:16px;margin-bottom:20px;font-size:.88rem;color:#3a4149;line-height:1.7;display:none}
+.preview strong{color:#13171c}
+hr{border:none;border-top:1px solid #e7e3da;margin:24px 0}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="40" height="40" rx="9" fill="#1b2733"/>
+      <path d="M9 27V17l11-7 11 7v10" stroke="#c9a25b" stroke-width="2.2" fill="none" stroke-linejoin="round"/>
+      <path d="M16 27v-6h8v6" stroke="#c9a25b" stroke-width="2.2" fill="none" stroke-linejoin="round"/>
+    </svg>
+    Noble Home
+  </div>
+  <h1>Confirm a Viewing</h1>
+  <p class="sub">Fill in the details below — a confirmation email will be sent to the applicant.</p>
+
+  <label>Applicant First Name</label>
+  <input type="text" id="firstName" placeholder="Jane"/>
+
+  <label>Applicant Last Name</label>
+  <input type="text" id="lastName" placeholder="Smith"/>
+
+  <label>Applicant Email</label>
+  <input type="email" id="appEmail" placeholder="jane@example.com"/>
+
+  <div class="row">
+    <div>
+      <label>Confirmed Date</label>
+      <input type="date" id="confDate"/>
+    </div>
+    <div>
+      <label>Confirmed Time</label>
+      <select id="confTime">
+        <option value="">Select time</option>
+        <optgroup label="Weekday (Mon–Fri)">
+          <option>4:30 PM</option>
+          <option>5:00 PM</option>
+          <option>5:30 PM</option>
+          <option>6:00 PM</option>
+        </optgroup>
+        <optgroup label="Saturday">
+          <option>7:00 AM</option>
+          <option>7:30 AM</option>
+          <option>8:00 AM</option>
+          <option>8:30 AM</option>
+          <option>9:00 AM</option>
+        </optgroup>
+      </select>
+    </div>
+  </div>
+
+  <label>Additional Note (optional)</label>
+  <textarea id="note" placeholder="e.g. Please use the front entrance on Oakland Ave."></textarea>
+
+  <hr/>
+  <p style="font-size:.82rem;color:#727b85;margin-bottom:14px">Email preview:</p>
+  <div class="preview" id="preview"></div>
+
+  <button class="btn" id="sendBtn" onclick="sendConfirmation()">Send Confirmation Email</button>
+  <div class="msg" id="resultMsg"></div>
+</div>
+
+<script>
+// Auto-preview as fields are filled
+['firstName','lastName','appEmail','confDate','confTime','note'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', updatePreview);
+  document.getElementById(id).addEventListener('change', updatePreview);
+});
+
+function formatDate(val){
+  if(!val) return '';
+  const [y,m,d]=val.split('-').map(Number);
+  return new Date(y,m-1,d).toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+}
+
+function updatePreview(){
+  const name=document.getElementById('firstName').value.trim();
+  const date=formatDate(document.getElementById('confDate').value);
+  const time=document.getElementById('confTime').value;
+  const note=document.getElementById('note').value.trim();
+  const preview=document.getElementById('preview');
+  if(!name||!date||!time){preview.style.display='none';return;}
+  preview.style.display='block';
+  preview.innerHTML=`
+    <strong>Subject:</strong> Your Viewing is Confirmed — 184 Oakland Ave<br><br>
+    Hi ${name},<br><br>
+    Great news — your viewing of <strong>184 Oakland Avenue, Providence RI 02908</strong> is confirmed!<br><br>
+    <strong>📅 Date:</strong> ${date}<br>
+    <strong>🕐 Time:</strong> ${time}<br>
+    <strong>📍 Address:</strong> 184 Oakland Avenue, Providence RI 02908<br><br>
+    ${note?`<em>${note}</em><br><br>`:''}
+    Please arrive on time. If you need to reschedule, reply to this email or call Bradford at (508) 223-6095.<br><br>
+    Looking forward to meeting you!<br>
+    — Bradford, Noble Home LLC
+  `;
+}
+
+function sendConfirmation(){
+  const firstName=document.getElementById('firstName').value.trim();
+  const lastName=document.getElementById('lastName').value.trim();
+  const appEmail=document.getElementById('appEmail').value.trim();
+  const confDate=document.getElementById('confDate').value;
+  const confTime=document.getElementById('confTime').value;
+  const note=document.getElementById('note').value.trim();
+  const btn=document.getElementById('sendBtn');
+  const msg=document.getElementById('resultMsg');
+
+  if(!firstName||!appEmail||!confDate||!confTime){
+    msg.className='msg err';msg.style.display='block';
+    msg.textContent='Please fill in applicant name, email, date, and time.';
+    return;
+  }
+
+  const dateFormatted=formatDate(confDate);
+  const bodyText=`Hi ${firstName},\n\nGreat news — your viewing of 184 Oakland Avenue, Providence RI 02908 is confirmed!\n\nDate: ${dateFormatted}\nTime: ${confTime}\nAddress: 184 Oakland Avenue, Providence RI 02908\n\n${note?note+'\n\n':''}Please arrive on time. If you need to reschedule, reply to this email or call Bradford at (508) 223-6095.\n\nLooking forward to meeting you!\n— Bradford, Noble Home LLC`;
+
+  // Send via web3forms — sends to Bradford's account email,
+  // but we use "replyto" as the tenant so Bradford can forward/reply easily.
+  // For sending TO tenant, we use the mailto fallback below.
+  const mailtoLink=`mailto:${encodeURIComponent(appEmail)}?subject=${encodeURIComponent('Your Viewing is Confirmed — 184 Oakland Ave')}&body=${encodeURIComponent(bodyText)}`;
+
+  btn.disabled=true;
+  btn.textContent='Opening email…';
+
+  window.location.href=mailtoLink;
+
+  setTimeout(()=>{
+    msg.className='msg ok';msg.style.display='block';
+    msg.innerHTML=`✅ Your email client opened with the confirmation pre-filled for <strong>${firstName} ${lastName}</strong>. Just hit Send.`;
+    btn.disabled=false;
+    btn.textContent='Send Confirmation Email';
+  },1000);
+}
+</script>
+</body>
+</html>
