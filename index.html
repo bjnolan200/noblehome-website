@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Noble Home · 184 Oakland Avenue — Providence, RI</title>
+<meta name="description" content="A refined duplex residence at 184 Oakland Avenue, Providence RI 02908. Schedule a viewing, explore the home, and apply online." />
+
+<!-- Favicon (Noble Home mark) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%231b2733'/%3E%3Cpath d='M9 27V17l11-7 11 7v10' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3Cpath d='M16 27v-6h8v6' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E" />
+
+<!-- Link preview (when shared via text, iMessage, social) -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Noble Home · 184 Oakland Avenue — Now Leasing" />
+<meta property="og:description" content="A refined duplex in Providence's Elmhurst neighborhood. Tour it, love it, and apply online." />
+<meta property="og:url" content="https://noblehomeri.com" />
+<meta property="og:image" content="https://noblehomeri.com/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Noble Home · 184 Oakland Avenue — Now Leasing" />
+<meta name="twitter:description" content="A refined duplex in Providence's Elmhurst neighborhood. Tour it, love it, and apply online." />
+<meta name="twitter:image" content="https://noblehomeri.com/og-image.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#13171c;
+  --ink-soft:#3a4149;
+  --muted:#727b85;
+  --line:#e7e3da;
+  --cream:#f7f4ec;
+  --paper:#ffffff;
+  --navy:#1b2733;
+  --navy-deep:#121a23;
+  --gold:#b8893b;
+  --gold-soft:#c9a25b;
+  --gold-tint:#f3ead8;
+  --radius:14px;
+  --shadow:0 18px 50px -20px rgba(18,26,35,.35);
+  --shadow-sm:0 8px 24px -12px rgba(18,26,35,.25);
+  --max:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.12;color:var(--ink);letter-spacing:.2px}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 26px}
+.eyebrow{font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.92rem;padding:.85rem 1.6rem;border-radius:50px;border:1.5px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer;transition:.25s;letter-spacing:.02em}
+.btn:hover{background:var(--navy-deep);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.btn.gold{background:var(--gold);border-color:var(--gold)}
+.btn.gold:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.btn.ghost{background:transparent;color:var(--navy)}
+.btn.ghost:hover{background:var(--navy);color:#fff}
+
+/* NAV */
+header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:.7rem;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;letter-spacing:.5px}
+.brand .mark{width:34px;height:34px;flex:none}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{font-size:.9rem;font-weight:500;color:var(--ink-soft);transition:.2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{display:flex;gap:.6rem;align-items:center}
+.menu-btn{display:none;background:none;border:0;cursor:pointer;font-size:1.5rem}
+@media(max-width:900px){
+  .nav-links{display:none;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:#fff;padding:1rem 26px 1.4rem;border-bottom:1px solid var(--line);gap:1rem}
+  .nav-links.open{display:flex}
+  .nav-cta .btn:not(.gold){display:none}
+  .menu-btn{display:block}
+}
+
+/* HERO */
+.hero{position:relative;min-height:90vh;display:flex;align-items:center;color:#fff;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1b2733 0%,#26384a 55%,#324a61 100%)}
+.hero-bg::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle at 78% 30%, rgba(184,137,59,.28), transparent 42%),
+  radial-gradient(circle at 12% 85%, rgba(184,137,59,.14), transparent 45%);}
+.hero-grid-overlay{position:absolute;inset:0;opacity:.06;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:60px 60px}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-top:60px;padding-bottom:60px}
+.hero h1{font-size:clamp(2.8rem,6vw,4.8rem);color:#fff;margin:.6rem 0 1rem;max-width:14ch}
+.hero p.lede{font-size:1.18rem;color:#e7eaee;max-width:52ch;font-weight:300}
+.hero .meta{display:flex;flex-wrap:wrap;gap:1.6rem;margin:2.2rem 0 2.4rem}
+.hero .meta .stat{border-left:2px solid var(--gold);padding-left:.9rem}
+.hero .meta .stat b{font-family:'Cormorant Garamond',serif;font-size:1.8rem;display:block;line-height:1}
+.hero .meta .stat span{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:#c7cdd4}
+.hero-actions{display:flex;gap:.9rem;flex-wrap:wrap}
+.hero-actions .btn{background:#fff;color:var(--navy);border-color:#fff}
+.hero-actions .btn:hover{background:var(--cream)}
+.hero-actions .btn.gold{background:var(--gold);color:#fff;border-color:var(--gold)}
+.badge-avail{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:.4rem .9rem;border-radius:50px;font-size:.78rem;font-weight:500;letter-spacing:.04em}
+.badge-avail .dot{width:8px;height:8px;border-radius:50%;background:#5fd08a;box-shadow:0 0 0 4px rgba(95,208,138,.25)}
+
+/* SECTION */
+section{padding:92px 0}
+.section-head{max-width:62ch;margin-bottom:48px}
+.section-head h2{font-size:clamp(2rem,4vw,2.9rem);margin:.5rem 0 .8rem}
+.section-head p{color:var(--muted);font-size:1.06rem}
+.alt{background:var(--cream)}
+
+/* OVERVIEW / SPECS */
+.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.spec{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px;transition:.25s}
+.spec:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
+.spec .ico{width:42px;height:42px;color:var(--gold);margin-bottom:14px}
+.spec b{font-family:'Cormorant Garamond',serif;font-size:1.7rem;display:block}
+.spec span{color:var(--muted);font-size:.86rem}
+.ph{color:var(--gold);font-style:italic}
+@media(max-width:860px){.specs{grid-template-columns:repeat(2,1fr)}}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
+.gallery figure{position:relative;overflow:hidden;border-radius:12px;cursor:pointer;background:var(--cream)}
+.gallery figure.big{grid-column:span 2;grid-row:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.gallery figure:hover img{transform:scale(1.07)}
+.gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px;color:#fff;font-size:.84rem;font-weight:500;background:linear-gradient(transparent,rgba(0,0,0,.6));opacity:0;transition:.3s}
+.gallery figure:hover figcaption{opacity:1}
+@media(max-width:860px){.gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}.gallery figure.big{grid-column:span 2;grid-row:span 1}}
+.gallery-group-title{font-family:Georgia,serif;font-size:1.5rem;color:var(--navy);margin:34px 0 16px}
+.gallery-group-title:first-child{margin-top:0}
+.gallery-group-title span{display:block;font-family:Inter,sans-serif;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:#c9a25b;font-weight:600;margin-bottom:2px}
+.gallery+.gallery-group-title{margin-top:34px}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(15,20,26,.94);z-index:200;display:none;align-items:center;justify-content:center;padding:30px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:82vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lightbox .lb-close{position:absolute;top:22px;right:28px;color:#fff;font-size:2.2rem;cursor:pointer;line-height:1}
+.lightbox .lb-nav{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:2.6rem;cursor:pointer;padding:0 18px;user-select:none;opacity:.8}
+.lightbox .lb-nav:hover{opacity:1}
+.lb-prev{left:6px}.lb-next{right:6px}
+.lb-cap{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:#dfe3e8;font-size:.9rem}
+
+/* AMENITIES */
+.amenities{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.amenity{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px}
+.amenity .check{flex:none;width:30px;height:30px;border-radius:50%;background:var(--gold-tint);color:var(--gold);display:grid;place-items:center;font-weight:700}
+.amenity b{font-size:.98rem}
+.amenity span{color:var(--muted);font-size:.85rem}
+@media(max-width:860px){.amenities{grid-template-columns:1fr}}
+
+/* SPLIT (neighborhood) */
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.split .media{border-radius:var(--radius);overflow:hidden;min-height:380px;box-shadow:var(--shadow)}
+.split .media img{width:100%;height:100%;object-fit:cover}
+.poi{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px;margin-top:24px}
+.poi div{border-top:1px solid var(--line);padding-top:12px}
+.poi b{font-family:'Cormorant Garamond',serif;font-size:1.3rem}
+.poi span{display:block;color:var(--muted);font-size:.82rem}
+@media(max-width:860px){.split{grid-template-columns:1fr}}
+
+/* FORMS */
+.forms-grid{display:grid;grid-template-columns:1fr;gap:30px;max-width:620px;margin:0 auto}
+.card-form{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:36px;box-shadow:var(--shadow-sm)}
+.card-form h3{font-size:1.8rem;margin-bottom:.3rem}
+.card-form .sub{color:var(--muted);font-size:.92rem;margin-bottom:22px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.8rem;font-weight:600;letter-spacing:.03em;margin-bottom:6px;color:var(--ink-soft)}
+.field input,.field select,.field textarea{width:100%;padding:.78rem .9rem;border:1.5px solid var(--line);border-radius:9px;font:inherit;font-size:.92rem;background:var(--paper);transition:.2s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-tint)}
+.field textarea{resize:vertical;min-height:90px}
+.field.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-note{font-size:.78rem;color:var(--muted);margin-top:10px}
+.form-ok{display:none;background:var(--gold-tint);border:1px solid var(--gold-soft);color:#7a5a1f;padding:14px 16px;border-radius:10px;font-size:.9rem;margin-bottom:18px}
+.form-ok.show{display:block}
+
+/* PORTAL */
+.portal{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.portal::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(184,137,59,.25),transparent 45%)}
+.portal .wrap{position:relative;z-index:2}
+.portal .section-head h2{color:#fff}
+.portal .section-head p{color:#c2cad2}
+.portal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pcard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:var(--radius);padding:30px 26px;backdrop-filter:blur(4px)}
+.pcard .ico{width:46px;height:46px;color:var(--gold-soft);margin-bottom:16px}
+.pcard h3{color:#fff;font-size:1.55rem;margin-bottom:.4rem}
+.pcard p{color:#bcc5cf;font-size:.9rem}
+.soon{display:inline-block;margin-top:16px;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);border:1px solid rgba(201,162,91,.4);padding:.3rem .7rem;border-radius:50px}
+.portal-login{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:36px;align-items:center}
+.portal-login .btn{background:var(--gold);border-color:var(--gold)}
+.portal-login span{color:#aab3bd;font-size:.86rem}
+@media(max-width:860px){.portal-grid{grid-template-columns:1fr}}
+
+/* CONTACT STRIP */
+.contact-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;text-align:center}
+.contact-strip .c b{display:block;font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin-top:8px}
+.contact-strip .c .ico{width:30px;height:30px;color:var(--gold);margin:0 auto}
+.contact-strip a{color:var(--gold);font-weight:600}
+@media(max-width:760px){.contact-strip{grid-template-columns:1fr;gap:30px}}
+
+/* FOOTER */
+footer{background:var(--navy-deep);color:#aeb6bf;padding:54px 0 30px;font-size:.88rem}
+footer .f-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.08)}
+footer .brand{color:#fff}
+footer .f-links{display:flex;gap:1.6rem;flex-wrap:wrap}
+footer .f-links a:hover{color:var(--gold-soft)}
+footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.78rem;color:#7d868f}
+.eho{font-size:.72rem;line-height:1.5;max-width:60ch;color:#7d868f;margin-top:8px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="9" fill="#1b2733"/>
+        <path d="M9 27V17l11-7 11 7v10" stroke="#c9a25b" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M16 27v-6h8v6" stroke="#c9a25b" stroke-width="2.2" stroke-linejoin="round"/>
+      </svg>
+      Noble&nbsp;Home
+    </a>
+    <nav class="nav-links" id="navlinks">
+      <a href="#home">The Home</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#amenities">Amenities</a>
+      <a href="#neighborhood">Neighborhood</a>
+      <a href="#portal">Tenant Portal</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="https://rental.turbotenant.com/p/184-oakland-ave-providence-ri-unit-1/52bfa041-426d-47eb-b60a-057d8c3ad957" target="_blank" rel="noopener" class="btn ghost">Apply Now</a>
+      <a href="#viewing" class="btn gold">Schedule a Viewing</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"><div class="hero-grid-overlay"></div></div>
+  <div class="wrap">
+    <span class="badge-avail"><span class="dot"></span> Now Leasing · Available August 15, 2026</span>
+    <span class="eyebrow" style="display:block;margin-top:20px;color:var(--gold-soft)">Providence · 02908</span>
+    <h1>A Refined Duplex on Oakland Avenue.</h1>
+    <p class="lede">Fully furnished, move-in-ready living in the heart of Providence's Elmhurst neighborhood — minutes from PC, RIC, and the hospitals, with flexible terms ideal for grad students and healthcare professionals. Tour it, love it, and apply entirely online.</p>
+    <div class="meta">
+      <div class="stat"><b>2</b><span>Bedrooms</span></div>
+      <div class="stat"><b>1</b><span>Bathroom</span></div>
+      <div class="stat"><b>Furnished</b><span>Turnkey</span></div>
+      <div class="stat"><b>$2,300</b><span>Per Month</span></div>
+    </div>
+    <div class="hero-actions">
+      <a href="#viewing" class="btn gold">Schedule a Viewing</a>
+      <a href="#gallery" class="btn">Explore the Home</a>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section id="home">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">The Residence</span>
+      <h2>Move-in ready, in a neighborhood that has it all.</h2>
+      <p>184 Oakland Avenue is a fully furnished duplex unit offering bright, comfortable space in Providence's Elmhurst neighborhood — minutes from Providence College and RIC, with an easy commute to the city's hospitals. Each unit comes completely turnkey: beds, sofas, dining set, smart TVs, and a fully equipped kitchen, so you can move in with just a suitcase. A shared washer and dryer are on-site in the building — a real convenience in Providence. Units are separately metered; tenants pay their own electric and gas, while the owner covers water and sewer. Flexible lease terms make this an ideal fit for graduate students, visiting faculty, and traveling healthcare professionals who want a quiet, secure, ready-to-live home.</p>
+    </div>
+    <div class="specs">
+      <div class="spec">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10v9h18v-9"/><path d="M3 10l9-6 9 6"/><path d="M9 19v-5h6v5"/></svg>
+        <b>2 Bed</b><span>Furnished bedrooms</span>
+      </div>
+      <div class="spec">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12V6a2 2 0 0 1 2-2h2"/><path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3z"/><path d="M7 21l-1 1M18 21l1 1"/></svg>
+        <b>1 Bath</b><span>Updated fixtures</span>
+      </div>
+      <div class="spec">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <b>Furnished</b><span>Turnkey, move-in ready</span>
+      </div>
+      <div class="spec">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <b>Laundry</b><span>Washer &amp; dryer on-site</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Photo Tour</span>
+      <h2>Step inside 184 Oakland Avenue.</h2>
+      <p>Click any photo to view it full screen.</p>
+    </div>
+    <div id="gallery-groups"></div>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section id="amenities">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What's Included</span>
+      <h2>Comfort in every detail.</h2>
+      <p>Each fully furnished unit comes move-in ready with everything you need from day one.</p>
+    </div>
+    <div class="amenities" id="amenities-grid"></div>
+  </div>
+</section>
+
+<!-- NEIGHBORHOOD -->
+<section id="neighborhood" class="alt">
+  <div class="wrap split">
+    <div>
+      <span class="eyebrow">The Neighborhood</span>
+      <h2 style="font-size:clamp(2rem,4vw,2.8rem);margin:.5rem 0 1rem">Elmhurst, Providence.</h2>
+      <p style="color:var(--muted)">A quiet, leafy residential pocket of Providence's 02908 — popular with students, faculty, and young professionals alike. Walkable streets, easy bus lines, and a quick hop to downtown and the highways.</p>
+      <div class="poi">
+        <div><b class="ph">~0.6 mi</b><span>Providence College</span></div>
+        <div><b class="ph">~1.2 mi</b><span>Rhode Island College</span></div>
+        <div><b class="ph">~10 min</b><span>Downtown Providence</span></div>
+        <div><b class="ph">~5 min</b><span>Route 146 / I-95</span></div>
+      </div>
+    </div>
+    <div class="media">
+      <img id="mapimg" alt="Neighborhood map of 184 Oakland Avenue, Providence RI" />
+    </div>
+  </div>
+</section>
+
+<!-- FORMS: VIEWING + APPLY -->
+<section id="viewing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Get Started</span>
+      <h2>Schedule a viewing.</h2>
+      <p>Interested? Request a tour with our property manager, Bradford. We'll be in touch promptly.</p>
+    </div>
+    <div class="forms-grid">
+
+      <!-- VIEWING -->
+      <div class="card-form">
+        <h3>Schedule a Viewing</h3>
+        <p class="sub">Request a tour with Bradford, our property manager.</p>
+        <div class="form-ok" id="ok-view">Thanks — your viewing request has been sent to Bradford. We'll be in touch shortly.</div>
+        <form id="form-view" name="viewing-request" method="POST" action="https://api.web3forms.com/submit">
+          <input type="hidden" name="access_key" value="60088a86-9db3-4143-88dc-779cf6574b44" />
+          <input type="hidden" name="subject" value="New Viewing Request — 184 Oakland Ave" />
+          <input type="hidden" name="from_name" value="Noble Home Website" />
+          <input type="hidden" name="to" value="acresandhomesri@gmail.com" />
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+          <div class="field two">
+            <div><label>First Name</label><input name="first" required></div>
+            <div><label>Last Name</label><input name="last" required></div>
+          </div>
+          <div class="field two">
+            <div><label>Email</label><input type="email" name="email" required></div>
+            <div><label>Phone</label><input type="tel" name="phone" required></div>
+          </div>
+          <div class="field two">
+            <div><label>Preferred Date</label><input type="date" name="date"></div>
+            <div><label>Preferred Time</label>
+              <select name="time"><option value="">Any time</option><option>Morning</option><option>Afternoon</option><option>Evening</option></select>
+            </div>
+          </div>
+          <div class="field two">
+            <div><label>Desired Move-in Date</label><input type="date" name="movein"></div>
+            <div><label># of Occupants</label><input type="number" name="occupants" min="1"></div>
+          </div>
+          <div class="field"><label>Monthly Income</label><input name="income" placeholder="$ / month"></div>
+          <div class="field"><label>Message (optional)</label><textarea name="msg" placeholder="Anything we should know?"></textarea></div>
+          <button type="submit" class="btn gold" style="width:100%;justify-content:center">Request Viewing</button>
+          <p class="form-note">We'll receive your request instantly and reply by email or phone. Text scheduling can be added later.</p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TENANT PORTAL -->
+<section id="portal" class="portal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" style="color:var(--gold-soft)">For Current Residents</span>
+      <h2>Your Tenant Portal.</h2>
+      <p>Everything you need as a Noble Home resident, in one place. Pay rent, submit maintenance requests, and message us through your secure resident login.</p>
+    </div>
+    <div class="portal-grid">
+      <div class="pcard">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        <h3>Pay Rent</h3>
+        <p>Pay monthly rent securely online, set up autopay, and view your full payment history.</p>
+        <span class="soon">Coming Soon</span>
+      </div>
+      <div class="pcard">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 3v5h5"/><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M9 14l2 2 4-4"/></svg>
+        <h3>View &amp; Sign Lease</h3>
+        <p>Review your lease, sign electronically, and download a copy anytime you need it.</p>
+        <span class="soon">Coming Soon</span>
+      </div>
+      <div class="pcard">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2 2.5-2.5z"/></svg>
+        <h3>Maintenance Requests</h3>
+        <p>Submit and track repair requests with photos, and get status updates from our team.</p>
+        <span class="soon">Coming Soon</span>
+      </div>
+    </div>
+    <div class="portal-login">
+      <a href="https://rental.turbotenant.com/auth/login" target="_blank" rel="noopener" class="btn gold">Resident Login</a>
+      <span>Not a resident yet? <a href="#viewing" style="color:var(--gold-soft);font-weight:600">Schedule a viewing →</a></span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section>
+  <div class="wrap">
+    <div class="section-head" style="text-align:center;margin:0 auto 48px">
+      <span class="eyebrow">Get in Touch</span>
+      <h2>Questions? We're here to help.</h2>
+    </div>
+    <div class="contact-strip">
+      <div class="c">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v16H4z"/><path d="M4 4l8 7 8-7"/></svg>
+        <b>Email</b>
+        <a href="mailto:acresandhomesri@gmail.com">acresandhomesri@gmail.com</a>
+      </div>
+      <div class="c">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-3 2a14 14 0 0 0 6 6l2-3 5 2v4a1 1 0 0 1-1 1A17 17 0 0 1 4 5a1 1 0 0 1 1-1z"/></svg>
+        <b>Property Manager — Bradford</b>
+        <span><a href="tel:+15082236095">(508) 223-6095</a></span>
+      </div>
+      <div class="c">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <b>Address</b>
+        <span>184 Oakland Avenue<br>Providence, RI 02908</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div>
+        <a href="#top" class="brand">
+          <svg class="mark" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="9" fill="#26384a"/><path d="M9 27V17l11-7 11 7v10" stroke="#c9a25b" stroke-width="2.2" stroke-linejoin="round"/><path d="M16 27v-6h8v6" stroke="#c9a25b" stroke-width="2.2" stroke-linejoin="round"/></svg>
+          Noble&nbsp;Home
+        </a>
+        <p style="margin-top:10px;max-width:34ch;color:#8b939c">Refined rental living in Providence, Rhode Island.</p>
+      </div>
+      <div class="f-links">
+        <a href="#gallery">Gallery</a>
+        <a href="#amenities">Amenities</a>
+        <a href="#viewing">Schedule a Viewing</a>
+        <a href="https://rental.turbotenant.com/p/184-oakland-ave-providence-ri-unit-1/52bfa041-426d-47eb-b60a-057d8c3ad957" target="_blank" rel="noopener">Apply</a>
+        <a href="#portal">Tenant Portal</a>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© <span id="year"></span> Noble Home LLC. All rights reserved.</span>
+      <span>184 Oakland Avenue · Providence, RI 02908</span>
+    </div>
+    <p class="eho">Noble Home is an equal housing opportunity provider. We do not discriminate on the basis of race, color, religion, sex, national origin, familial status, disability, or any other protected class.</p>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lb-close" id="lbClose">×</span>
+  <span class="lb-nav lb-prev" id="lbPrev">‹</span>
+  <img id="lbImg" alt="">
+  <span class="lb-nav lb-next" id="lbNext">›</span>
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script>
+/* ---- year ---- */
+document.getElementById('year').textContent=new Date().getFullYear();
+
+/* ---- mobile menu ---- */
+document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
+document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
+
+/* ---- placeholder photo generator (SVG data URIs) ---- */
+const groups=[
+  {g:'Whole House',sub:'Exterior & Floor Plan',items:[
+    {t:'Exterior',src:'images/33.jpg'},{t:'Rear & Deck',src:'images/31.jpg'},
+    {t:'Building',src:'images/30.jpg'},{t:'Floor Plan',src:'images/34.jpg'}
+  ]},
+  {g:'First Unit',sub:'Furnished',items:[
+    {t:'Living Room',src:'images/1.jpg'},{t:'Living Room',src:'images/2.jpg'},
+    {t:'Kitchen',src:'images/4.jpg'},{t:'Kitchen',src:'images/6.jpg'},
+    {t:'Dining Area',src:'images/5.jpg'},
+    {t:'Bedroom',src:'images/7.jpg'},{t:'Bedroom',src:'images/8.jpg'},
+    {t:'Bedroom',src:'images/9.jpg'},{t:'Bedroom',src:'images/24.jpg'},
+    {t:'Bedroom',src:'images/25.jpg'},
+    {t:'Bathroom',src:'images/13.jpg'},{t:'Bathroom',src:'images/12.jpg'},
+    {t:'Stairway',src:'images/14.jpg'},{t:'Hallway',src:'images/3.jpg'}
+  ]},
+  {g:'Second Unit',sub:'Furnished',items:[
+    {t:'Living Room',src:'images/15.jpg'},{t:'Living Room',src:'images/16.jpg'},
+    {t:'Kitchen',src:'images/18.jpg'},{t:'Kitchen',src:'images/20.jpg'},
+    {t:'Kitchen',src:'images/19.jpg'},
+    {t:'Dining Area',src:'images/21.jpg'},
+    {t:'Bedroom',src:'images/23.jpg'},{t:'Bedroom',src:'images/22.jpg'},
+    {t:'Bedroom',src:'images/10.jpg'},{t:'Bedroom',src:'images/11.jpg'},
+    {t:'Bathroom',src:'images/26.jpg'},{t:'Bathroom',src:'images/27.jpg'},
+    {t:'Back Deck',src:'images/28.jpg'},
+    {t:'Interior',src:'images/17.jpg'}
+  ]}
+];
+function svgPhoto(label,color){
+  const s=`<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
+    <defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
+    <stop offset='0' stop-color='${color}'/><stop offset='1' stop-color='#1b2733'/></linearGradient></defs>
+    <rect width='800' height='600' fill='url(#g)'/>
+    <g fill='none' stroke='#c9a25b' stroke-width='3' opacity='.55'>
+      <path d='M250 360V250l150-95 150 95v110'/><path d='M340 360v-70h120v70'/></g>
+    <text x='400' y='460' font-family='Georgia,serif' font-size='34' fill='#f3ead8' text-anchor='middle'>${label}</text>
+    <text x='400' y='498' font-family='Inter,sans-serif' font-size='16' fill='#c9a25b' letter-spacing='3' text-anchor='middle'>PHOTO PLACEHOLDER</text>
+  </svg>`;
+  return 'data:image/svg+xml;utf8,'+encodeURIComponent(s);
+}
+const photos=[];
+groups.forEach(g=>g.items.forEach(it=>photos.push(it)));
+const wrap=document.getElementById('gallery-groups');
+let idx=0;
+groups.forEach(g=>{
+  const h=document.createElement('h3');
+  h.className='gallery-group-title';
+  h.innerHTML=`<span>${g.sub}</span>${g.g}`;
+  wrap.appendChild(h);
+  const grid=document.createElement('div');
+  grid.className='gallery';
+  g.items.forEach((p,j)=>{
+    const i=idx++;
+    const fig=document.createElement('figure');
+    if(j===0) fig.classList.add('big');
+    fig.innerHTML=`<img src="${p.src}" alt="${p.t}" loading="lazy" data-i="${i}"><figcaption>${p.t}</figcaption>`;
+    fig.addEventListener('click',()=>openLB(i));
+    grid.appendChild(fig);
+  });
+  wrap.appendChild(grid);
+});
+/* map placeholder */
+document.getElementById('mapimg').src=svgPhoto('Elmhurst · 02908','#2d4055');
+
+/* ---- amenities ---- */
+const amenities=[
+  ['Fully Furnished','Beds, sofas, dining set & more'],
+  ['Smart TVs','Included in every unit'],
+  ['Fully Equipped Kitchen','Cookware, dishes & appliances'],
+  ['Washer & Dryer','Shared, on-site in basement'],
+  ['Separately Metered','Tenant pays electric & gas'],
+  ['Water & Sewer Included','Covered by owner'],
+  ['Private Entrance','Duplex unit'],
+  ['Flexible Lease Terms','Ideal for students & nurses'],
+  ['Parking','Available on-site'],
+  ['Air Conditioning','Included'],
+  ['Pet Friendly','Allowed · $100/mo pet fee']
+];
+const ag=document.getElementById('amenities-grid');
+amenities.forEach(([t,d])=>{
+  const el=document.createElement('div');el.className='amenity';
+  const dClass = d.startsWith('[') ? 'ph' : '';
+  el.innerHTML=`<div class="check">✓</div><div><b>${t}</b><br><span class="${dClass}">${d}</span></div>`;
+  ag.appendChild(el);
+});
+
+/* ---- lightbox ---- */
+let cur=0;
+const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
+function openLB(i){cur=i;render();lb.classList.add('open')}
+function render(){const p=photos[cur];lbImg.src=p.src;lbCap.textContent=`${p.t} — ${cur+1} / ${photos.length}`}
+function close(){lb.classList.remove('open')}
+document.getElementById('lbClose').onclick=close;
+lb.addEventListener('click',e=>{if(e.target===lb)close()});
+document.getElementById('lbNext').onclick=e=>{e.stopPropagation();cur=(cur+1)%photos.length;render()};
+document.getElementById('lbPrev').onclick=e=>{e.stopPropagation();cur=(cur-1+photos.length)%photos.length;render()};
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowRight')document.getElementById('lbNext').click();if(e.key==='ArrowLeft')document.getElementById('lbPrev').click()});
+
+/* ---- forms -> Web3Forms (AJAX submit, stay on page) ---- */
+function handleForm(formId,okId){
+  const form=document.getElementById(formId);
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    const data=Object.fromEntries(new FormData(form).entries());
+    const btn=form.querySelector('button[type="submit"]');
+    const label=btn.textContent;btn.textContent='Sending…';btn.disabled=true;
+    const ctrl=new AbortController();
+    const timer=setTimeout(()=>ctrl.abort(),15000);
+    fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      signal:ctrl.signal,
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(data)
+    })
+    .then(r=>r.json())
+    .then(res=>{
+      if(res.success){
+        document.getElementById(okId).classList.add('show');
+        form.reset();
+        document.getElementById(okId).scrollIntoView({behavior:'smooth',block:'center'});
+      }else{
+        alert('Sorry, something went wrong. Please email acresandhomesri@gmail.com.');
+      }
+    })
+    .catch(()=>{alert('Sorry, something went wrong sending your request. Please email acresandhomesri@gmail.com.');})
+    .finally(()=>{clearTimeout(timer);btn.textContent=label;btn.disabled=false;});
+  });
+}
+handleForm('form-view','ok-view');
+</script>
+</body>
+</html>

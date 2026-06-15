@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tenant Portal · Noble Home — 184 Oakland Avenue</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%231b2733'/%3E%3Cpath d='M9 27V17l11-7 11 7v10' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3Cpath d='M16 27v-6h8v6' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#13171c; --ink-soft:#3a4149; --muted:#727b85; --line:#e7e3da;
+  --cream:#f7f4ec; --paper:#ffffff; --navy:#1b2733; --navy-deep:#121a23;
+  --gold:#b8893b; --gold-soft:#c9a25b; --gold-tint:#f3ead8;
+  --radius:14px; --shadow:0 18px 50px -20px rgba(18,26,35,.35);
+  --shadow-sm:0 8px 24px -12px rgba(18,26,35,.25); --max:1180px;
+  --ok:#2f7d52; --warn:#b8893b; --bad:#b3402f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.12;letter-spacing:.2px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 26px}
+.eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:600;font-size:.92rem;padding:.85rem 1.6rem;border-radius:50px;border:1.5px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer;transition:.25s;font-family:inherit}
+.btn:hover{background:var(--navy-deep);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.btn.gold{background:var(--gold);border-color:var(--gold)}
+.btn.gold:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.btn.ghost{background:transparent;color:var(--navy)}
+.btn.ghost:hover{background:var(--navy);color:#fff}
+.btn.sm{padding:.55rem 1.1rem;font-size:.82rem}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* Top bar */
+header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600}
+.brand .mark{width:34px;height:34px}
+.who{font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:1rem}
+
+/* Demo banner */
+.demo-bar{background:var(--gold-tint);border-bottom:1px solid var(--gold-soft);color:#6b5320;font-size:.82rem;text-align:center;padding:.5rem 26px}
+
+/* Auth card */
+.auth-screen{min-height:calc(100vh - 116px);display:flex;align-items:center;justify-content:center;padding:48px 26px;
+  background:linear-gradient(rgba(18,26,35,.55),rgba(18,26,35,.78)),url('og-image.png') center/cover}
+.card{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:40px;width:100%;max-width:430px}
+.card h2{font-size:2rem;margin-bottom:.2rem}
+.card .sub{color:var(--muted);font-size:.92rem;margin-bottom:1.6rem}
+label{display:block;font-size:.82rem;font-weight:600;color:var(--ink-soft);margin:.9rem 0 .35rem}
+input,textarea,select{width:100%;font-family:inherit;font-size:.95rem;padding:.75rem .9rem;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold-soft)}
+.row{display:flex;gap:.9rem}.row>*{flex:1}
+.link{color:var(--gold);font-weight:600;cursor:pointer;font-size:.86rem}
+.muted-link{color:var(--muted);font-size:.86rem;text-align:center;margin-top:1.2rem}
+.msg{font-size:.85rem;padding:.7rem .9rem;border-radius:10px;margin-top:1rem;display:none}
+.msg.show{display:block}
+.msg.err{background:#fbe9e6;color:var(--bad)}
+.msg.good{background:#e6f3ec;color:var(--ok)}
+.hidden{display:none!important}
+
+/* Dashboard */
+.dash{padding:40px 0 80px}
+.dash-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:28px}
+.dash-head h1{font-size:2.4rem}
+.grid{display:grid;grid-template-columns:1.3fr 1fr;gap:24px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.row{flex-direction:column}}
+.panel{background:#fff;border-radius:16px;box-shadow:var(--shadow-sm);padding:28px;border:1px solid var(--line)}
+.panel h3{font-size:1.5rem;margin-bottom:.3rem}
+.panel .lead{color:var(--muted);font-size:.88rem;margin-bottom:1.2rem}
+
+/* Rent widget */
+.rent-amt{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;color:var(--navy)}
+.rent-meta{color:var(--muted);font-size:.92rem;margin:.2rem 0 1.4rem}
+.countdown-num{font-weight:700;font-size:1.1rem}
+.bar-track{height:16px;background:var(--line);border-radius:50px;overflow:hidden;margin:.6rem 0}
+.bar-fill{height:100%;border-radius:50px;transition:width .6s ease}
+.bar-cap{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted)}
+.status-pill{display:inline-block;font-size:.78rem;font-weight:600;padding:.25rem .7rem;border-radius:50px;margin-top:1rem}
+
+/* Tabs / list */
+.reqlist{list-style:none;margin-top:1.2rem}
+.reqlist li{border-top:1px solid var(--line);padding:.85rem 0;display:flex;justify-content:space-between;gap:1rem;font-size:.9rem}
+.tag{font-size:.72rem;font-weight:700;padding:.18rem .55rem;border-radius:50px;white-space:nowrap;align-self:flex-start}
+.tag.open{background:#fdf0e6;color:#9a5a1a}.tag.prog{background:#e7eefb;color:#2350a0}.tag.done{background:#e6f3ec;color:var(--ok)}
+footer{background:var(--navy-deep);color:#aeb6bf;text-align:center;padding:30px;font-size:.82rem}
+.admin-note{background:var(--navy);color:#cfd6dd;border-radius:12px;padding:16px 18px;font-size:.82rem;margin-top:24px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">⚙️ This is a working <strong>prototype</strong>. Accounts &amp; data are stored only in this browser. Real logins, payments &amp; texting require backend setup — ask Bradford.</div>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand">
+      <svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="9" fill="#1b2733"/>
+        <path d="M9 27V17l11-7 11 7v10" stroke="#c9a25b" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M16 27v-6h8v6" stroke="#c9a25b" stroke-width="2.2" stroke-linejoin="round"/>
+      </svg>
+      Noble&nbsp;Home
+    </a>
+    <div class="who" id="whoBar">
+      <a href="index.html" class="link">← Back to site</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ AUTH ============ -->
+<main id="authScreen" class="auth-screen">
+
+  <!-- LOGIN -->
+  <div class="card" id="viewLogin">
+    <span class="eyebrow">Resident Access</span>
+    <h2>Welcome back.</h2>
+    <p class="sub">Sign in to your tenant portal.</p>
+    <label>Username or email</label>
+    <input id="loginUser" autocomplete="username" />
+    <label>Password</label>
+    <input id="loginPass" type="password" autocomplete="current-password" />
+    <div style="text-align:right;margin-top:.5rem"><span class="link" onclick="show('viewForgot')">Forgot password?</span></div>
+    <div class="msg" id="loginMsg"></div>
+    <button class="btn gold" style="width:100%;margin-top:1.2rem" onclick="doLogin()">Sign In</button>
+    <p class="muted-link">New tenant? <span class="link" onclick="show('viewRegister')">Create your account →</span></p>
+  </div>
+
+  <!-- REGISTER -->
+  <div class="card hidden" id="viewRegister">
+    <span class="eyebrow">Resident Access</span>
+    <h2>Create account.</h2>
+    <p class="sub">Set up your login to access the portal.</p>
+    <label>Full name</label>
+    <input id="regName" />
+    <div class="row">
+      <div><label>Username</label><input id="regUser" autocomplete="username" /></div>
+      <div><label>Email</label><input id="regEmail" type="email" autocomplete="email" /></div>
+    </div>
+    <label>Password</label>
+    <input id="regPass" type="password" autocomplete="new-password" />
+    <label>Confirm password</label>
+    <input id="regPass2" type="password" autocomplete="new-password" />
+    <div class="msg" id="regMsg"></div>
+    <button class="btn gold" style="width:100%;margin-top:1.2rem" onclick="doRegister()">Create Account</button>
+    <p class="muted-link">Already registered? <span class="link" onclick="show('viewLogin')">Sign in →</span></p>
+  </div>
+
+  <!-- FORGOT -->
+  <div class="card hidden" id="viewForgot">
+    <span class="eyebrow">Account Recovery</span>
+    <h2>Reset password.</h2>
+    <p class="sub">Enter your email and we'll send a reset link.</p>
+    <label>Email</label>
+    <input id="fpEmail" type="email" />
+    <div class="msg" id="fpMsg"></div>
+    <button class="btn gold" style="width:100%;margin-top:1.2rem" onclick="doForgot()">Send Reset Link</button>
+    <p class="muted-link"><span class="link" onclick="show('viewLogin')">← Back to sign in</span></p>
+  </div>
+
+  <!-- RESET (simulated link target) -->
+  <div class="card hidden" id="viewReset">
+    <span class="eyebrow">Account Recovery</span>
+    <h2>Choose a new password.</h2>
+    <p class="sub" id="resetFor"></p>
+    <label>New password</label>
+    <input id="rsPass" type="password" autocomplete="new-password" />
+    <label>Confirm new password</label>
+    <input id="rsPass2" type="password" autocomplete="new-password" />
+    <div class="msg" id="rsMsg"></div>
+    <button class="btn gold" style="width:100%;margin-top:1.2rem" onclick="doReset()">Update Password</button>
+  </div>
+</main>
+
+<!-- ============ DASHBOARD ============ -->
+<main id="dashScreen" class="dash hidden">
+  <div class="wrap">
+    <div class="dash-head">
+      <div>
+        <span class="eyebrow">Your Residence</span>
+        <h1 id="welcomeName">Welcome.</h1>
+        <p style="color:var(--muted)">184 Oakland Avenue · Providence, RI 02908</p>
+      </div>
+      <button class="btn ghost sm" onclick="logout()">Sign out</button>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT: rent + maintenance -->
+      <div style="display:flex;flex-direction:column;gap:24px">
+
+        <!-- RENT -->
+        <div class="panel">
+          <h3>Rent</h3>
+          <p class="lead">Your monthly rent at a glance.</p>
+          <div class="rent-amt" id="rentAmt">$1,850</div>
+          <div class="rent-meta" id="rentMeta"></div>
+
+          <div class="bar-cap"><span id="barLeftLabel"></span><span id="barRightLabel">Due day</span></div>
+          <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+          <div style="text-align:center"><span class="countdown-num" id="countdownText"></span></div>
+
+          <div id="statusWrap"></div>
+          <button class="btn gold" style="width:100%;margin-top:1.4rem" onclick="payRent()">Pay Rent Now</button>
+        </div>
+
+        <!-- MAINTENANCE -->
+        <div class="panel">
+          <h3>Maintenance Request</h3>
+          <p class="lead">Tell us what needs fixing and we'll get on it.</p>
+          <label>What's the issue?</label>
+          <input id="mTitle" placeholder="e.g. Kitchen faucet leaking" />
+          <div class="row">
+            <div><label>Area</label>
+              <select id="mArea"><option>Kitchen</option><option>Bathroom</option><option>Bedroom</option><option>Living area</option><option>Basement</option><option>Exterior / Yard</option><option>Heating / Cooling</option><option>Other</option></select>
+            </div>
+            <div><label>Urgency</label>
+              <select id="mUrg"><option>Routine</option><option>Soon</option><option>Urgent (no heat/water, leak)</option></select>
+            </div>
+          </div>
+          <label>Details</label>
+          <textarea id="mDesc" rows="3" placeholder="Describe the problem..."></textarea>
+          <div class="msg" id="mMsg"></div>
+          <button class="btn" style="width:100%;margin-top:1.1rem" onclick="submitReq()">Submit Request</button>
+          <ul class="reqlist" id="reqList"></ul>
+        </div>
+      </div>
+
+      <!-- RIGHT: message Bradford -->
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div class="panel">
+          <h3>Message Management</h3>
+          <p class="lead">Send a quick note to Bradford. In the live version this is delivered to his cell phone as a text message.</p>
+          <label>Your message</label>
+          <textarea id="msgBody" rows="5" placeholder="Hi Bradford, ..."></textarea>
+          <div class="msg" id="msgMsg"></div>
+          <button class="btn gold" style="width:100%;margin-top:1.1rem" onclick="sendText()">Send to Bradford 📱</button>
+          <div class="admin-note">
+            <strong>How this works live:</strong> messages route through a texting service (e.g. Twilio) to Bradford's cell. Right now it's simulated so you can see the flow.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Documents</h3>
+          <p class="lead">Your lease and records will live here.</p>
+          <ul class="reqlist">
+            <li><span>📄 Lease Agreement (2025–2026)</span><span class="tag prog">Sample</span></li>
+            <li><span>🧾 Payment History</span><span class="tag prog">Sample</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>© <span id="yr"></span> Noble Home · 184 Oakland Avenue, Providence RI · Tenant Portal</footer>
+
+<script>
+/* ---------- tiny "backend" in localStorage (PROTOTYPE ONLY) ---------- */
+const DB = {
+  get users(){ return JSON.parse(localStorage.getItem('nh_users')||'{}'); },
+  set users(v){ localStorage.setItem('nh_users', JSON.stringify(v)); },
+  get session(){ return localStorage.getItem('nh_session'); },
+  set session(v){ v ? localStorage.setItem('nh_session',v) : localStorage.removeItem('nh_session'); }
+};
+// NOTE: in a real app passwords are hashed on a server and never stored like this.
+// This demo "hashes" with a placeholder so plaintext isn't kept verbatim.
+function hash(s){ let h=0; for(const c of s){ h=(h*31 + c.charCodeAt(0))>>>0; } return 'h'+h; }
+const yr=document.getElementById('yr'); yr.textContent=new Date().getFullYear();
+
+/* ---------- rent config ---------- */
+const RENT = { amount: 1850, dueDay: 1 }; // due 1st of each month
+
+function show(id){
+  ['viewLogin','viewRegister','viewForgot','viewReset'].forEach(v=>document.getElementById(v).classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+function flash(id,text,kind){ const e=document.getElementById(id); e.textContent=text; e.className='msg show '+kind; }
+
+/* ---------- auth ---------- */
+function doRegister(){
+  const name=val('regName'),user=val('regUser').toLowerCase(),email=val('regEmail').toLowerCase(),p=val('regPass'),p2=val('regPass2');
+  if(!name||!user||!email||!p) return flash('regMsg','Please fill in every field.','err');
+  if(p.length<6) return flash('regMsg','Password must be at least 6 characters.','err');
+  if(p!==p2) return flash('regMsg','Passwords do not match.','err');
+  const users=DB.users;
+  if(users[user]) return flash('regMsg','That username is taken.','err');
+  if(Object.values(users).some(u=>u.email===email)) return flash('regMsg','That email is already registered.','err');
+  users[user]={name,email,pass:hash(p),created:Date.now()};
+  DB.users=users; DB.session=user;
+  flash('regMsg','Account created!','good'); enterDash();
+}
+function doLogin(){
+  const id=val('loginUser').toLowerCase(),p=val('loginPass');
+  const users=DB.users;
+  let key=users[id] ? id : Object.keys(users).find(k=>users[k].email===id);
+  if(!key||users[key].pass!==hash(p)) return flash('loginMsg','Incorrect username or password.','err');
+  DB.session=key; enterDash();
+}
+function doForgot(){
+  const email=val('fpEmail').toLowerCase(), users=DB.users;
+  const key=Object.keys(users).find(k=>users[k].email===email);
+  // Real app: always say "sent" to avoid leaking which emails exist.
+  flash('fpMsg','If that email is on file, a reset link has been sent. (Demo: click below.)','good');
+  if(key){
+    setTimeout(()=>{ document.getElementById('resetFor').textContent='Resetting password for '+email;
+      window._resetKey=key; show('viewReset'); },900);
+  }
+}
+function doReset(){
+  const p=val('rsPass'),p2=val('rsPass2');
+  if(p.length<6) return flash('rsMsg','At least 6 characters.','err');
+  if(p!==p2) return flash('rsMsg','Passwords do not match.','err');
+  const users=DB.users; users[window._resetKey].pass=hash(p); DB.users=users;
+  flash('rsMsg','Password updated! You can sign in now.','good');
+  setTimeout(()=>show('viewLogin'),1100);
+}
+function logout(){ DB.session=null; location.reload(); }
+function val(id){ return document.getElementById(id).value.trim(); }
+
+/* ---------- dashboard ---------- */
+function enterDash(){
+  const user=DB.session, u=DB.users[user]; if(!u) return;
+  document.getElementById('authScreen').classList.add('hidden');
+  document.getElementById('dashScreen').classList.remove('hidden');
+  document.getElementById('welcomeName').textContent='Welcome, '+u.name.split(' ')[0]+'.';
+  document.getElementById('whoBar').innerHTML='<span>Signed in as <strong>'+user+'</strong></span><a href="index.html" class="link">← Site</a>';
+  renderRent(); renderReqs();
+}
+
+function renderRent(){
+  document.getElementById('rentAmt').textContent='$'+RENT.amount.toLocaleString();
+  const now=new Date();
+  let due=new Date(now.getFullYear(),now.getMonth(),RENT.dueDay);
+  if(now>due) due=new Date(now.getFullYear(),now.getMonth()+1,RENT.dueDay);
+  const prevDue=new Date(due.getFullYear(),due.getMonth()-1,RENT.dueDay);
+  const msDay=86400000;
+  const daysLeft=Math.ceil((due-now)/msDay);
+  const cycle=Math.round((due-prevDue)/msDay);
+  const pct=Math.max(0,Math.min(100, (daysLeft/cycle)*100)); // shrinks as due date nears
+
+  document.getElementById('rentMeta').innerHTML='Due <strong>'+due.toLocaleDateString('en-US',{month:'long',day:'numeric'})+'</strong> · the '+ordinal(RENT.dueDay)+' of each month';
+  const fill=document.getElementById('barFill');
+  fill.style.width=pct+'%';
+  fill.style.background = daysLeft<=3 ? 'var(--bad)' : daysLeft<=7 ? 'var(--warn)' : 'var(--ok)';
+  document.getElementById('barLeftLabel').textContent=daysLeft+' day'+(daysLeft===1?'':'s')+' left';
+  document.getElementById('countdownText').innerHTML= daysLeft<=0 ? 'Due today!' :
+     '⏳ '+daysLeft+' day'+(daysLeft===1?'':'s')+' until rent is due';
+  const wrap=document.getElementById('statusWrap');
+  const [txt,bg,col]= daysLeft<=3 ? ['Due very soon','#fbe9e6','var(--bad)'] :
+                       daysLeft<=7 ? ['Coming up','#fdf0e6','#9a5a1a'] :
+                                     ['Plenty of time','#e6f3ec','var(--ok)'];
+  wrap.innerHTML='<span class="status-pill" style="background:'+bg+';color:'+col+'">'+txt+'</span>';
+}
+function ordinal(n){const s=['th','st','nd','rd'],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
+
+function payRent(){ alert('💳 In the live version this opens secure checkout (Stripe — card or bank/ACH).\n\nAmount: $'+RENT.amount.toLocaleString()+'\n\nThis is a prototype, so no real charge is made.'); }
+
+/* ---------- maintenance ---------- */
+function reqKey(){ return 'nh_reqs_'+DB.session; }
+function getReqs(){ return JSON.parse(localStorage.getItem(reqKey())||'[]'); }
+function submitReq(){
+  const t=val('mTitle'); if(!t) return flash('mMsg','Please describe the issue.','err');
+  const reqs=getReqs();
+  reqs.unshift({t, area:val('mArea'), urg:val('mUrg'), desc:val('mDesc'), status:'open', when:Date.now()});
+  localStorage.setItem(reqKey(),JSON.stringify(reqs));
+  document.getElementById('mTitle').value=''; document.getElementById('mDesc').value='';
+  flash('mMsg','Request submitted — management has been notified.','good');
+  renderReqs();
+}
+function renderReqs(){
+  const reqs=getReqs(), ul=document.getElementById('reqList');
+  ul.innerHTML = reqs.length? '' : '<li style="color:var(--muted);border:0">No requests yet.</li>';
+  reqs.forEach(r=>{
+    const tag = r.status==='done'?'<span class="tag done">Resolved</span>':r.status==='prog'?'<span class="tag prog">In progress</span>':'<span class="tag open">Open</span>';
+    const li=document.createElement('li');
+    li.innerHTML='<span><strong>'+esc(r.t)+'</strong><br><small style="color:var(--muted)">'+r.area+' · '+r.urg+' · '+new Date(r.when).toLocaleDateString()+'</small></span>'+tag;
+    ul.appendChild(li);
+  });
+}
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+
+/* ---------- message Bradford ---------- */
+function sendText(){
+  const b=val('msgBody'); if(!b) return flash('msgMsg','Type a message first.','err');
+  flash('msgMsg','✅ Sent! (Live version texts Bradford\'s cell. This is simulated.)','good');
+  document.getElementById('msgBody').value='';
+}
+
+/* ---------- boot ---------- */
+if(DB.session && DB.users[DB.session]) enterDash();
+</script>
+</body>
+</html>
