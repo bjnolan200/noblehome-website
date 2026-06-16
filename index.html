@@ -588,8 +588,9 @@ groups.forEach(g=>{
   });
   wrap.appendChild(grid);
 });
-/* map placeholder */
-document.getElementById('mapimg').src=svgPhoto('Elmhurst · 02908','#2d4055');
+/* neighborhood photo */
+document.getElementById('mapimg').src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Houses_on_Higgins_Avenue%2C_Providence.jpg/1200px-Houses_on_Higgins_Avenue%2C_Providence.jpg';
+document.getElementById('mapimg').style.cssText='width:100%;height:100%;object-fit:cover;border-radius:14px';
 
 /* ---- amenities ---- */
 const amenities=[
