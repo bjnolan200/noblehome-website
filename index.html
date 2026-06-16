@@ -22,7 +22,6 @@
 <meta name="twitter:description" content="A refined duplex in Providence's Elmhurst neighborhood. Tour it and apply online." />
 <meta name="twitter:image" content="https://noblehomeri.com/og-image.png" />
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -366,7 +365,14 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       </div>
     </div>
     <div class="media">
-      <div id="mapimg" style="width:100%;height:100%;min-height:380px;border-radius:var(--radius);overflow:hidden;z-index:0"></div>
+      <iframe
+        src="https://maps.google.com/maps?q=184+Oakland+Avenue+Providence+RI+02908&output=embed&z=16"
+        width="100%" height="100%"
+        style="border:0;min-height:380px;border-radius:var(--radius);display:block"
+        allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="184 Oakland Avenue, Providence RI on Google Maps">
+      </iframe>
     </div>
   </div>
 </section>
@@ -589,31 +595,6 @@ groups.forEach(g=>{
   });
   wrap.appendChild(grid);
 });
-/* ---- interactive neighborhood map ---- */
-(function(){
-  const script=document.createElement('script');
-  script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-  script.onload=function(){
-    const lat=41.8393163, lng=-71.4293121;
-    const map=L.map('mapimg',{scrollWheelZoom:false,zoomControl:true}).setView([lat,lng],15);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom:19
-    }).addTo(map);
-    const icon=L.divIcon({
-      className:'',
-      html:`<div style="background:#b8893b;width:18px;height:18px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.4)"></div>`,
-      iconSize:[18,18],iconAnchor:[9,9]
-    });
-    L.marker([lat,lng],{icon})
-      .addTo(map)
-      .bindPopup('<b>184 Oakland Avenue</b><br>Providence, RI 02908')
-      .openPopup();
-    map.on('focus',function(){map.scrollWheelZoom.enable();});
-    map.on('blur',function(){map.scrollWheelZoom.disable();});
-  };
-  document.head.appendChild(script);
-})();
 
 /* ---- amenities ---- */
 const amenities=[
