@@ -357,7 +357,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
     <div>
       <span class="eyebrow">The Neighborhood</span>
       <h2 style="font-size:clamp(2rem,4vw,2.8rem);margin:.5rem 0 1rem">Elmhurst, Providence.</h2>
-      <p style="color:var(--muted)">A quiet, leafy residential pocket of Providence's 02908 — popular with students, faculty, and young professionals alike. Walkable streets, easy bus lines, and a quick hop to downtown and the highways.</p>
+      <p style="color:var(--muted)">A quiet, leafy residential pocket of Providence's 02908 — popular with students, faculty, and young professionals alike. Walkable streets and a quick hop to downtown and the highways.</p>
       <div class="poi">
         <div><b class="ph">~0.6 mi</b><span>Providence College</span></div>
         <div><b class="ph">~1.2 mi</b><span>Rhode Island College</span></div>
@@ -594,7 +594,7 @@ groups.forEach(g=>{
   const script=document.createElement('script');
   script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
   script.onload=function(){
-    const lat=41.8378, lng=-71.4492;
+    const lat=41.8393163, lng=-71.4293121;
     const map=L.map('mapimg',{scrollWheelZoom:false,zoomControl:true}).setView([lat,lng],15);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
       attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
