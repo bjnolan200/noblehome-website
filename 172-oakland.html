@@ -141,8 +141,12 @@ section{padding:92px 0}
 .room-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.25s;display:flex;flex-direction:column}
 .room-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
 .room-card .room-img{height:180px;background:var(--cream);position:relative;overflow:hidden}
-.room-card .room-img img{width:100%;height:100%;object-fit:cover}
-.room-card .room-img .room-num{position:absolute;top:12px;left:14px;background:var(--navy);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .65rem;border-radius:50px}
+.room-card .room-img img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.room-card .room-img .room-num{position:absolute;top:12px;left:14px;background:var(--navy);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .65rem;border-radius:50px;z-index:2}
+.room-img-clickable{cursor:pointer}
+.room-img-clickable:hover img{transform:scale(1.05)}
+.room-photo-overlay{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(transparent,rgba(0,0,0,.65));color:#fff;font-size:.78rem;font-weight:600;display:flex;align-items:center;gap:6px;opacity:0;transition:.25s;z-index:2}
+.room-img-clickable:hover .room-photo-overlay{opacity:1}
 .room-card .room-body{padding:22px 20px;flex:1;display:flex;flex-direction:column;gap:8px}
 .room-card h3{font-size:1.35rem}
 .room-card .room-detail{font-size:.86rem;color:var(--muted)}
@@ -590,28 +594,46 @@ document.querySelectorAll('#navlinks a').forEach(a =>
   a.addEventListener('click', () => document.getElementById('navlinks').classList.remove('open')));
 
 /* ---- ROOMS ---- */
+const P2 = 'images/172/';
 const rooms = [
-  { num: 'Room 1', name: 'Queen + Sofa Room', beds: '1 Queen Bed + Sofa Bed', detail: 'Flexible for 1–3 occupants · keyed lock', price: '$1,600', photo: 'images/172/room1-1.jpg' },
-  { num: 'Room 2', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600', photo: 'images/172/room2-1.jpg' },
-  { num: 'Room 3', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300', photo: 'images/172/room3-1.jpg' },
-  { num: 'Room 4', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300', photo: 'images/172/room4-1.jpg' },
-  { num: 'Room 5', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300', photo: 'images/172/room5-1.jpg' },
-  { num: 'Room 6', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300', photo: null },
-  { num: 'Room 7', name: 'Double Full Suite', beds: '2 Full Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600', photo: 'images/172/room7-1.jpg' },
-  { num: 'Room 8', name: 'Double Full Suite', beds: '2 Full Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600', photo: 'images/172/room8-1.jpg' },
+  { num: 'Room 1', name: 'Queen + Sofa Room', beds: '1 Queen Bed + Sofa Bed', detail: 'Flexible for 1–3 occupants · keyed lock', price: '$1,600',
+    photo: P2+'room1-1.jpg',
+    photos: [1,2,3,4,5,6].map(n => ({t:'Room 1', src: P2+'room1-'+n+'.jpg'})) },
+  { num: 'Room 2', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600',
+    photo: P2+'room2-1.jpg',
+    photos: [1,2,3,4,5,6].map(n => ({t:'Room 2', src: P2+'room2-'+n+'.jpg'})) },
+  { num: 'Room 3', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300',
+    photo: P2+'room3-1.jpg',
+    photos: [1,2,3].map(n => ({t:'Room 3', src: P2+'room3-'+n+'.jpg'})) },
+  { num: 'Room 4', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300',
+    photo: P2+'room4-1.jpg',
+    photos: [1,2,3,4,5,6].map(n => ({t:'Room 4', src: P2+'room4-'+n+'.jpg'})) },
+  { num: 'Room 5', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300',
+    photo: P2+'room5-1.jpg',
+    photos: [1,2,3,4,5,6].map(n => ({t:'Room 5', src: P2+'room5-'+n+'.jpg'})) },
+  { num: 'Room 6', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300',
+    photo: null, photos: [] },
+  { num: 'Room 7', name: 'Double Full Suite', beds: '2 Full Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600',
+    photo: P2+'room7-1.jpg',
+    photos: [1,2,3,4,5,6].map(n => ({t:'Room 7', src: P2+'room7-'+n+'.jpg'})) },
+  { num: 'Room 8', name: 'Double Full Suite', beds: '2 Full Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600',
+    photo: P2+'room8-1.jpg',
+    photos: [1,2,3,4,5,6,7].map(n => ({t:'Room 8', src: P2+'room8-'+n+'.jpg'})) },
 ];
 
 const roomsGrid = document.getElementById('rooms-grid');
 rooms.forEach(r => {
   const card = document.createElement('div');
   card.className = 'room-card';
+  const hasPhotos = r.photos && r.photos.length > 0;
   card.innerHTML = `
-    <div class="room-img">
+    <div class="room-img${hasPhotos ? ' room-img-clickable' : ''}" ${hasPhotos ? 'role="button" tabindex="0" aria-label="View photos for '+r.num+'"' : ''}>
       <span class="room-num">${r.num}</span>
       ${r.photo
         ? `<img src="${r.photo}" alt="${r.name}" loading="lazy">`
         : `<div style="width:100%;height:100%;background:linear-gradient(135deg,#1b2733 0%,#26384a 60%,#324a61 100%);display:flex;align-items:center;justify-content:center"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c9a25b" stroke-width="1.5" opacity=".5"><path d="M3 10v9h18v-9"/><path d="M3 10l9-6 9 6"/><path d="M9 19v-5h6v5"/></svg></div>`
       }
+      ${hasPhotos ? `<div class="room-photo-overlay"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg> View ${r.photos.length} Photos</div>` : ''}
     </div>
     <div class="room-body">
       <h3>${r.name}</h3>
@@ -619,6 +641,11 @@ rooms.forEach(r => {
       <div class="room-price">${r.price} <span>/mo</span></div>
       <a href="#viewing" class="btn gold" style="margin-top:12px;font-size:.84rem;padding:.65rem 1.2rem">Schedule a Viewing</a>
     </div>`;
+  if (hasPhotos) {
+    const imgDiv = card.querySelector('.room-img-clickable');
+    imgDiv.addEventListener('click', () => openRoomLB(r.photos));
+    imgDiv.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openRoomLB(r.photos); });
+  }
   roomsGrid.appendChild(card);
 });
 
@@ -649,7 +676,7 @@ amenities.forEach(([t, d]) => {
 /* ---- GALLERY ---- */
 const P = 'images/172/';
 const galleryGroups = [
-  { g: 'The House', sub: 'Exterior', items: [
+  { g: 'The House', sub: 'Exterior & Common Areas', items: [
     { t: 'Exterior', src: P+'exterior-1.jpg' },
     { t: 'Exterior', src: P+'exterior-2.jpg' },
     { t: 'Exterior', src: P+'exterior-3.jpg' },
@@ -681,48 +708,6 @@ const galleryGroups = [
     { t: 'Dining Room', src: P+'dining-room-2.jpg' },
     { t: 'Dining Room', src: P+'dining-room-3.jpg' },
     { t: 'Dining Room', src: P+'dining-room-4.jpg' },
-  ]},
-  { g: 'The Rooms', sub: 'Furnished Bedrooms', items: [
-    { t: 'Room 1', src: P+'room1-1.jpg' },
-    { t: 'Room 1', src: P+'room1-2.jpg' },
-    { t: 'Room 1', src: P+'room1-3.jpg' },
-    { t: 'Room 1', src: P+'room1-4.jpg' },
-    { t: 'Room 1', src: P+'room1-5.jpg' },
-    { t: 'Room 1', src: P+'room1-6.jpg' },
-    { t: 'Room 2', src: P+'room2-1.jpg' },
-    { t: 'Room 2', src: P+'room2-2.jpg' },
-    { t: 'Room 2', src: P+'room2-3.jpg' },
-    { t: 'Room 2', src: P+'room2-4.jpg' },
-    { t: 'Room 2', src: P+'room2-5.jpg' },
-    { t: 'Room 2', src: P+'room2-6.jpg' },
-    { t: 'Room 3', src: P+'room3-1.jpg' },
-    { t: 'Room 3', src: P+'room3-2.jpg' },
-    { t: 'Room 3', src: P+'room3-3.jpg' },
-    { t: 'Room 4', src: P+'room4-1.jpg' },
-    { t: 'Room 4', src: P+'room4-2.jpg' },
-    { t: 'Room 4', src: P+'room4-3.jpg' },
-    { t: 'Room 4', src: P+'room4-4.jpg' },
-    { t: 'Room 4', src: P+'room4-5.jpg' },
-    { t: 'Room 4', src: P+'room4-6.jpg' },
-    { t: 'Room 5', src: P+'room5-1.jpg' },
-    { t: 'Room 5', src: P+'room5-2.jpg' },
-    { t: 'Room 5', src: P+'room5-3.jpg' },
-    { t: 'Room 5', src: P+'room5-4.jpg' },
-    { t: 'Room 5', src: P+'room5-5.jpg' },
-    { t: 'Room 5', src: P+'room5-6.jpg' },
-    { t: 'Room 7', src: P+'room7-1.jpg' },
-    { t: 'Room 7', src: P+'room7-2.jpg' },
-    { t: 'Room 7', src: P+'room7-3.jpg' },
-    { t: 'Room 7', src: P+'room7-4.jpg' },
-    { t: 'Room 7', src: P+'room7-5.jpg' },
-    { t: 'Room 7', src: P+'room7-6.jpg' },
-    { t: 'Room 8', src: P+'room8-1.jpg' },
-    { t: 'Room 8', src: P+'room8-2.jpg' },
-    { t: 'Room 8', src: P+'room8-3.jpg' },
-    { t: 'Room 8', src: P+'room8-4.jpg' },
-    { t: 'Room 8', src: P+'room8-5.jpg' },
-    { t: 'Room 8', src: P+'room8-6.jpg' },
-    { t: 'Room 8', src: P+'room8-7.jpg' },
   ]},
   { g: 'Bathrooms & Laundry', sub: 'Shared Facilities', items: [
     { t: 'Bathroom 1', src: P+'bathroom-1-1.jpg' },
@@ -776,19 +761,21 @@ galleryGroups.forEach(g => {
 });
 
 /* ---- LIGHTBOX ---- */
-const photos = allPhotos;
 const lb = document.getElementById('lightbox');
 const lbImg = document.getElementById('lbImg');
 const lbCap = document.getElementById('lbCap');
 let cur = 0;
-function openLB(i) { cur = i; renderLB(); lb.classList.add('open'); }
-function renderLB() { const p = photos[cur]; lbImg.src = p.src; lbCap.textContent = `${p.t} — ${cur + 1} / ${photos.length}`; }
+let activeLBPhotos = allPhotos;
+
+function openLB(i) { activeLBPhotos = allPhotos; cur = i; renderLB(); lb.classList.add('open'); }
+function openRoomLB(roomPhotos) { activeLBPhotos = roomPhotos; cur = 0; renderLB(); lb.classList.add('open'); }
+function renderLB() { const p = activeLBPhotos[cur]; lbImg.src = p.src; lbCap.textContent = `${p.t} — ${cur + 1} / ${activeLBPhotos.length}`; }
 function closeLB() { lb.classList.remove('open'); }
 
 document.getElementById('lbClose').onclick = closeLB;
 lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
-document.getElementById('lbNext').onclick = e => { e.stopPropagation(); cur = (cur + 1) % photos.length; renderLB(); };
-document.getElementById('lbPrev').onclick = e => { e.stopPropagation(); cur = (cur - 1 + photos.length) % photos.length; renderLB(); };
+document.getElementById('lbNext').onclick = e => { e.stopPropagation(); cur = (cur + 1) % activeLBPhotos.length; renderLB(); };
+document.getElementById('lbPrev').onclick = e => { e.stopPropagation(); cur = (cur - 1 + activeLBPhotos.length) % activeLBPhotos.length; renderLB(); };
 document.addEventListener('keydown', e => {
   if (!lb.classList.contains('open')) return;
   if (e.key === 'Escape') closeLB();
