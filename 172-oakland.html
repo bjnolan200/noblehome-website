@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Noble Home · 184 Oakland Avenue — Providence, RI</title>
-<meta name="description" content="A refined duplex residence at 184 Oakland Avenue, Providence RI 02908. Schedule a viewing, explore the home, and apply online." />
+<title>Noble Home · 172 Oakland Avenue — Rooms for Rent, Providence RI</title>
+<meta name="description" content="Furnished rooms for rent at 172 Oakland Avenue, Providence RI 02908. 8 bedrooms, pool table, central AC, washer/dryer, and lots of parking. Schedule a viewing and apply online." />
 
-<!-- Favicon (Noble Home mark) -->
+<!-- Favicon -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%231b2733'/%3E%3Cpath d='M9 27V17l11-7 11 7v10' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3Cpath d='M16 27v-6h8v6' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E" />
 
-<!-- Link preview (when shared via text, iMessage, social) -->
+<!-- Link preview -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Noble Home · 184 Oakland Avenue — Now Leasing" />
-<meta property="og:description" content="A refined duplex in Providence's Elmhurst neighborhood. Tour it and apply online." />
-<meta property="og:url" content="https://noblehomeri.com" />
+<meta property="og:title" content="Noble Home · 172 Oakland Avenue — Rooms for Rent" />
+<meta property="og:description" content="Furnished rooms in a large, amenity-rich home in Providence's Elmhurst neighborhood. Apply online." />
+<meta property="og:url" content="https://noblehomeri.com/172-oakland" />
 <meta property="og:image" content="https://noblehomeri.com/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Noble Home · 184 Oakland Avenue — Now Leasing" />
-<meta name="twitter:description" content="A refined duplex in Providence's Elmhurst neighborhood. Tour it and apply online." />
+<meta name="twitter:title" content="Noble Home · 172 Oakland Avenue — Rooms for Rent" />
+<meta name="twitter:description" content="Furnished rooms in a large, amenity-rich home in Providence's Elmhurst neighborhood." />
 <meta name="twitter:image" content="https://noblehomeri.com/og-image.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -106,7 +106,7 @@ header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);bac
   radial-gradient(circle at 12% 85%, rgba(184,137,59,.14), transparent 45%);}
 .hero-grid-overlay{position:absolute;inset:0;opacity:.06;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:60px 60px}
 .hero .wrap{position:relative;z-index:2;width:100%;padding-top:60px;padding-bottom:60px}
-.hero h1{font-size:clamp(2.8rem,6vw,4.8rem);color:#fff;margin:.6rem 0 1rem;max-width:14ch}
+.hero h1{font-size:clamp(2.8rem,6vw,4.8rem);color:#fff;margin:.6rem 0 1rem;max-width:16ch}
 .hero p.lede{font-size:1.18rem;color:#e7eaee;max-width:52ch;font-weight:300}
 .hero .meta{display:flex;flex-wrap:wrap;gap:1.6rem;margin:2.2rem 0 2.4rem}
 .hero .meta .stat{border-left:2px solid var(--gold);padding-left:.9rem}
@@ -126,7 +126,7 @@ section{padding:92px 0}
 .section-head p{color:var(--muted);font-size:1.06rem}
 .alt{background:var(--cream)}
 
-/* OVERVIEW / SPECS */
+/* SPECS */
 .specs{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .spec{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px;transition:.25s}
 .spec:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
@@ -135,6 +135,21 @@ section{padding:92px 0}
 .spec span{color:var(--muted);font-size:.86rem}
 .ph{color:var(--gold);font-style:italic}
 @media(max-width:860px){.specs{grid-template-columns:repeat(2,1fr)}}
+
+/* ROOMS GRID */
+.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.room-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.25s;display:flex;flex-direction:column}
+.room-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
+.room-card .room-img{height:180px;background:var(--cream);position:relative;overflow:hidden}
+.room-card .room-img img{width:100%;height:100%;object-fit:cover}
+.room-card .room-img .room-num{position:absolute;top:12px;left:14px;background:var(--navy);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .65rem;border-radius:50px}
+.room-card .room-body{padding:22px 20px;flex:1;display:flex;flex-direction:column;gap:8px}
+.room-card h3{font-size:1.35rem}
+.room-card .room-detail{font-size:.86rem;color:var(--muted)}
+.room-card .room-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin-top:auto;padding-top:12px}
+.room-card .room-price span{font-family:'Inter',sans-serif;font-size:.82rem;color:var(--muted);font-weight:400}
+@media(max-width:860px){.rooms-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.rooms-grid{grid-template-columns:1fr}}
 
 /* GALLERY */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
@@ -149,6 +164,9 @@ section{padding:92px 0}
 .gallery-group-title:first-child{margin-top:0}
 .gallery-group-title span{display:block;font-family:Inter,sans-serif;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:#c9a25b;font-weight:600;margin-bottom:2px}
 .gallery+.gallery-group-title{margin-top:34px}
+.gallery-placeholder{background:var(--cream);border:2px dashed var(--line);border-radius:var(--radius);padding:60px 40px;text-align:center;color:var(--muted)}
+.gallery-placeholder .gp-icon{width:48px;height:48px;color:var(--gold-soft);margin:0 auto 16px}
+.gallery-placeholder p{font-size:.95rem}
 
 /* LIGHTBOX */
 .lightbox{position:fixed;inset:0;background:rgba(15,20,26,.94);z-index:200;display:none;align-items:center;justify-content:center;padding:30px}
@@ -207,7 +225,6 @@ section{padding:92px 0}
 .soon{display:inline-block;margin-top:16px;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);border:1px solid rgba(201,162,91,.4);padding:.3rem .7rem;border-radius:50px}
 .portal-login{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:36px;align-items:center}
 .portal-login .btn{background:var(--gold);border-color:var(--gold)}
-.portal-login span{color:#aab3bd;font-size:.86rem}
 @media(max-width:860px){.portal-grid{grid-template-columns:1fr}}
 
 /* CONTACT STRIP */
@@ -233,8 +250,8 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
 <div class="prop-bar">
   <div class="wrap">
     <span class="label">Our Properties</span>
-    <a href="index.html" class="prop-pill active">184 Oakland Ave · Duplex</a>
-    <a href="172-oakland.html" class="prop-pill">172 Oakland Ave · Rooms for Rent</a>
+    <a href="index.html" class="prop-pill">184 Oakland Ave · Duplex</a>
+    <a href="172-oakland.html" class="prop-pill active">172 Oakland Ave · Rooms for Rent</a>
   </div>
 </div>
 
@@ -250,14 +267,13 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       Noble&nbsp;Home
     </a>
     <nav class="nav-links" id="navlinks">
-      <a href="#home">The Home</a>
+      <a href="#home">The House</a>
+      <a href="#rooms">Rooms</a>
       <a href="#gallery">Gallery</a>
       <a href="#amenities">Amenities</a>
       <a href="#neighborhood">Neighborhood</a>
-      <a href="#portal">Tenant Portal</a>
     </nav>
     <div class="nav-cta">
-      <a href="https://rental.turbotenant.com/p/184-oakland-ave-providence-ri-unit-1/52bfa041-426d-47eb-b60a-057d8c3ad957" target="_blank" rel="noopener" class="btn ghost">Apply Now</a>
       <a href="#viewing" class="btn gold">Schedule a Viewing</a>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
@@ -268,29 +284,28 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
 <section class="hero" id="top">
   <div class="hero-bg"><div class="hero-grid-overlay"></div></div>
   <div class="wrap">
-    <span class="badge-avail"><span class="dot"></span> Now Leasing · Available August 15, 2026</span>
+    <span class="badge-avail"><span class="dot"></span> Now Leasing · Rooms Available August 15, 2026</span>
     <span class="eyebrow" style="display:block;margin-top:20px;color:var(--gold-soft)">Providence · 02908</span>
-    <h1>A Refined Duplex on Oakland Avenue.</h1>
-    <p class="lede">A fully furnished duplex in Providence's Elmhurst neighborhood — minutes from PC, RIC, and the hospitals. Available for 6 or 12-month leases. Tenants pay utilities. Apply entirely online.</p>
+    <h1>Eight Furnished Rooms on Oakland Avenue.</h1>
+    <p class="lede">A spacious, fully furnished shared home in Providence's Elmhurst neighborhood — 8 bedrooms, 11 beds, finished basement, central AC, pool table, foosball, and tons of parking. Rent a room, share the house. Available August 15. Apply entirely online.</p>
     <div class="meta">
-      <div class="stat"><b>2</b><span>Bedrooms</span></div>
-      <div class="stat"><b>1</b><span>Bathroom</span></div>
-      <div class="stat"><b>Furnished</b><span>Turnkey</span></div>
-      <div class="stat"><b>$2,600</b><span>Per Month, Utils Incl.</span></div>
+      <div class="stat"><b>8</b><span>Bedrooms</span></div>
+      <div class="stat"><b>11</b><span>Beds Total</span></div>
+      <div class="stat"><b>Furnished</b><span>Move-In Ready</span></div>
+      <div class="stat"><b>By Room</b><span>Individual Leases</span></div>
     </div>
     <div class="hero-actions">
       <a href="#viewing" class="btn gold">Schedule a Viewing</a>
-      <a href="#gallery" class="btn">Explore the Home</a>
+      <a href="#rooms" class="btn">See the Rooms</a>
     </div>
   </div>
 </section>
 
 <!-- PAST RESIDENTS MARQUEE -->
 <section class="marquee-section">
-  <p class="marquee-label">Past guests have come from</p>
+  <p class="marquee-label">Past residents have come from</p>
   <div class="marquee-outer">
     <div class="marquee-track" id="marquee-track">
-      <!-- set 1 -->
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/General_Dynamics_logo.svg/250px-General_Dynamics_logo.svg.png" alt="General Dynamics" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">General Dynamics</span></div>
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Terminix_logo.svg/250px-Terminix_logo.svg.png" alt="Terminix" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Terminix</span></div>
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/96/ProvidenceCollegeSeal.png/250px-ProvidenceCollegeSeal.png" alt="Providence College" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Providence College</span></div>
@@ -300,7 +315,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Bryant_University_seal.svg/250px-Bryant_University_seal.svg.png" alt="Bryant University" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Bryant University</span></div>
       <div class="m-logo"><img src="https://www.ric.edu/themes/custom/ric/assets/img/rhode-island-college-logo.svg" alt="Rhode Island College" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Rhode Island College</span></div>
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4f/Brown_University_Health_System_Logo_2024.svg/250px-Brown_University_Health_System_Logo_2024.svg.png" alt="Rhode Island Hospital" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Rhode Island Hospital</span></div>
-      <!-- set 2 — duplicate for seamless loop -->
+      <!-- duplicate set for seamless loop -->
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/General_Dynamics_logo.svg/250px-General_Dynamics_logo.svg.png" alt="General Dynamics" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">General Dynamics</span></div>
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Terminix_logo.svg/250px-Terminix_logo.svg.png" alt="Terminix" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Terminix</span></div>
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/96/ProvidenceCollegeSeal.png/250px-ProvidenceCollegeSeal.png" alt="Providence College" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Providence College</span></div>
@@ -318,62 +333,82 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
 <section id="home">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">The Residence</span>
-      <h2>Move-in ready, in a neighborhood that has it all.</h2>
-      <p>184 Oakland Avenue is a fully furnished duplex unit offering bright, comfortable space in Providence's Elmhurst neighborhood — minutes from Providence College and RIC, with an easy commute to the city's hospitals. Each unit comes turnkey: beds, sofas, dining set, smart TVs, and a fully equipped kitchen. Skip the furniture shopping and move in ready to go. A shared washer and dryer are on-site in the building. Utilities are included in the rent (electric, gas, water, and WiFi) — no extra bills to manage. We offer 6 and 12-month leases — ideal for professionals relocating to Providence, graduate students, and anyone who wants a quality furnished home without the hassle of setting up from scratch.</p>
+      <span class="eyebrow">The House</span>
+      <h2>A full house of furnished rooms — ready to move in.</h2>
+      <p>172 Oakland Avenue is a large, fully furnished shared home available for room-by-room rental. With 8 bedrooms and 11 beds, there's space for individuals and groups alike. Common areas include a spacious living room, formal dining room, full kitchen, and a finished basement complete with a pool table and foosball table. Central air conditioning keeps every room comfortable year-round. Smart TVs are in every bedroom. Washer and dryer on-site. Tons of parking out front and in back. Each room is leased individually — ideal for students, travel nurses, professionals relocating to Providence, and anyone who wants a furnished room without the hassle of a whole apartment.</p>
     </div>
     <div class="specs">
       <div class="spec">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10v9h18v-9"/><path d="M3 10l9-6 9 6"/><path d="M9 19v-5h6v5"/></svg>
-        <b>2 Bed</b><span>Furnished bedrooms</span>
+        <b>8 Rooms</b><span>11 beds total</span>
       </div>
       <div class="spec">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12V6a2 2 0 0 1 2-2h2"/><path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3z"/><path d="M7 21l-1 1M18 21l1 1"/></svg>
-        <b>1 Bath</b><span>Updated fixtures</span>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12h20M2 12a10 10 0 1 0 20 0M2 12a10 10 0 1 1 20 0M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+        <b>Central AC</b><span>Climate-controlled</span>
       </div>
       <div class="spec">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        <b>Furnished</b><span>Turnkey, move-in ready</span>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <b>Furnished</b><span>TV in every room</span>
       </div>
       <div class="spec">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-        <b>Laundry</b><span>Washer &amp; dryer on-site</span>
+        <b>Washer/Dryer</b><span>On-site laundry</span>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section id="rooms" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Available Rooms</span>
+      <h2>Choose your room.</h2>
+      <p>Each room is individually leased. Pricing varies by room size and bed configuration — contact us or schedule a viewing to discuss availability and rates.</p>
+    </div>
+    <div class="rooms-grid" id="rooms-grid">
+      <!-- Populated by JS -->
+    </div>
+    <p style="margin-top:32px;color:var(--muted);font-size:.9rem;text-align:center">Pricing subject to change. Contact Bradford to confirm current availability and rates.</p>
   </div>
 </section>
 
 <!-- GALLERY -->
-<section id="gallery" class="alt">
+<section id="gallery">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Photo Tour</span>
-      <h2>Step inside 184 Oakland Avenue.</h2>
+      <h2>Step inside 172 Oakland Avenue.</h2>
       <p>Click any photo to view it full screen.</p>
     </div>
-    <div id="gallery-groups"></div>
+    <div id="gallery-groups">
+      <div class="gallery-placeholder">
+        <svg class="gp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p><strong>Photos coming soon.</strong><br>We're preparing the full photo gallery for 172 Oakland Avenue.<br>Schedule a viewing to see the house in person.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- AMENITIES -->
-<section id="amenities">
+<section id="amenities" class="alt">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">What's Included</span>
-      <h2>Comfort in every detail.</h2>
-      <p>Each fully furnished unit comes move-in ready with everything you need from day one.</p>
+      <h2>More house. More amenities.</h2>
+      <p>172 Oakland Avenue is loaded with features you won't find in a typical apartment rental.</p>
     </div>
     <div class="amenities" id="amenities-grid"></div>
   </div>
 </section>
 
 <!-- NEIGHBORHOOD -->
-<section id="neighborhood" class="alt">
+<section id="neighborhood">
   <div class="wrap split">
     <div>
       <span class="eyebrow">The Neighborhood</span>
       <h2 style="font-size:clamp(2rem,4vw,2.8rem);margin:.5rem 0 1rem">Elmhurst, Providence.</h2>
-      <p style="color:var(--muted)">A quiet, leafy residential pocket of Providence's 02908 — popular with students, faculty, and young professionals alike. Walkable streets and a quick hop to downtown and the highways.</p>
+      <p style="color:var(--muted)">172 Oakland Avenue sits in the same quiet, leafy Elmhurst pocket as our other property — steps away from PC, RIC, and a short drive to downtown Providence, the hospitals, and major highways.</p>
       <div class="poi">
         <div><b class="ph">~0.6 mi</b><span>Providence College</span></div>
         <div><b class="ph">~1.2 mi</b><span>Rhode Island College</span></div>
@@ -383,37 +418,35 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
     </div>
     <div class="media">
       <iframe
-        src="https://maps.google.com/maps?q=184+Oakland+Avenue+Providence+RI+02908&output=embed&z=16"
+        src="https://maps.google.com/maps?q=172+Oakland+Avenue+Providence+RI+02908&output=embed&z=16"
         width="100%" height="100%"
         style="border:0;min-height:380px;border-radius:var(--radius);display:block"
         allowfullscreen loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-        title="184 Oakland Avenue, Providence RI on Google Maps">
+        title="172 Oakland Avenue, Providence RI on Google Maps">
       </iframe>
     </div>
   </div>
 </section>
 
-<!-- FORMS: VIEWING + APPLY -->
-<section id="viewing">
+<!-- VIEWING FORM -->
+<section id="viewing" class="alt">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Get Started</span>
       <h2>Schedule a viewing.</h2>
-      <p>Interested? Request a tour with our property manager, Bradford. We'll be in touch promptly.</p>
+      <p>Interested in a room? Request a tour with Bradford and we'll be in touch promptly.</p>
     </div>
     <div class="forms-grid">
-
-      <!-- VIEWING -->
       <div class="card-form">
         <h3>Schedule a Viewing</h3>
-        <p class="sub">Request a tour with Bradford, our property manager.</p>
+        <p class="sub">Request a tour of 172 Oakland Avenue with Bradford, our property manager.</p>
         <div class="form-ok" id="ok-view">Thanks — your viewing request has been sent to Bradford. We'll be in touch shortly.</div>
-        <form id="form-view" name="viewing-request" method="POST" action="https://api.web3forms.com/submit">
+        <form id="form-view" name="viewing-request-172" method="POST" action="https://api.web3forms.com/submit">
           <input type="hidden" name="access_key" value="60088a86-9db3-4143-88dc-779cf6574b44" />
-          <input type="hidden" name="subject" value="New Viewing Request — 184 Oakland Ave" />
+          <input type="hidden" name="subject" value="New Viewing Request — 172 Oakland Ave" />
           <input type="hidden" name="from_name" value="Noble Home Website" />
-          <input type="hidden" name="autoresponse" value="Hi! We've received your viewing request for 184 Oakland Avenue, Providence RI 02908. Bradford will review your request and send a confirmation shortly. Questions? Reply to this email or call (508) 223-6095." />
+          <input type="hidden" name="autoresponse" value="Hi! We've received your viewing request for 172 Oakland Avenue, Providence RI 02908. Bradford will review your request and send a confirmation shortly. Questions? Reply to this email or call (508) 223-6095." />
           <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
           <div class="field two">
             <div><label>First Name</label><input name="first" required></div>
@@ -432,15 +465,23 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
           </div>
           <div class="field two">
             <div><label>Desired Move-in Date</label><input type="date" name="movein"></div>
-            <div><label># of Occupants</label><input type="number" name="occupants" min="1"></div>
+            <div><label># of Occupants (in your party)</label><input type="number" name="occupants" min="1"></div>
           </div>
           <div class="field"><label>Monthly Income</label><input name="income" placeholder="$ / month"></div>
+          <div class="field"><label>Room Preference (optional)</label>
+            <select name="room_preference">
+              <option value="">No preference / let's discuss</option>
+              <option>Single bed room</option>
+              <option>Double / Queen bed room</option>
+              <option>King bed room</option>
+              <option>Room for two people</option>
+            </select>
+          </div>
           <div class="field"><label>Message (optional)</label><textarea name="msg" placeholder="Anything we should know?"></textarea></div>
           <button type="submit" class="btn gold" style="width:100%;justify-content:center">Request Viewing</button>
-          <p class="form-note">We'll receive your request instantly and reply by email or phone. Text scheduling can be added later.</p>
+          <p class="form-note">We'll receive your request instantly and reply by email or phone.</p>
         </form>
       </div>
-
     </div>
   </div>
 </section>
@@ -451,7 +492,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
     <div class="section-head">
       <span class="eyebrow" style="color:var(--gold-soft)">For Current Residents</span>
       <h2>Your Tenant Portal.</h2>
-      <p>Everything you need as a Noble Home resident, in one place. Pay rent, submit maintenance requests, and message us through your secure resident login.</p>
+      <p>Everything you need as a Noble Home resident, in one place. Pay rent, sign your lease, and submit maintenance requests through your secure resident login.</p>
     </div>
     <div class="portal-grid">
       <div class="pcard">
@@ -463,7 +504,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       <div class="pcard">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 3v5h5"/><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M9 14l2 2 4-4"/></svg>
         <h3>View &amp; Sign Lease</h3>
-        <p>Review your lease, sign electronically, and download a copy anytime you need it.</p>
+        <p>Review your room lease, sign electronically, and download a copy anytime.</p>
         <span class="soon">Coming Soon</span>
       </div>
       <div class="pcard">
@@ -501,7 +542,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       <div class="c">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
         <b>Address</b>
-        <span>184 Oakland Avenue<br>Providence, RI 02908</span>
+        <span>172 Oakland Avenue<br>Providence, RI 02908</span>
       </div>
     </div>
   </div>
@@ -519,16 +560,16 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
         <p style="margin-top:10px;max-width:34ch;color:#8b939c">Refined rental living in Providence, Rhode Island.</p>
       </div>
       <div class="f-links">
-        <a href="#gallery">Gallery</a>
+        <a href="#rooms">Available Rooms</a>
         <a href="#amenities">Amenities</a>
         <a href="#viewing">Schedule a Viewing</a>
-        <a href="https://rental.turbotenant.com/p/184-oakland-ave-providence-ri-unit-1/52bfa041-426d-47eb-b60a-057d8c3ad957" target="_blank" rel="noopener">Apply</a>
+        <a href="index.html">184 Oakland Ave</a>
         <a href="#portal">Tenant Portal</a>
       </div>
     </div>
     <div class="f-bot">
       <span>© <span id="year"></span> Noble Home LLC. All rights reserved.</span>
-      <span>184 Oakland Avenue · Providence, RI 02908</span>
+      <span>172 Oakland Avenue · Providence, RI 02908</span>
     </div>
     <p class="eho">Noble Home is an equal housing opportunity provider. We do not discriminate on the basis of race, color, religion, sex, national origin, familial status, disability, or any other protected class.</p>
   </div>
@@ -545,160 +586,142 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
 
 <script>
 /* ---- year ---- */
-document.getElementById('year').textContent=new Date().getFullYear();
+document.getElementById('year').textContent = new Date().getFullYear();
 
 /* ---- mobile menu ---- */
-document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
-document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
+document.getElementById('menuBtn').addEventListener('click', () =>
+  document.getElementById('navlinks').classList.toggle('open'));
+document.querySelectorAll('#navlinks a').forEach(a =>
+  a.addEventListener('click', () => document.getElementById('navlinks').classList.remove('open')));
 
-/* ---- placeholder photo generator (SVG data URIs) ---- */
-const groups=[
-  {g:'Whole House',sub:'Exterior & Floor Plan',items:[
-    {t:'Exterior',src:'images/33.jpg'},{t:'Rear & Deck',src:'images/31.jpg'},
-    {t:'Building',src:'images/30.jpg'},{t:'Floor Plan',src:'images/34.jpg'}
-  ]},
-  {g:'First Unit',sub:'Furnished',items:[
-    {t:'Living Room',src:'images/1.jpg'},{t:'Living Room',src:'images/2.jpg'},
-    {t:'Kitchen',src:'images/4.jpg'},{t:'Kitchen',src:'images/6.jpg'},
-    {t:'Dining Area',src:'images/5.jpg'},
-    {t:'Bedroom',src:'images/7.jpg'},{t:'Bedroom',src:'images/8.jpg'},
-    {t:'Bedroom',src:'images/9.jpg'},{t:'Bedroom',src:'images/24.jpg'},
-    {t:'Bedroom',src:'images/25.jpg'},
-    {t:'Bathroom',src:'images/13.jpg'},{t:'Bathroom',src:'images/12.jpg'},
-    {t:'Stairway',src:'images/14.jpg'},{t:'Hallway',src:'images/3.jpg'}
-  ]},
-  {g:'Second Unit',sub:'Furnished',items:[
-    {t:'Living Room',src:'images/15.jpg'},{t:'Living Room',src:'images/16.jpg'},
-    {t:'Kitchen',src:'images/18.jpg'},{t:'Kitchen',src:'images/20.jpg'},
-    {t:'Kitchen',src:'images/19.jpg'},
-    {t:'Dining Area',src:'images/21.jpg'},
-    {t:'Bedroom',src:'images/23.jpg'},{t:'Bedroom',src:'images/22.jpg'},
-    {t:'Bedroom',src:'images/10.jpg'},{t:'Bedroom',src:'images/11.jpg'},
-    {t:'Bathroom',src:'images/26.jpg'},{t:'Bathroom',src:'images/27.jpg'},
-    {t:'Back Deck',src:'images/28.jpg'},
-    {t:'Interior',src:'images/17.jpg'}
-  ]}
+/* ---- ROOMS ---- */
+const rooms = [
+  { num: 'Room 1', name: 'Queen Suite', beds: '1 Queen Bed', detail: 'Spacious room, private feel', price: 'Contact for pricing' },
+  { num: 'Room 2', name: 'Double Room', beds: '2 Twin Beds', detail: 'Great for two occupants', price: 'Contact for pricing' },
+  { num: 'Room 3', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Comfortable private room', price: 'Contact for pricing' },
+  { num: 'Room 4', name: 'Twin Room', beds: '1 Twin Bed', detail: 'Cozy private room', price: 'Contact for pricing' },
+  { num: 'Room 5', name: 'King Suite', beds: '1 King Bed', detail: 'Largest room in the house', price: 'Contact for pricing' },
+  { num: 'Room 6', name: 'Double Room', beds: '2 Twin Beds', detail: 'Ideal for two occupants', price: 'Contact for pricing' },
+  { num: 'Room 7', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Bright and well-appointed', price: 'Contact for pricing' },
+  { num: 'Room 8', name: 'Double Room', beds: '2 Twin Beds', detail: 'Flexible for pairs or solo', price: 'Contact for pricing' },
 ];
-function svgPhoto(label,color){
-  const s=`<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
-    <defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
-    <stop offset='0' stop-color='${color}'/><stop offset='1' stop-color='#1b2733'/></linearGradient></defs>
-    <rect width='800' height='600' fill='url(#g)'/>
-    <g fill='none' stroke='#c9a25b' stroke-width='3' opacity='.55'>
-      <path d='M250 360V250l150-95 150 95v110'/><path d='M340 360v-70h120v70'/></g>
-    <text x='400' y='460' font-family='Georgia,serif' font-size='34' fill='#f3ead8' text-anchor='middle'>${label}</text>
-    <text x='400' y='498' font-family='Inter,sans-serif' font-size='16' fill='#c9a25b' letter-spacing='3' text-anchor='middle'>PHOTO PLACEHOLDER</text>
-  </svg>`;
-  return 'data:image/svg+xml;utf8,'+encodeURIComponent(s);
-}
-const photos=[];
-groups.forEach(g=>g.items.forEach(it=>photos.push(it)));
-const wrap=document.getElementById('gallery-groups');
-let idx=0;
-groups.forEach(g=>{
-  const h=document.createElement('h3');
-  h.className='gallery-group-title';
-  h.innerHTML=`<span>${g.sub}</span>${g.g}`;
-  wrap.appendChild(h);
-  const grid=document.createElement('div');
-  grid.className='gallery';
-  g.items.forEach((p,j)=>{
-    const i=idx++;
-    const fig=document.createElement('figure');
-    if(j===0) fig.classList.add('big');
-    fig.innerHTML=`<img src="${p.src}" alt="${p.t}" loading="lazy" data-i="${i}"><figcaption>${p.t}</figcaption>`;
-    fig.addEventListener('click',()=>openLB(i));
-    grid.appendChild(fig);
-  });
-  wrap.appendChild(grid);
+
+const roomsGrid = document.getElementById('rooms-grid');
+rooms.forEach(r => {
+  const card = document.createElement('div');
+  card.className = 'room-card';
+  card.innerHTML = `
+    <div class="room-img">
+      <span class="room-num">${r.num}</span>
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#1b2733 0%,#26384a 60%,#324a61 100%);display:flex;align-items:center;justify-content:center">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c9a25b" stroke-width="1.5" opacity=".5"><path d="M3 10v9h18v-9"/><path d="M3 10l9-6 9 6"/><path d="M9 19v-5h6v5"/></svg>
+      </div>
+    </div>
+    <div class="room-body">
+      <h3>${r.name}</h3>
+      <p class="room-detail">${r.beds} · ${r.detail}</p>
+      <div class="room-price">${r.price === 'Contact for pricing' ? '<span style="font-family:Inter,sans-serif;font-size:.88rem;color:var(--gold);font-weight:600">Contact for pricing</span>' : r.price + ' <span>/mo · utilities incl.</span>'}</div>
+      <a href="#viewing" class="btn gold" style="margin-top:12px;font-size:.84rem;padding:.65rem 1.2rem">Schedule a Viewing</a>
+    </div>`;
+  roomsGrid.appendChild(card);
 });
 
-/* ---- amenities ---- */
-const amenities=[
-  ['Fully Furnished','Beds, sofas, dining set & more'],
-  ['Smart TVs','Included in every unit'],
-  ['Fully Equipped Kitchen','Cookware, dishes & appliances'],
-  ['Washer & Dryer','Shared, on-site in basement'],
-  ['Utilities Included','Electric, gas, water & WiFi'],
-  ['Private Entrance','Duplex unit'],
-  ['6 & 12-Month Leases','Long-term furnished rentals'],
-  ['Parking','Available on-site'],
-  ['Air Conditioning','Included'],
-  ['Pet Friendly','Allowed · fee applies']
+/* ---- AMENITIES ---- */
+const amenities = [
+  ['8 Bedrooms / 11 Beds', 'Room for individuals, couples, and groups'],
+  ['Smart TV in Every Room', 'Each bedroom comes with its own TV'],
+  ['Central Air Conditioning', 'Climate-controlled throughout'],
+  ['Finished Basement', 'Bonus common space for all residents'],
+  ['Pool Table', 'Full-size table in the basement'],
+  ['Foosball Table', 'Additional rec room entertainment'],
+  ['Fully Equipped Kitchen', 'Shared kitchen with appliances & cookware'],
+  ['Formal Dining Room', 'Seating for all residents'],
+  ['Washer & Dryer', 'On-site laundry, no laundromat trips'],
+  ['Abundant Parking', 'Plenty of off-street parking on-site'],
+  ['Furnished Throughout', 'Beds, dressers, and seating included'],
+  ['Individual Leases', 'Each room leased separately — no joint liability'],
 ];
-const ag=document.getElementById('amenities-grid');
-amenities.forEach(([t,d])=>{
-  const el=document.createElement('div');el.className='amenity';
-  const dClass = d.startsWith('[') ? 'ph' : '';
-  el.innerHTML=`<div class="check">✓</div><div><b>${t}</b><br><span class="${dClass}">${d}</span></div>`;
+
+const ag = document.getElementById('amenities-grid');
+amenities.forEach(([t, d]) => {
+  const el = document.createElement('div');
+  el.className = 'amenity';
+  el.innerHTML = `<div class="check">✓</div><div><b>${t}</b><br><span>${d}</span></div>`;
   ag.appendChild(el);
 });
 
-/* ---- lightbox ---- */
-let cur=0;
-const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
-function openLB(i){cur=i;render();lb.classList.add('open')}
-function render(){const p=photos[cur];lbImg.src=p.src;lbCap.textContent=`${p.t} — ${cur+1} / ${photos.length}`}
-function close(){lb.classList.remove('open')}
-document.getElementById('lbClose').onclick=close;
-lb.addEventListener('click',e=>{if(e.target===lb)close()});
-document.getElementById('lbNext').onclick=e=>{e.stopPropagation();cur=(cur+1)%photos.length;render()};
-document.getElementById('lbPrev').onclick=e=>{e.stopPropagation();cur=(cur-1+photos.length)%photos.length;render()};
-document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowRight')document.getElementById('lbNext').click();if(e.key==='ArrowLeft')document.getElementById('lbPrev').click()});
+/* ---- LIGHTBOX (for when gallery photos are added) ---- */
+const photos = [];
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCap = document.getElementById('lbCap');
+let cur = 0;
+function openLB(i) { cur = i; renderLB(); lb.classList.add('open'); }
+function renderLB() { const p = photos[cur]; lbImg.src = p.src; lbCap.textContent = `${p.t} — ${cur + 1} / ${photos.length}`; }
+function closeLB() { lb.classList.remove('open'); }
+document.getElementById('lbClose').onclick = closeLB;
+lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
+document.getElementById('lbNext').onclick = e => { e.stopPropagation(); cur = (cur + 1) % photos.length; renderLB(); };
+document.getElementById('lbPrev').onclick = e => { e.stopPropagation(); cur = (cur - 1 + photos.length) % photos.length; renderLB(); };
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLB();
+  if (e.key === 'ArrowRight') document.getElementById('lbNext').click();
+  if (e.key === 'ArrowLeft') document.getElementById('lbPrev').click();
+});
 
-/* ---- forms -> Web3Forms (AJAX submit, stay on page) ---- */
-function handleForm(formId,okId){
-  const form=document.getElementById(formId);
-  form.addEventListener('submit',function(e){
+/* ---- FORM (Web3Forms AJAX) ---- */
+function handleForm(formId, okId) {
+  const form = document.getElementById(formId);
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
-    const data=Object.fromEntries(new FormData(form).entries());
-    const btn=form.querySelector('button[type="submit"]');
-    const label=btn.textContent;btn.textContent='Sending…';btn.disabled=true;
-    const ctrl=new AbortController();
-    const timer=setTimeout(()=>ctrl.abort(),15000);
-    fetch('https://api.web3forms.com/submit',{
-      method:'POST',
-      signal:ctrl.signal,
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify(data)
+    const data = Object.fromEntries(new FormData(form).entries());
+    const btn = form.querySelector('button[type="submit"]');
+    const label = btn.textContent; btn.textContent = 'Sending…'; btn.disabled = true;
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 15000);
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      signal: ctrl.signal,
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
     })
-    .then(r=>r.json())
-    .then(res=>{
-      if(res.success){
+    .then(r => r.json())
+    .then(res => {
+      if (res.success) {
         document.getElementById(okId).classList.add('show');
         form.reset();
-        document.getElementById(okId).scrollIntoView({behavior:'smooth',block:'center'});
-      }else{
+        document.getElementById(okId).scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
         alert('Sorry, something went wrong. Please email acresandhomesri@gmail.com.');
       }
     })
-    .catch(()=>{alert('Sorry, something went wrong sending your request. Please email acresandhomesri@gmail.com.');})
-    .finally(()=>{clearTimeout(timer);btn.textContent=label;btn.disabled=false;});
+    .catch(() => { alert('Sorry, something went wrong. Please email acresandhomesri@gmail.com.'); })
+    .finally(() => { clearTimeout(timer); btn.textContent = label; btn.disabled = false; });
   });
 }
-handleForm('form-view','ok-view');
+handleForm('form-view', 'ok-view');
 
-/* ---- viewing time slot filtering ---- */
-const WEEKDAY_SLOTS=['4:30 PM','5:00 PM','5:30 PM','6:00 PM'];
-const SAT_SLOTS=['7:00 AM','7:30 AM','8:00 AM','8:30 AM','9:00 AM'];
-function updateTimeSlots(val){
-  const sel=document.getElementById('view-time');
-  const note=document.getElementById('time-note');
-  sel.innerHTML='';
-  if(!val){sel.innerHTML='<option value="">— pick a date first —</option>';note.style.display='none';return;}
-  // parse as local date to avoid UTC offset shifting the day
-  const [y,m,d]=val.split('-').map(Number);
-  const day=new Date(y,m-1,d).getDay(); // 0=Sun,6=Sat
-  let slots=[];
-  if(day>=1&&day<=5){slots=WEEKDAY_SLOTS;note.textContent='Available Mon–Fri, 4:30 PM – 6:00 PM';}
-  else if(day===6){slots=SAT_SLOTS;note.textContent='Available Saturday, 7:00 AM – 9:00 AM';}
-  if(slots.length){
-    note.style.display='block';
-    sel.innerHTML='<option value="">Select a time</option>'+slots.map(s=>`<option>${s}</option>`).join('');
-  }else{
-    note.textContent='No viewing slots on Sundays. Please pick a weekday or Saturday.';
-    note.style.display='block';
-    sel.innerHTML='<option value="">No slots available</option>';
+/* ---- TIME SLOTS ---- */
+const WEEKDAY_SLOTS = ['4:30 PM', '5:00 PM', '5:30 PM', '6:00 PM'];
+const SAT_SLOTS = ['7:00 AM', '7:30 AM', '8:00 AM', '8:30 AM', '9:00 AM'];
+function updateTimeSlots(val) {
+  const sel = document.getElementById('view-time');
+  const note = document.getElementById('time-note');
+  sel.innerHTML = '';
+  if (!val) { sel.innerHTML = '<option value="">— pick a date first —</option>'; note.style.display = 'none'; return; }
+  const [y, m, d] = val.split('-').map(Number);
+  const day = new Date(y, m - 1, d).getDay();
+  let slots = [];
+  if (day >= 1 && day <= 5) { slots = WEEKDAY_SLOTS; note.textContent = 'Available Mon–Fri, 4:30 PM – 6:00 PM'; }
+  else if (day === 6) { slots = SAT_SLOTS; note.textContent = 'Available Saturday, 7:00 AM – 9:00 AM'; }
+  if (slots.length) {
+    note.style.display = 'block';
+    sel.innerHTML = '<option value="">Select a time</option>' + slots.map(s => `<option>${s}</option>`).join('');
+  } else {
+    note.textContent = 'No viewing slots on Sundays. Please pick a weekday or Saturday.';
+    note.style.display = 'block';
+    sel.innerHTML = '<option value="">No slots available</option>';
   }
 }
 </script>
