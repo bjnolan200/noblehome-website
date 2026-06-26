@@ -591,14 +591,14 @@ document.querySelectorAll('#navlinks a').forEach(a =>
 
 /* ---- ROOMS ---- */
 const rooms = [
-  { num: 'Room 1', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600' },
-  { num: 'Room 2', name: 'Queen + Sofa Room', beds: '1 Queen Bed + Sofa Bed', detail: 'Flexible for 1–3 occupants · keyed lock', price: '$1,600' },
-  { num: 'Room 3', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300' },
-  { num: 'Room 4', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300' },
-  { num: 'Room 5', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300' },
-  { num: 'Room 6', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300' },
-  { num: 'Room 7', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600' },
-  { num: 'Room 8', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300' },
+  { num: 'Room 1', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600', photo: 'images/172/flat/room1-1.jpg' },
+  { num: 'Room 2', name: 'Queen + Sofa Room', beds: '1 Queen Bed + Sofa Bed', detail: 'Flexible for 1–3 occupants · keyed lock', price: '$1,600', photo: 'images/172/flat/room2-1.jpg' },
+  { num: 'Room 3', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300', photo: 'images/172/flat/room3-1.jpg' },
+  { num: 'Room 4', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300', photo: 'images/172/flat/room4-1.jpg' },
+  { num: 'Room 5', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300', photo: 'images/172/flat/room5-1.jpg' },
+  { num: 'Room 6', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300', photo: null },
+  { num: 'Room 7', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600', photo: 'images/172/flat/room7-1.jpg' },
+  { num: 'Room 8', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300', photo: 'images/172/flat/room8-1.jpg' },
 ];
 
 const roomsGrid = document.getElementById('rooms-grid');
@@ -608,9 +608,10 @@ rooms.forEach(r => {
   card.innerHTML = `
     <div class="room-img">
       <span class="room-num">${r.num}</span>
-      <div style="width:100%;height:100%;background:linear-gradient(135deg,#1b2733 0%,#26384a 60%,#324a61 100%);display:flex;align-items:center;justify-content:center">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c9a25b" stroke-width="1.5" opacity=".5"><path d="M3 10v9h18v-9"/><path d="M3 10l9-6 9 6"/><path d="M9 19v-5h6v5"/></svg>
-      </div>
+      ${r.photo
+        ? `<img src="${r.photo}" alt="${r.name}" loading="lazy">`
+        : `<div style="width:100%;height:100%;background:linear-gradient(135deg,#1b2733 0%,#26384a 60%,#324a61 100%);display:flex;align-items:center;justify-content:center"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c9a25b" stroke-width="1.5" opacity=".5"><path d="M3 10v9h18v-9"/><path d="M3 10l9-6 9 6"/><path d="M9 19v-5h6v5"/></svg></div>`
+      }
     </div>
     <div class="room-body">
       <h3>${r.name}</h3>
@@ -646,25 +647,110 @@ amenities.forEach(([t, d]) => {
 });
 
 /* ---- GALLERY ---- */
-const BASE = 'https://a0.muscache.com/im/pictures/hosting/';
-const H1 = 'Hosting-1487582635915320379/original/';
-const H2 = 'Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTQ4NzU4MjYzNTkxNTMyMDM3OQ==/original/';
+const P = 'images/172/flat/';
 const galleryGroups = [
-  { g: 'The House', sub: 'Exterior & Common Areas', items: [
-    { t: 'Exterior', src: BASE+H1+'0d66898f-233b-46e5-934d-bb64f3af0a22.jpeg' },
-    { t: 'House', src: BASE+H1+'5e45f82a-f9a5-46c5-a8b0-8e5b0cefefe5.jpeg' },
-    { t: 'House', src: BASE+H1+'def55637-47be-452b-8093-bf7776fbcaec.jpeg' },
-    { t: 'Kitchen', src: BASE+H2+'0c1ab082-426a-4cec-a496-e3c8dbde9e12.jpeg' },
-    { t: 'Kitchen', src: BASE+H2+'dd0ff558-3471-4b00-b39e-6a2ba02ae245.jpeg' },
-    { t: 'Living Area', src: BASE+H2+'492aa7a8-fa12-4377-98b4-052cb2832491.jpeg' },
+  { g: 'The House', sub: 'Exterior', items: [
+    { t: 'Exterior', src: P+'exterior-1.jpg' },
+    { t: 'Exterior', src: P+'exterior-2.jpg' },
+    { t: 'Exterior', src: P+'exterior-3.jpg' },
+    { t: 'Exterior', src: P+'exterior-4.jpg' },
+    { t: 'Exterior', src: P+'exterior-5.jpg' },
+    { t: 'Exterior', src: P+'exterior-6.jpg' },
+    { t: 'Exterior', src: P+'exterior-7.jpg' },
+    { t: 'Exterior', src: P+'exterior-8.jpg' },
+    { t: 'Exterior', src: P+'exterior-9.jpg' },
+    { t: 'Exterior', src: P+'exterior-10.jpg' },
+    { t: 'Exterior', src: P+'exterior-11.jpg' },
+    { t: 'Exterior', src: P+'exterior-12.jpg' },
+    { t: 'Exterior', src: P+'exterior-13.jpg' },
+    { t: 'Exterior', src: P+'exterior-14.jpg' },
+    { t: 'Exterior', src: P+'exterior-15.jpg' },
+    { t: 'Exterior', src: P+'exterior-16.jpg' },
+    { t: 'Exterior', src: P+'exterior-17.jpg' },
   ]},
-  { g: 'Bedrooms & More', sub: 'Furnished Rooms', items: [
-    { t: 'Bedroom', src: BASE+H2+'d78079c9-33f8-4a36-ba7e-52bf741af0be.jpeg' },
-    { t: 'Bedroom', src: BASE+H2+'42ace6b2-b769-46b0-a059-0b12e7b96ce8.jpeg' },
-    { t: 'Bedroom', src: BASE+H2+'ea9603fb-2407-4168-be8e-fd206b4eaa34.jpeg' },
-    { t: 'Room', src: BASE+H2+'10de68e8-831c-4b59-b756-019500ba7aeb.jpeg' },
-    { t: 'Room', src: BASE+H2+'17d3ed52-c652-412e-84ac-4d1bc5055a02.jpeg' },
-    { t: 'Room', src: BASE+H2+'fe67c63e-4708-405a-b77d-a16fe8882d3e.jpeg' },
+  { g: 'Kitchen & Dining', sub: 'Common Areas', items: [
+    { t: 'Kitchen', src: P+'kitchen-1.jpg' },
+    { t: 'Kitchen', src: P+'kitchen-2.jpg' },
+    { t: 'Kitchen', src: P+'kitchen-3.jpg' },
+    { t: 'Kitchen', src: P+'kitchen-4.jpg' },
+    { t: 'Kitchen', src: P+'kitchen-5.jpg' },
+    { t: 'Kitchen', src: P+'kitchen-6.jpg' },
+    { t: 'Kitchen', src: P+'kitchen-7.jpg' },
+    { t: 'Kitchen', src: P+'kitchen-8.jpg' },
+    { t: 'Dining Room', src: P+'dining-room-1.jpg' },
+    { t: 'Dining Room', src: P+'dining-room-2.jpg' },
+    { t: 'Dining Room', src: P+'dining-room-3.jpg' },
+    { t: 'Dining Room', src: P+'dining-room-4.jpg' },
+  ]},
+  { g: 'The Rooms', sub: 'Furnished Bedrooms', items: [
+    { t: 'Room 1', src: P+'room1-1.jpg' },
+    { t: 'Room 1', src: P+'room1-2.jpg' },
+    { t: 'Room 1', src: P+'room1-3.jpg' },
+    { t: 'Room 1', src: P+'room1-4.jpg' },
+    { t: 'Room 1', src: P+'room1-5.jpg' },
+    { t: 'Room 1', src: P+'room1-6.jpg' },
+    { t: 'Room 2', src: P+'room2-1.jpg' },
+    { t: 'Room 2', src: P+'room2-2.jpg' },
+    { t: 'Room 2', src: P+'room2-3.jpg' },
+    { t: 'Room 2', src: P+'room2-4.jpg' },
+    { t: 'Room 2', src: P+'room2-5.jpg' },
+    { t: 'Room 2', src: P+'room2-6.jpg' },
+    { t: 'Room 3', src: P+'room3-1.jpg' },
+    { t: 'Room 3', src: P+'room3-2.jpg' },
+    { t: 'Room 3', src: P+'room3-3.jpg' },
+    { t: 'Room 4', src: P+'room4-1.jpg' },
+    { t: 'Room 4', src: P+'room4-2.jpg' },
+    { t: 'Room 4', src: P+'room4-3.jpg' },
+    { t: 'Room 4', src: P+'room4-4.jpg' },
+    { t: 'Room 4', src: P+'room4-5.jpg' },
+    { t: 'Room 4', src: P+'room4-6.jpg' },
+    { t: 'Room 5', src: P+'room5-1.jpg' },
+    { t: 'Room 5', src: P+'room5-2.jpg' },
+    { t: 'Room 5', src: P+'room5-3.jpg' },
+    { t: 'Room 5', src: P+'room5-4.jpg' },
+    { t: 'Room 5', src: P+'room5-5.jpg' },
+    { t: 'Room 5', src: P+'room5-6.jpg' },
+    { t: 'Room 7', src: P+'room7-1.jpg' },
+    { t: 'Room 7', src: P+'room7-2.jpg' },
+    { t: 'Room 7', src: P+'room7-3.jpg' },
+    { t: 'Room 7', src: P+'room7-4.jpg' },
+    { t: 'Room 7', src: P+'room7-5.jpg' },
+    { t: 'Room 7', src: P+'room7-6.jpg' },
+    { t: 'Room 8', src: P+'room8-1.jpg' },
+    { t: 'Room 8', src: P+'room8-2.jpg' },
+    { t: 'Room 8', src: P+'room8-3.jpg' },
+    { t: 'Room 8', src: P+'room8-4.jpg' },
+    { t: 'Room 8', src: P+'room8-5.jpg' },
+    { t: 'Room 8', src: P+'room8-6.jpg' },
+    { t: 'Room 8', src: P+'room8-7.jpg' },
+  ]},
+  { g: 'Bathrooms & Laundry', sub: 'Shared Facilities', items: [
+    { t: 'Bathroom 1', src: P+'bathroom-1-1.jpg' },
+    { t: 'Bathroom 1', src: P+'bathroom-1-2.jpg' },
+    { t: 'Bathroom 2', src: P+'bathroom-2-1.jpg' },
+    { t: 'Bathroom 2', src: P+'bathroom-2-2.jpg' },
+    { t: 'Bathroom 2', src: P+'bathroom-2-3.jpg' },
+    { t: 'Bathroom 3', src: P+'bathroom-3-1.jpg' },
+    { t: 'Bathroom 3', src: P+'bathroom-3-2.jpg' },
+    { t: 'Bathroom 3', src: P+'bathroom-3-3.jpg' },
+    { t: 'Washer & Dryer', src: P+'washer-a-dryer-1.jpg' },
+  ]},
+  { g: 'The Basement', sub: 'Bonus Common Space', items: [
+    { t: 'Basement', src: P+'basement-1.jpg' },
+    { t: 'Basement', src: P+'basement-2.jpg' },
+    { t: 'Basement', src: P+'basement-3.jpg' },
+    { t: 'Basement', src: P+'basement-4.jpg' },
+    { t: 'Basement', src: P+'basement-5.jpg' },
+    { t: 'Basement', src: P+'basement-6.jpg' },
+    { t: 'Basement', src: P+'basement-7.jpg' },
+    { t: 'Basement', src: P+'basement-8.jpg' },
+    { t: 'Basement', src: P+'basement-9.jpg' },
+    { t: 'Basement', src: P+'basement-10.jpg' },
+    { t: 'Basement', src: P+'basement-11.jpg' },
+    { t: 'Basement', src: P+'basement-12.jpg' },
+    { t: 'Basement', src: P+'basement-13.jpg' },
+    { t: 'Basement', src: P+'basement-14.jpg' },
+    { t: 'Basement', src: P+'basement-15.jpg' },
   ]},
 ];
 const allPhotos = [];
