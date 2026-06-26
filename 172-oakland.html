@@ -591,14 +591,14 @@ document.querySelectorAll('#navlinks a').forEach(a =>
 
 /* ---- ROOMS ---- */
 const rooms = [
-  { num: 'Room 1', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: 'Contact for pricing' },
-  { num: 'Room 2', name: 'Queen + Sofa Room', beds: '1 Queen Bed + Sofa Bed', detail: 'Flexible for 1–3 occupants · keyed lock', price: 'Contact for pricing' },
-  { num: 'Room 3', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: 'Contact for pricing' },
-  { num: 'Room 4', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: 'Contact for pricing' },
-  { num: 'Room 5', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: 'Contact for pricing' },
-  { num: 'Room 6', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: 'Contact for pricing' },
-  { num: 'Room 7', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: 'Contact for pricing' },
-  { num: 'Room 8', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: 'Contact for pricing' },
+  { num: 'Room 1', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600' },
+  { num: 'Room 2', name: 'Queen + Sofa Room', beds: '1 Queen Bed + Sofa Bed', detail: 'Flexible for 1–3 occupants · keyed lock', price: '$1,600' },
+  { num: 'Room 3', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300' },
+  { num: 'Room 4', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300' },
+  { num: 'Room 5', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300' },
+  { num: 'Room 6', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300' },
+  { num: 'Room 7', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600' },
+  { num: 'Room 8', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300' },
 ];
 
 const roomsGrid = document.getElementById('rooms-grid');
@@ -615,7 +615,7 @@ rooms.forEach(r => {
     <div class="room-body">
       <h3>${r.name}</h3>
       <p class="room-detail">${r.beds} · ${r.detail}</p>
-      <div class="room-price">${r.price === 'Contact for pricing' ? '<span style="font-family:Inter,sans-serif;font-size:.88rem;color:var(--gold);font-weight:600">Contact for pricing</span>' : r.price + ' <span>/mo · utilities incl.</span>'}</div>
+      <div class="room-price">${r.price} <span>/mo</span></div>
       <a href="#viewing" class="btn gold" style="margin-top:12px;font-size:.84rem;padding:.65rem 1.2rem">Schedule a Viewing</a>
     </div>`;
   roomsGrid.appendChild(card);
