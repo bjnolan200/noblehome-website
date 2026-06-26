@@ -286,8 +286,8 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   <div class="wrap">
     <span class="badge-avail"><span class="dot"></span> Now Leasing · Rooms Available August 15, 2026</span>
     <span class="eyebrow" style="display:block;margin-top:20px;color:var(--gold-soft)">Providence · 02908</span>
-    <h1>Eight Furnished Rooms on Oakland Avenue.</h1>
-    <p class="lede">A spacious, fully furnished shared home in Providence's Elmhurst neighborhood — 8 bedrooms, 11 beds, finished basement, central AC, pool table, foosball, and tons of parking. Rent a room, share the house. Available August 15. Apply entirely online.</p>
+    <h1>The Roost — 8 Bedrooms on Oakland Avenue.</h1>
+    <p class="lede">A lovingly restored 1920s farmhouse in Providence's Elmhurst neighborhood — 8 private bedrooms with keyed locks, smart TVs, and plush bedding. Chef's kitchen, entertainment lounge with foosball, central AC, washer/dryer, and tons of free parking. Individual room leases available August 15.</p>
     <div class="meta">
       <div class="stat"><b>8</b><span>Bedrooms</span></div>
       <div class="stat"><b>11</b><span>Beds Total</span></div>
@@ -334,8 +334,8 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">The House</span>
-      <h2>A full house of furnished rooms — ready to move in.</h2>
-      <p>172 Oakland Avenue is a large, fully furnished shared home available for room-by-room rental. With 8 bedrooms and 11 beds, there's space for individuals and groups alike. Common areas include a spacious living room, formal dining room, full kitchen, and a finished basement complete with a pool table and foosball table. Central air conditioning keeps every room comfortable year-round. Smart TVs are in every bedroom. Washer and dryer on-site. Tons of parking out front and in back. Each room is leased individually — ideal for students, travel nurses, professionals relocating to Providence, and anyone who wants a furnished room without the hassle of a whole apartment.</p>
+      <h2>A restored 1920s farmhouse — rooms ready to move in.</h2>
+      <p>172 Oakland Avenue — "The Roost" — is a lovingly restored historic farmhouse available for room-by-room rental. Eight private bedrooms each have keyed locks, plush bedding, blackout curtains, and a smart TV. The chef's kitchen features mahogany cabinetry, stainless steel appliances, a gas range, and a breakfast bar. A finished entertainment lounge with a foosball table and comfortable seating is ideal for movie nights or game-day watch parties. Central AC, washer/dryer on-site, and free parking for multiple cars. Each room is leased individually — ideal for students, travel nurses, professionals relocating to Providence, and anyone who wants a quality furnished room without the hassle of a whole apartment.</p>
     </div>
     <div class="specs">
       <div class="spec">
@@ -381,12 +381,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       <h2>Step inside 172 Oakland Avenue.</h2>
       <p>Click any photo to view it full screen.</p>
     </div>
-    <div id="gallery-groups">
-      <div class="gallery-placeholder">
-        <svg class="gp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <p><strong>Photos coming soon.</strong><br>We're preparing the full photo gallery for 172 Oakland Avenue.<br>Schedule a viewing to see the house in person.</p>
-      </div>
-    </div>
+    <div id="gallery-groups"></div>
   </div>
 </section>
 
@@ -596,14 +591,14 @@ document.querySelectorAll('#navlinks a').forEach(a =>
 
 /* ---- ROOMS ---- */
 const rooms = [
-  { num: 'Room 1', name: 'Queen Suite', beds: '1 Queen Bed', detail: 'Spacious room, private feel', price: 'Contact for pricing' },
-  { num: 'Room 2', name: 'Double Room', beds: '2 Twin Beds', detail: 'Great for two occupants', price: 'Contact for pricing' },
-  { num: 'Room 3', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Comfortable private room', price: 'Contact for pricing' },
-  { num: 'Room 4', name: 'Twin Room', beds: '1 Twin Bed', detail: 'Cozy private room', price: 'Contact for pricing' },
-  { num: 'Room 5', name: 'King Suite', beds: '1 King Bed', detail: 'Largest room in the house', price: 'Contact for pricing' },
-  { num: 'Room 6', name: 'Double Room', beds: '2 Twin Beds', detail: 'Ideal for two occupants', price: 'Contact for pricing' },
-  { num: 'Room 7', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Bright and well-appointed', price: 'Contact for pricing' },
-  { num: 'Room 8', name: 'Double Room', beds: '2 Twin Beds', detail: 'Flexible for pairs or solo', price: 'Contact for pricing' },
+  { num: 'Room 1', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: 'Contact for pricing' },
+  { num: 'Room 2', name: 'Queen + Sofa Room', beds: '1 Queen Bed + Sofa Bed', detail: 'Flexible for 1–3 occupants · keyed lock', price: 'Contact for pricing' },
+  { num: 'Room 3', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: 'Contact for pricing' },
+  { num: 'Room 4', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: 'Contact for pricing' },
+  { num: 'Room 5', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: 'Contact for pricing' },
+  { num: 'Room 6', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: 'Contact for pricing' },
+  { num: 'Room 7', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: 'Contact for pricing' },
+  { num: 'Room 8', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: 'Contact for pricing' },
 ];
 
 const roomsGrid = document.getElementById('rooms-grid');
@@ -650,8 +645,52 @@ amenities.forEach(([t, d]) => {
   ag.appendChild(el);
 });
 
-/* ---- LIGHTBOX (for when gallery photos are added) ---- */
-const photos = [];
+/* ---- GALLERY ---- */
+const BASE = 'https://a0.muscache.com/im/pictures/hosting/';
+const H1 = 'Hosting-1487582635915320379/original/';
+const H2 = 'Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTQ4NzU4MjYzNTkxNTMyMDM3OQ==/original/';
+const galleryGroups = [
+  { g: 'The House', sub: 'Exterior & Common Areas', items: [
+    { t: 'Exterior', src: BASE+H1+'0d66898f-233b-46e5-934d-bb64f3af0a22.jpeg' },
+    { t: 'House', src: BASE+H1+'5e45f82a-f9a5-46c5-a8b0-8e5b0cefefe5.jpeg' },
+    { t: 'House', src: BASE+H1+'def55637-47be-452b-8093-bf7776fbcaec.jpeg' },
+    { t: 'Kitchen', src: BASE+H2+'0c1ab082-426a-4cec-a496-e3c8dbde9e12.jpeg' },
+    { t: 'Kitchen', src: BASE+H2+'dd0ff558-3471-4b00-b39e-6a2ba02ae245.jpeg' },
+    { t: 'Living Area', src: BASE+H2+'492aa7a8-fa12-4377-98b4-052cb2832491.jpeg' },
+  ]},
+  { g: 'Bedrooms & More', sub: 'Furnished Rooms', items: [
+    { t: 'Bedroom', src: BASE+H2+'d78079c9-33f8-4a36-ba7e-52bf741af0be.jpeg' },
+    { t: 'Bedroom', src: BASE+H2+'42ace6b2-b769-46b0-a059-0b12e7b96ce8.jpeg' },
+    { t: 'Bedroom', src: BASE+H2+'ea9603fb-2407-4168-be8e-fd206b4eaa34.jpeg' },
+    { t: 'Room', src: BASE+H2+'10de68e8-831c-4b59-b756-019500ba7aeb.jpeg' },
+    { t: 'Room', src: BASE+H2+'17d3ed52-c652-412e-84ac-4d1bc5055a02.jpeg' },
+    { t: 'Room', src: BASE+H2+'fe67c63e-4708-405a-b77d-a16fe8882d3e.jpeg' },
+  ]},
+];
+const allPhotos = [];
+galleryGroups.forEach(g => g.items.forEach(it => allPhotos.push(it)));
+const galleryWrap = document.getElementById('gallery-groups');
+let gIdx = 0;
+galleryGroups.forEach(g => {
+  const h = document.createElement('h3');
+  h.className = 'gallery-group-title';
+  h.innerHTML = `<span>${g.sub}</span>${g.g}`;
+  galleryWrap.appendChild(h);
+  const grid = document.createElement('div');
+  grid.className = 'gallery';
+  g.items.forEach((p, j) => {
+    const i = gIdx++;
+    const fig = document.createElement('figure');
+    if (j === 0) fig.classList.add('big');
+    fig.innerHTML = `<img src="${p.src}" alt="${p.t}" loading="lazy" data-i="${i}"><figcaption>${p.t}</figcaption>`;
+    fig.addEventListener('click', () => openLB(i));
+    grid.appendChild(fig);
+  });
+  galleryWrap.appendChild(grid);
+});
+
+/* ---- LIGHTBOX ---- */
+const photos = allPhotos;
 const lb = document.getElementById('lightbox');
 const lbImg = document.getElementById('lbImg');
 const lbCap = document.getElementById('lbCap');
@@ -659,6 +698,7 @@ let cur = 0;
 function openLB(i) { cur = i; renderLB(); lb.classList.add('open'); }
 function renderLB() { const p = photos[cur]; lbImg.src = p.src; lbCap.textContent = `${p.t} — ${cur + 1} / ${photos.length}`; }
 function closeLB() { lb.classList.remove('open'); }
+
 document.getElementById('lbClose').onclick = closeLB;
 lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
 document.getElementById('lbNext').onclick = e => { e.stopPropagation(); cur = (cur + 1) % photos.length; renderLB(); };
