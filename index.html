@@ -57,16 +57,12 @@ img{max-width:100%;display:block}
 .btn.gold:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
 .btn.ghost{background:transparent;color:var(--navy)}
 .btn.ghost:hover{background:var(--navy);color:#fff}
-
-/* PROPERTY SWITCHER */
 .prop-bar{background:var(--navy-deep);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}
 .prop-bar .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .prop-bar .label{font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7d868f}
 .prop-pill{font-size:.82rem;font-weight:600;padding:.3rem .9rem;border-radius:50px;border:1.5px solid transparent;color:#aeb6bf;transition:.2s}
 .prop-pill:hover{color:#fff}
 .prop-pill.active{background:var(--gold);border-color:var(--gold);color:#fff}
-
-/* LOGO MARQUEE */
 .marquee-section{padding:32px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--cream);overflow:hidden}
 .marquee-label{text-align:center;font-size:.7rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
 .marquee-outer{overflow:hidden;position:relative}
@@ -80,8 +76,6 @@ img{max-width:100%;display:block}
 .m-logo img{height:36px;width:auto;max-width:140px;object-fit:contain;filter:grayscale(100%) opacity(50%);transition:filter .3s}
 .m-logo img:hover{filter:grayscale(0%) opacity(100%)}
 .m-logo .m-fallback{display:none;font-size:.8rem;font-weight:700;color:var(--muted);white-space:nowrap;letter-spacing:.03em}
-
-/* NAV */
 header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
 .brand{display:flex;align-items:center;gap:.7rem;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;letter-spacing:.5px}
@@ -97,13 +91,9 @@ header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);bac
   .nav-cta .btn:not(.gold){display:none}
   .menu-btn{display:block}
 }
-
-/* HERO */
 .hero{position:relative;min-height:90vh;display:flex;align-items:center;color:#fff;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1b2733 0%,#26384a 55%,#324a61 100%)}
-.hero-bg::after{content:"";position:absolute;inset:0;background:
-  radial-gradient(circle at 78% 30%, rgba(184,137,59,.28), transparent 42%),
-  radial-gradient(circle at 12% 85%, rgba(184,137,59,.14), transparent 45%);}
+.hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 30%, rgba(184,137,59,.28), transparent 42%),radial-gradient(circle at 12% 85%, rgba(184,137,59,.14), transparent 45%);}
 .hero-grid-overlay{position:absolute;inset:0;opacity:.06;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:60px 60px}
 .hero .wrap{position:relative;z-index:2;width:100%;padding-top:60px;padding-bottom:60px}
 .hero h1{font-size:clamp(2.8rem,6vw,4.8rem);color:#fff;margin:.6rem 0 1rem;max-width:14ch}
@@ -118,15 +108,11 @@ header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);bac
 .hero-actions .btn.gold{background:var(--gold);color:#fff;border-color:var(--gold)}
 .badge-avail{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:.4rem .9rem;border-radius:50px;font-size:.78rem;font-weight:500;letter-spacing:.04em}
 .badge-avail .dot{width:8px;height:8px;border-radius:50%;background:#5fd08a;box-shadow:0 0 0 4px rgba(95,208,138,.25)}
-
-/* SECTION */
 section{padding:92px 0}
 .section-head{max-width:62ch;margin-bottom:48px}
 .section-head h2{font-size:clamp(2rem,4vw,2.9rem);margin:.5rem 0 .8rem}
 .section-head p{color:var(--muted);font-size:1.06rem}
 .alt{background:var(--cream)}
-
-/* OVERVIEW / SPECS */
 .specs{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .spec{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px;transition:.25s}
 .spec:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
@@ -135,8 +121,6 @@ section{padding:92px 0}
 .spec span{color:var(--muted);font-size:.86rem}
 .ph{color:var(--gold);font-style:italic}
 @media(max-width:860px){.specs{grid-template-columns:repeat(2,1fr)}}
-
-/* GALLERY */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
 .gallery figure{position:relative;overflow:hidden;border-radius:12px;cursor:pointer;background:var(--cream)}
 .gallery figure.big{grid-column:span 2;grid-row:span 2}
@@ -149,8 +133,6 @@ section{padding:92px 0}
 .gallery-group-title:first-child{margin-top:0}
 .gallery-group-title span{display:block;font-family:Inter,sans-serif;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:#c9a25b;font-weight:600;margin-bottom:2px}
 .gallery+.gallery-group-title{margin-top:34px}
-
-/* LIGHTBOX */
 .lightbox{position:fixed;inset:0;background:rgba(15,20,26,.94);z-index:200;display:none;align-items:center;justify-content:center;padding:30px}
 .lightbox.open{display:flex}
 .lightbox img{max-width:90vw;max-height:82vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
@@ -159,16 +141,12 @@ section{padding:92px 0}
 .lightbox .lb-nav:hover{opacity:1}
 .lb-prev{left:6px}.lb-next{right:6px}
 .lb-cap{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:#dfe3e8;font-size:.9rem}
-
-/* AMENITIES */
 .amenities{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .amenity{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px}
 .amenity .check{flex:none;width:30px;height:30px;border-radius:50%;background:var(--gold-tint);color:var(--gold);display:grid;place-items:center;font-weight:700}
 .amenity b{font-size:.98rem}
 .amenity span{color:var(--muted);font-size:.85rem}
 @media(max-width:860px){.amenities{grid-template-columns:1fr}}
-
-/* SPLIT (neighborhood) */
 .split{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
 .split .media{border-radius:var(--radius);overflow:hidden;min-height:380px;box-shadow:var(--shadow)}
 .split .media img{width:100%;height:100%;object-fit:cover}
@@ -177,8 +155,6 @@ section{padding:92px 0}
 .poi b{font-family:'Cormorant Garamond',serif;font-size:1.3rem}
 .poi span{display:block;color:var(--muted);font-size:.82rem}
 @media(max-width:860px){.split{grid-template-columns:1fr}}
-
-/* FORMS */
 .forms-grid{display:grid;grid-template-columns:1fr;gap:30px;max-width:620px;margin:0 auto}
 .card-form{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:36px;box-shadow:var(--shadow-sm)}
 .card-form h3{font-size:1.8rem;margin-bottom:.3rem}
@@ -192,8 +168,6 @@ section{padding:92px 0}
 .form-note{font-size:.78rem;color:var(--muted);margin-top:10px}
 .form-ok{display:none;background:var(--gold-tint);border:1px solid var(--gold-soft);color:#7a5a1f;padding:14px 16px;border-radius:10px;font-size:.9rem;margin-bottom:18px}
 .form-ok.show{display:block}
-
-/* PORTAL */
 .portal{background:var(--navy);color:#fff;position:relative;overflow:hidden}
 .portal::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(184,137,59,.25),transparent 45%)}
 .portal .wrap{position:relative;z-index:2}
@@ -209,15 +183,11 @@ section{padding:92px 0}
 .portal-login .btn{background:var(--gold);border-color:var(--gold)}
 .portal-login span{color:#aab3bd;font-size:.86rem}
 @media(max-width:860px){.portal-grid{grid-template-columns:1fr}}
-
-/* CONTACT STRIP */
 .contact-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;text-align:center}
 .contact-strip .c b{display:block;font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin-top:8px}
 .contact-strip .c .ico{width:30px;height:30px;color:var(--gold);margin:0 auto}
 .contact-strip a{color:var(--gold);font-weight:600}
 @media(max-width:760px){.contact-strip{grid-template-columns:1fr;gap:30px}}
-
-/* FOOTER */
 footer{background:var(--navy-deep);color:#aeb6bf;padding:54px 0 30px;font-size:.88rem}
 footer .f-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.08)}
 footer .brand{color:#fff}
@@ -229,7 +199,6 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
 </head>
 <body>
 
-<!-- PROPERTY SWITCHER BAR -->
 <div class="prop-bar">
   <div class="wrap">
     <span class="label">Our Properties</span>
@@ -238,7 +207,6 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   </div>
 </div>
 
-<!-- NAV -->
 <header class="nav">
   <div class="wrap nav-inner">
     <a href="#top" class="brand">
@@ -260,23 +228,22 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       <a href="https://rental.turbotenant.com/p/184-oakland-ave-providence-ri-unit-1/52bfa041-426d-47eb-b60a-057d8c3ad957" target="_blank" rel="noopener" class="btn ghost">Apply Now</a>
       <a href="#viewing" class="btn gold">Schedule a Viewing</a>
     </div>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">&#9776;</button>
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-bg"><div class="hero-grid-overlay"></div></div>
   <div class="wrap">
-    <span class="badge-avail"><span class="dot"></span> Now Leasing · Available August 15, 2026</span>
-    <span class="eyebrow" style="display:block;margin-top:20px;color:var(--gold-soft)">Providence · 02908</span>
+    <span class="badge-avail"><span class="dot"></span> Now Leasing &middot; Available August 15, 2026</span>
+    <span class="eyebrow" style="display:block;margin-top:20px;color:var(--gold-soft)">Providence &middot; 02908</span>
     <h1>A Refined Duplex on Oakland Avenue.</h1>
-    <p class="lede">A fully furnished duplex in Providence's Elmhurst neighborhood — minutes from PC, RIC, and the hospitals. Available for 6 or 12-month leases. Tenants pay utilities. Apply entirely online.</p>
+    <p class="lede">A fully furnished duplex in Providence's Elmhurst neighborhood — minutes from PC, RIC, and the hospitals. Available for 1-month leases. Rent a private room or the entire unit. Tenants pay utilities. Apply entirely online.</p>
     <div class="meta">
       <div class="stat"><b>2</b><span>Bedrooms</span></div>
       <div class="stat"><b>1</b><span>Bathroom</span></div>
-      <div class="stat"><b>Furnished</b><span>Turnkey</span></div>
-      <div class="stat"><b>$2,600</b><span>Per Month, Utils Incl.</span></div>
+      <div class="stat"><b>$1,300</b><span>Per Room / Month</span></div>
+      <div class="stat"><b>$2,600</b><span>Full Unit / Month</span></div>
     </div>
     <div class="hero-actions">
       <a href="#viewing" class="btn gold">Schedule a Viewing</a>
@@ -285,12 +252,10 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   </div>
 </section>
 
-<!-- PAST RESIDENTS MARQUEE -->
 <section class="marquee-section">
   <p class="marquee-label">Past guests have come from</p>
   <div class="marquee-outer">
     <div class="marquee-track" id="marquee-track">
-      <!-- set 1 -->
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/General_Dynamics_logo.svg/250px-General_Dynamics_logo.svg.png" alt="General Dynamics" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">General Dynamics</span></div>
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Terminix_logo.svg/250px-Terminix_logo.svg.png" alt="Terminix" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Terminix</span></div>
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/96/ProvidenceCollegeSeal.png/250px-ProvidenceCollegeSeal.png" alt="Providence College" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Providence College</span></div>
@@ -300,7 +265,6 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Bryant_University_seal.svg/250px-Bryant_University_seal.svg.png" alt="Bryant University" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Bryant University</span></div>
       <div class="m-logo"><img src="https://www.ric.edu/themes/custom/ric/assets/img/rhode-island-college-logo.svg" alt="Rhode Island College" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Rhode Island College</span></div>
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4f/Brown_University_Health_System_Logo_2024.svg/250px-Brown_University_Health_System_Logo_2024.svg.png" alt="Rhode Island Hospital" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Rhode Island Hospital</span></div>
-      <!-- set 2 — duplicate for seamless loop -->
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/General_Dynamics_logo.svg/250px-General_Dynamics_logo.svg.png" alt="General Dynamics" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">General Dynamics</span></div>
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Terminix_logo.svg/250px-Terminix_logo.svg.png" alt="Terminix" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Terminix</span></div>
       <div class="m-logo"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/96/ProvidenceCollegeSeal.png/250px-ProvidenceCollegeSeal.png" alt="Providence College" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="m-fallback">Providence College</span></div>
@@ -314,13 +278,12 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   </div>
 </section>
 
-<!-- OVERVIEW -->
 <section id="home">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">The Residence</span>
       <h2>Move-in ready, in a neighborhood that has it all.</h2>
-      <p>184 Oakland Avenue is a fully furnished duplex unit offering bright, comfortable space in Providence's Elmhurst neighborhood — minutes from Providence College and RIC, with an easy commute to the city's hospitals. Each unit comes turnkey: beds, sofas, dining set, smart TVs, and a fully equipped kitchen. Skip the furniture shopping and move in ready to go. A shared washer and dryer are on-site in the building. Utilities are included in the rent (electric, gas, water, and WiFi) — no extra bills to manage. We offer 6 and 12-month leases — ideal for professionals relocating to Providence, graduate students, and anyone who wants a quality furnished home without the hassle of setting up from scratch.</p>
+      <p>184 Oakland Avenue is a fully furnished duplex offering bright, comfortable space in Providence's Elmhurst neighborhood — minutes from Providence College and RIC, with an easy commute to the city's hospitals. Each unit comes turnkey: beds, sofas, dining set, smart TVs, and a fully equipped kitchen. Skip the furniture shopping and move in ready to go. A shared washer and dryer are on-site in the building. Utilities are included in the rent (electric, gas, water, and WiFi) — no extra bills to manage. Flexible 1-month leases available — rent a private room for $1,300/month or take the entire unit for $2,600/month. Ideal for professionals relocating to Providence, graduate students, and anyone who wants a quality furnished home without the hassle of setting up from scratch.</p>
     </div>
     <div class="specs">
       <div class="spec">
@@ -343,7 +306,6 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   </div>
 </section>
 
-<!-- GALLERY -->
 <section id="gallery" class="alt">
   <div class="wrap">
     <div class="section-head">
@@ -355,7 +317,6 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   </div>
 </section>
 
-<!-- AMENITIES -->
 <section id="amenities">
   <div class="wrap">
     <div class="section-head">
@@ -367,7 +328,6 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   </div>
 </section>
 
-<!-- NEIGHBORHOOD -->
 <section id="neighborhood" class="alt">
   <div class="wrap split">
     <div>
@@ -382,19 +342,11 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       </div>
     </div>
     <div class="media">
-      <iframe
-        src="https://maps.google.com/maps?q=184+Oakland+Avenue+Providence+RI+02908&output=embed&z=16"
-        width="100%" height="100%"
-        style="border:0;min-height:380px;border-radius:var(--radius);display:block"
-        allowfullscreen loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="184 Oakland Avenue, Providence RI on Google Maps">
-      </iframe>
+      <iframe src="https://maps.google.com/maps?q=184+Oakland+Avenue+Providence+RI+02908&output=embed&z=16" width="100%" height="100%" style="border:0;min-height:380px;border-radius:var(--radius);display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="184 Oakland Avenue, Providence RI on Google Maps"></iframe>
     </div>
   </div>
 </section>
 
-<!-- FORMS: VIEWING + APPLY -->
 <section id="viewing">
   <div class="wrap">
     <div class="section-head">
@@ -403,8 +355,6 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       <p>Interested? Request a tour with our property manager, Bradford. We'll be in touch promptly.</p>
     </div>
     <div class="forms-grid">
-
-      <!-- VIEWING -->
       <div class="card-form">
         <h3>Schedule a Viewing</h3>
         <p class="sub">Request a tour with Bradford, our property manager.</p>
@@ -435,24 +385,23 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
             <div><label># of Occupants</label><input type="number" name="occupants" min="1"></div>
           </div>
           <div class="field"><label>Monthly Income</label><input name="income" placeholder="$ / month"></div>
-          <div class="field"><label>Unit Preference (optional)</label>
+          <div class="field"><label>Rental Preference (optional)</label>
             <select name="unit_preference">
               <option value="">No preference / let's discuss</option>
-              <option>Unit 1 — First Floor</option>
-              <option>Unit 2 — Second Floor</option>
+              <option>Private Room — $1,300/month</option>
+              <option>Full Unit (Unit 1 — First Floor) — $2,600/month</option>
+              <option>Full Unit (Unit 2 — Second Floor) — $2,600/month</option>
             </select>
           </div>
           <div class="field"><label>Message (optional)</label><textarea name="msg" placeholder="Anything we should know?"></textarea></div>
           <button type="submit" class="btn gold" style="width:100%;justify-content:center">Request Viewing</button>
-          <p class="form-note">We'll receive your request instantly and reply by email or phone. Text scheduling can be added later.</p>
+          <p class="form-note">We'll receive your request instantly and reply by email or phone.</p>
         </form>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- TENANT PORTAL -->
 <section id="portal" class="portal">
   <div class="wrap">
     <div class="section-head">
@@ -482,12 +431,11 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
     </div>
     <div class="portal-login">
       <a href="https://rental.turbotenant.com/auth/login" target="_blank" rel="noopener" class="btn gold">Resident Login</a>
-      <span>Not a resident yet? <a href="#viewing" style="color:var(--gold-soft);font-weight:600">Schedule a viewing →</a></span>
+      <span>Not a resident yet? <a href="#viewing" style="color:var(--gold-soft);font-weight:600">Schedule a viewing &rarr;</a></span>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section>
   <div class="wrap">
     <div class="section-head" style="text-align:center;margin:0 auto 48px">
@@ -514,7 +462,6 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="wrap">
     <div class="f-top">
@@ -534,31 +481,25 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       </div>
     </div>
     <div class="f-bot">
-      <span>© <span id="year"></span> Noble Home LLC. All rights reserved.</span>
-      <span>184 Oakland Avenue · Providence, RI 02908</span>
+      <span>&copy; <span id="year"></span> Noble Home LLC. All rights reserved.</span>
+      <span>184 Oakland Avenue &middot; Providence, RI 02908</span>
     </div>
     <p class="eho">Noble Home is an equal housing opportunity provider. We do not discriminate on the basis of race, color, religion, sex, national origin, familial status, disability, or any other protected class.</p>
   </div>
 </footer>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
-  <span class="lb-close" id="lbClose">×</span>
-  <span class="lb-nav lb-prev" id="lbPrev">‹</span>
+  <span class="lb-close" id="lbClose">&times;</span>
+  <span class="lb-nav lb-prev" id="lbPrev">&#8249;</span>
   <img id="lbImg" alt="">
-  <span class="lb-nav lb-next" id="lbNext">›</span>
+  <span class="lb-nav lb-next" id="lbNext">&#8250;</span>
   <div class="lb-cap" id="lbCap"></div>
 </div>
 
 <script>
-/* ---- year ---- */
 document.getElementById('year').textContent=new Date().getFullYear();
-
-/* ---- mobile menu ---- */
 document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
 document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
-
-/* ---- placeholder photo generator (SVG data URIs) ---- */
 const groups=[
   {g:'Whole House',sub:'Exterior & Floor Plan',items:[
     {t:'Exterior',src:'images/33.jpg'},{t:'Rear & Deck',src:'images/31.jpg'},
@@ -586,18 +527,6 @@ const groups=[
     {t:'Interior',src:'images/17.jpg'}
   ]}
 ];
-function svgPhoto(label,color){
-  const s=`<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
-    <defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
-    <stop offset='0' stop-color='${color}'/><stop offset='1' stop-color='#1b2733'/></linearGradient></defs>
-    <rect width='800' height='600' fill='url(#g)'/>
-    <g fill='none' stroke='#c9a25b' stroke-width='3' opacity='.55'>
-      <path d='M250 360V250l150-95 150 95v110'/><path d='M340 360v-70h120v70'/></g>
-    <text x='400' y='460' font-family='Georgia,serif' font-size='34' fill='#f3ead8' text-anchor='middle'>${label}</text>
-    <text x='400' y='498' font-family='Inter,sans-serif' font-size='16' fill='#c9a25b' letter-spacing='3' text-anchor='middle'>PHOTO PLACEHOLDER</text>
-  </svg>`;
-  return 'data:image/svg+xml;utf8,'+encodeURIComponent(s);
-}
 const photos=[];
 groups.forEach(g=>g.items.forEach(it=>photos.push(it)));
 const wrap=document.getElementById('gallery-groups');
@@ -605,7 +534,7 @@ let idx=0;
 groups.forEach(g=>{
   const h=document.createElement('h3');
   h.className='gallery-group-title';
-  h.innerHTML=`<span>${g.sub}</span>${g.g}`;
+  h.innerHTML='<span>'+g.sub+'</span>'+g.g;
   wrap.appendChild(h);
   const grid=document.createElement('div');
   grid.className='gallery';
@@ -613,14 +542,12 @@ groups.forEach(g=>{
     const i=idx++;
     const fig=document.createElement('figure');
     if(j===0) fig.classList.add('big');
-    fig.innerHTML=`<img src="${p.src}" alt="${p.t}" loading="lazy" data-i="${i}"><figcaption>${p.t}</figcaption>`;
+    fig.innerHTML='<img src="'+p.src+'" alt="'+p.t+'" loading="lazy" data-i="'+i+'"><figcaption>'+p.t+'</figcaption>';
     fig.addEventListener('click',()=>openLB(i));
     grid.appendChild(fig);
   });
   wrap.appendChild(grid);
 });
-
-/* ---- amenities ---- */
 const amenities=[
   ['Fully Furnished','Beds, sofas, dining set & more'],
   ['Smart TVs','Included in every unit'],
@@ -628,64 +555,47 @@ const amenities=[
   ['Washer & Dryer','Shared, on-site in basement'],
   ['Utilities Included','Electric, gas, water & WiFi'],
   ['Private Entrance','Duplex unit'],
-  ['6 & 12-Month Leases','Long-term furnished rentals'],
+  ['1-Month Leases','Flexible monthly furnished rentals'],
   ['Parking','Available on-site'],
   ['Air Conditioning','Included'],
-  ['Pet Friendly','Allowed · fee applies']
+  ['Pet Friendly','Allowed - fee applies']
 ];
 const ag=document.getElementById('amenities-grid');
 amenities.forEach(([t,d])=>{
   const el=document.createElement('div');el.className='amenity';
-  const dClass = d.startsWith('[') ? 'ph' : '';
-  el.innerHTML=`<div class="check">✓</div><div><b>${t}</b><br><span class="${dClass}">${d}</span></div>`;
+  el.innerHTML='<div class="check">&#10003;</div><div><b>'+t+'</b><br><span>'+d+'</span></div>';
   ag.appendChild(el);
 });
-
-/* ---- lightbox ---- */
 let cur=0;
 const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
 function openLB(i){cur=i;render();lb.classList.add('open')}
-function render(){const p=photos[cur];lbImg.src=p.src;lbCap.textContent=`${p.t} — ${cur+1} / ${photos.length}`}
+function render(){const p=photos[cur];lbImg.src=p.src;lbCap.textContent=p.t+' — '+(cur+1)+' / '+photos.length}
 function close(){lb.classList.remove('open')}
 document.getElementById('lbClose').onclick=close;
 lb.addEventListener('click',e=>{if(e.target===lb)close()});
 document.getElementById('lbNext').onclick=e=>{e.stopPropagation();cur=(cur+1)%photos.length;render()};
 document.getElementById('lbPrev').onclick=e=>{e.stopPropagation();cur=(cur-1+photos.length)%photos.length;render()};
 document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowRight')document.getElementById('lbNext').click();if(e.key==='ArrowLeft')document.getElementById('lbPrev').click()});
-
-/* ---- forms -> Web3Forms (AJAX submit, stay on page) ---- */
 function handleForm(formId,okId){
   const form=document.getElementById(formId);
   form.addEventListener('submit',function(e){
     e.preventDefault();
     const data=Object.fromEntries(new FormData(form).entries());
     const btn=form.querySelector('button[type="submit"]');
-    const label=btn.textContent;btn.textContent='Sending…';btn.disabled=true;
+    const label=btn.textContent;btn.textContent='Sending...';btn.disabled=true;
     const ctrl=new AbortController();
     const timer=setTimeout(()=>ctrl.abort(),15000);
-    fetch('https://api.web3forms.com/submit',{
-      method:'POST',
-      signal:ctrl.signal,
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify(data)
-    })
+    fetch('https://api.web3forms.com/submit',{method:'POST',signal:ctrl.signal,headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
     .then(r=>r.json())
     .then(res=>{
-      if(res.success){
-        document.getElementById(okId).classList.add('show');
-        form.reset();
-        document.getElementById(okId).scrollIntoView({behavior:'smooth',block:'center'});
-      }else{
-        alert('Sorry, something went wrong. Please email acresandhomesri@gmail.com.');
-      }
+      if(res.success){document.getElementById(okId).classList.add('show');form.reset();document.getElementById(okId).scrollIntoView({behavior:'smooth',block:'center'});}
+      else{alert('Sorry, something went wrong. Please email acresandhomesri@gmail.com.');}
     })
-    .catch(()=>{alert('Sorry, something went wrong sending your request. Please email acresandhomesri@gmail.com.');})
+    .catch(()=>{alert('Sorry, something went wrong. Please email acresandhomesri@gmail.com.');})
     .finally(()=>{clearTimeout(timer);btn.textContent=label;btn.disabled=false;});
   });
 }
 handleForm('form-view','ok-view');
-
-/* ---- viewing time slot filtering ---- */
 const WEEKDAY_SLOTS=['4:30 PM','5:00 PM','5:30 PM','6:00 PM'];
 const SAT_SLOTS=['7:00 AM','7:30 AM','8:00 AM','8:30 AM','9:00 AM'];
 function updateTimeSlots(val){
@@ -693,20 +603,13 @@ function updateTimeSlots(val){
   const note=document.getElementById('time-note');
   sel.innerHTML='';
   if(!val){sel.innerHTML='<option value="">— pick a date first —</option>';note.style.display='none';return;}
-  // parse as local date to avoid UTC offset shifting the day
   const [y,m,d]=val.split('-').map(Number);
-  const day=new Date(y,m-1,d).getDay(); // 0=Sun,6=Sat
+  const day=new Date(y,m-1,d).getDay();
   let slots=[];
-  if(day>=1&&day<=5){slots=WEEKDAY_SLOTS;note.textContent='Available Mon–Fri, 4:30 PM – 6:00 PM';}
-  else if(day===6){slots=SAT_SLOTS;note.textContent='Available Saturday, 7:00 AM – 9:00 AM';}
-  if(slots.length){
-    note.style.display='block';
-    sel.innerHTML='<option value="">Select a time</option>'+slots.map(s=>`<option>${s}</option>`).join('');
-  }else{
-    note.textContent='No viewing slots on Sundays. Please pick a weekday or Saturday.';
-    note.style.display='block';
-    sel.innerHTML='<option value="">No slots available</option>';
-  }
+  if(day>=1&&day<=5){slots=WEEKDAY_SLOTS;note.textContent='Available Mon-Fri, 4:30 PM - 6:00 PM';}
+  else if(day===6){slots=SAT_SLOTS;note.textContent='Available Saturday, 7:00 AM - 9:00 AM';}
+  if(slots.length){note.style.display='block';sel.innerHTML='<option value="">Select a time</option>'+slots.map(s=>'<option>'+s+'</option>').join('');}
+  else{note.textContent='No viewing slots on Sundays. Please pick a weekday or Saturday.';note.style.display='block';sel.innerHTML='<option value="">No slots available</option>';}
 }
 </script>
 </body>
