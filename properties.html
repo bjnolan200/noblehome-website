@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Our Properties · Noble Home — Providence, RI</title>
+<meta name="description" content="Noble Home rental properties in Providence, RI — 184 Oakland Avenue furnished duplex and 172 Oakland Avenue furnished rooms for rent. Apply online." />
+
+<!-- Favicon (Noble Home mark) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%231b2733'/%3E%3Cpath d='M9 27V17l11-7 11 7v10' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3Cpath d='M16 27v-6h8v6' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Our Properties · Noble Home" />
+<meta property="og:description" content="Two furnished rental properties in Providence's Elmhurst neighborhood." />
+<meta property="og:url" content="https://noblehomeri.com/properties.html" />
+<meta property="og:image" content="https://noblehomeri.com/og-image.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#13171c; --ink-soft:#3a4149; --muted:#727b85; --line:#e7e3da;
+  --cream:#f7f4ec; --paper:#ffffff; --navy:#1b2733; --navy-deep:#121a23;
+  --gold:#b8893b; --gold-soft:#c9a25b; --gold-tint:#f3ead8;
+  --radius:14px; --shadow:0 18px 50px -20px rgba(18,26,35,.35);
+  --shadow-sm:0 8px 24px -12px rgba(18,26,35,.25); --max:1180px;
+}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 26px}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.15}
+
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.92rem;padding:.85rem 1.6rem;border-radius:50px;border:1.5px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer;transition:.25s;letter-spacing:.02em}
+.btn:hover{opacity:.9}
+.btn.gold{background:var(--gold);border-color:var(--gold)}
+.btn.gold:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.btn.ghost{background:transparent;color:var(--navy)}
+.btn.ghost:hover{background:var(--navy);color:#fff}
+
+/* property switcher bar */
+.prop-bar{background:var(--navy-deep);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.prop-bar .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.prop-bar .label{font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7d868f;transition:.2s}
+a.prop-bar-label:hover .label{color:var(--gold-soft)}
+.prop-pill{font-size:.82rem;font-weight:600;padding:.3rem .9rem;border-radius:50px;border:1.5px solid transparent;color:#aeb6bf;transition:.2s}
+.prop-pill:hover{color:#fff}
+.prop-pill.active{background:var(--gold);border-color:var(--gold);color:#fff}
+
+/* nav */
+header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:600}
+.brand .mark{width:34px;height:34px}
+.nav-cta{display:flex;gap:.6rem;align-items:center}
+
+/* page head */
+.page-head{background:var(--cream);padding:70px 0 60px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px}
+.page-head h1{font-size:clamp(2.4rem,5vw,3.6rem);margin-bottom:14px}
+.page-head p{color:var(--ink-soft);max-width:620px;font-size:1.02rem}
+
+/* cards */
+.props{padding:64px 0 84px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,1fr));gap:34px}
+.pcard{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow-sm);transition:.28s;display:flex;flex-direction:column}
+.pcard:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.pcard .ph{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--cream)}
+.pcard .ph img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.pcard:hover .ph img{transform:scale(1.04)}
+.tag{position:absolute;top:14px;left:14px;background:rgba(18,26,35,.86);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.34rem .8rem;border-radius:50px;backdrop-filter:blur(4px)}
+.pbody{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1}
+.pbody h2{font-size:1.75rem;margin-bottom:4px}
+.addr{font-size:.86rem;color:var(--muted);margin-bottom:14px}
+.pbody p.desc{color:var(--ink-soft);font-size:.95rem;margin-bottom:18px}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.fact{background:var(--gold-tint);color:#7a5a22;font-size:.78rem;font-weight:600;padding:.32rem .75rem;border-radius:50px}
+.price{border-top:1px solid var(--line);padding-top:16px;margin-top:auto;margin-bottom:18px}
+.price .amt{font-family:'Cormorant Garamond',serif;font-size:1.85rem;font-weight:600;color:var(--navy);line-height:1.1}
+.price .per{font-size:.84rem;color:var(--muted)}
+.pactions{display:flex;gap:.55rem;flex-wrap:wrap}
+
+/* help strip */
+.help{background:var(--navy);color:#fff;padding:52px 0}
+.help .wrap{display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap}
+.help h3{font-size:1.7rem;margin-bottom:6px}
+.help p{color:#aeb6bf;font-size:.95rem}
+.help .btn{background:var(--gold);border-color:var(--gold)}
+
+footer{background:var(--navy-deep);color:#8b949e;padding:38px 0;font-size:.85rem}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a:hover{color:var(--gold-soft)}
+
+@media(max-width:640px){
+  .pgrid{grid-template-columns:1fr}
+  .page-head{padding:50px 0 44px}
+}
+</style>
+</head>
+<body>
+
+<!-- PROPERTY SWITCHER BAR -->
+<div class="prop-bar">
+  <div class="wrap">
+    <a href="properties.html" class="prop-bar-label"><span class="label">Our Properties</span></a>
+    <a href="index.html" class="prop-pill">184 Oakland Ave · Duplex</a>
+    <a href="172-oakland.html" class="prop-pill">172 Oakland Ave · Rooms for Rent</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand">
+      <svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="9" fill="#1b2733"/>
+        <path d="M9 27V17l11-7 11 7v10" stroke="#c9a25b" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M16 27v-6h8v6" stroke="#c9a25b" stroke-width="2.2" stroke-linejoin="round"/>
+      </svg>
+      Noble&nbsp;Home
+    </a>
+    <div class="nav-cta">
+      <a href="https://my.innago.com/a/5Kl8ADNSO2b" target="_blank" rel="noopener" class="btn ghost">Apply Now</a>
+      <a href="index.html#viewing" class="btn gold">Schedule a Viewing</a>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HEAD -->
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">Noble Home · Providence, RI</span>
+    <h1>Our Properties</h1>
+    <p>Two fully furnished homes in Providence's Elmhurst neighborhood — minutes from Providence College, RIC, and the hospitals. Choose a property below to see photos, rooms, and pricing.</p>
+  </div>
+</section>
+
+<!-- PROPERTY CARDS -->
+<section class="props">
+  <div class="wrap">
+    <div class="pgrid">
+
+      <!-- 184 -->
+      <a class="pcard" href="index.html">
+        <div class="ph">
+          <span class="tag">Furnished Duplex</span>
+          <img src="images/33.jpg" alt="184 Oakland Avenue, Providence RI — exterior" loading="lazy" />
+        </div>
+        <div class="pbody">
+          <h2>184 Oakland Avenue</h2>
+          <div class="addr">Providence, RI 02908</div>
+          <p class="desc">A fully furnished duplex. Rent a private room, or take an entire unit for yourself. Turnkey — beds, sofas, dining set, smart TVs and a full kitchen are already there.</p>
+          <div class="facts">
+            <span class="fact">Fully Furnished</span>
+            <span class="fact">1-Month Leases</span>
+            <span class="fact">Washer &amp; Dryer</span>
+            <span class="fact">Parking</span>
+          </div>
+          <div class="price">
+            <div class="amt">$1,300 <span class="per">/ room · or $2,600 full unit</span></div>
+            <div class="per">Plus utilities</div>
+          </div>
+          <div class="pactions">
+            <span class="btn ghost">View Property</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 172 -->
+      <a class="pcard" href="172-oakland.html">
+        <div class="ph">
+          <span class="tag">Rooms for Rent</span>
+          <img src="images/172/exterior-5.jpg" alt="172 Oakland Avenue, Providence RI — exterior" loading="lazy" />
+        </div>
+        <div class="pbody">
+          <h2>172 Oakland Avenue</h2>
+          <div class="addr">Providence, RI 02908</div>
+          <p class="desc">Eight furnished bedrooms in a large, amenity-rich home. Private keyed rooms with shared kitchen, dining and living space — plus a pool table and central air.</p>
+          <div class="facts">
+            <span class="fact">8 Bedrooms</span>
+            <span class="fact">Pool Table</span>
+            <span class="fact">Central A/C</span>
+            <span class="fact">Washer &amp; Dryer</span>
+          </div>
+          <div class="price">
+            <div class="amt">$1,300 – $1,600 <span class="per">/ room</span></div>
+            <div class="per">Per month</div>
+          </div>
+          <div class="pactions">
+            <span class="btn ghost">View Property</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- HELP -->
+<section class="help">
+  <div class="wrap">
+    <div>
+      <h3>Not sure which one fits?</h3>
+      <p>Tell us what you're looking for and we'll point you to the right room.</p>
+    </div>
+    <a href="index.html#viewing" class="btn">Schedule a Viewing</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="yr"></span> Noble Home LLC · Providence, RI</div>
+    <div>
+      <a href="index.html">184 Oakland</a> &nbsp;·&nbsp;
+      <a href="172-oakland.html">172 Oakland</a> &nbsp;·&nbsp;
+      <a href="https://my.innago.com/a/5Kl8ADNSO2b" target="_blank" rel="noopener">Apply</a>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
