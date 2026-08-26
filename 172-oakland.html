@@ -61,7 +61,8 @@ img{max-width:100%;display:block}
 /* PROPERTY SWITCHER */
 .prop-bar{background:var(--navy-deep);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}
 .prop-bar .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.prop-bar .label{font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7d868f}
+.prop-bar .label{font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7d868f;transition:.2s}
+a.prop-bar-label:hover .label{color:var(--gold-soft)}
 .prop-pill{font-size:.82rem;font-weight:600;padding:.3rem .9rem;border-radius:50px;border:1.5px solid transparent;color:#aeb6bf;transition:.2s}
 .prop-pill:hover{color:#fff}
 .prop-pill.active{background:var(--gold);border-color:var(--gold);color:#fff}
@@ -253,7 +254,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
 <!-- PROPERTY SWITCHER BAR -->
 <div class="prop-bar">
   <div class="wrap">
-    <span class="label">Our Properties</span>
+    <a href="properties.html" class="prop-bar-label"><span class="label">Our Properties</span></a>
     <a href="index.html" class="prop-pill">184 Oakland Ave · Duplex</a>
     <a href="172-oakland.html" class="prop-pill active">172 Oakland Ave · Rooms for Rent</a>
   </div>
@@ -695,11 +696,8 @@ const galleryGroups = [
     { t: 'Exterior', src: P+'exterior-9.jpg' },
     { t: 'Exterior', src: P+'exterior-10.jpg' },
     { t: 'Exterior', src: P+'exterior-11.jpg' },
-    { t: 'Exterior', src: P+'exterior-12.jpg' },
     { t: 'Exterior', src: P+'exterior-13.jpg' },
-    { t: 'Exterior', src: P+'exterior-14.jpg' },
     { t: 'Exterior', src: P+'exterior-15.jpg' },
-    { t: 'Exterior', src: P+'exterior-16.jpg' },
     { t: 'Exterior', src: P+'exterior-17.jpg' },
   ]},
   { g: 'Kitchen & Dining', sub: 'Common Areas', items: [
