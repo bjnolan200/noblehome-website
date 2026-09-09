@@ -90,7 +90,8 @@ var NH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxNO4BaVuGIyCqfR1NCId
   var ctrl = new AbortController();
   setTimeout(function () { ctrl.abort(); }, 6000);
 
-  fetch(NH_ENDPOINT, { signal: ctrl.signal })
+  var url = NH_ENDPOINT + (NH_ENDPOINT.indexOf('?') > -1 ? '&' : '?') + 't=' + Date.now();
+  fetch(url, { signal: ctrl.signal, cache: 'no-store' })
     .then(function (r) { return r.json(); })
     .then(function (d) { if (d && d.units) apply(d.units); })
     .catch(function () { /* leave the static text exactly as it is */ });
