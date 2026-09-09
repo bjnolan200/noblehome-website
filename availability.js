@@ -6,7 +6,7 @@
 
    NH_ENDPOINT is filled in once the Apps Script web app is deployed. */
 
-var NH_ENDPOINT = ''; // <-- paste the Apps Script /exec URL here
+var NH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxNO4BaVuGIyCqfR1NCIdrQH0L-7OZQ9zErXgcsYj1N-kNfnfCsbTlFeu27DLGEtOMU_g/exec'; // <-- paste the Apps Script /exec URL here
 
 (function () {
   if (!NH_ENDPOINT) return;
