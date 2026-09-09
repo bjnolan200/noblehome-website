@@ -34,6 +34,7 @@ img{display:block;max-width:100%}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 26px}
 h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.15}
 
+[hidden]{display:none!important}
 .btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.92rem;padding:.85rem 1.6rem;border-radius:50px;border:1.5px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer;transition:.25s;letter-spacing:.02em}
 .btn:hover{opacity:.9}
 .btn.gold{background:var(--gold);border-color:var(--gold)}
@@ -154,7 +155,7 @@ footer a:hover{color:var(--gold-soft)}
       <!-- 184 -->
       <a class="pcard" href="184-oakland.html">
         <div class="ph">
-          <span class="tag">First Floor · Leased</span>
+          <span class="tag" data-nh-tag="184">First Floor · Leased</span>
           <img src="images/33.jpg" alt="184 Oakland Avenue, Providence RI — front of the house" loading="lazy" />
         </div>
         <div class="pbody">
@@ -180,7 +181,7 @@ footer a:hover{color:var(--gold-soft)}
       <!-- 186 -->
       <a class="pcard" href="186-oakland.html">
         <div class="ph">
-          <span class="tag">Second Floor · Leased</span>
+          <span class="tag" data-nh-tag="186">Second Floor · Leased</span>
           <img src="images/30.jpg" alt="186 Oakland Avenue, Providence RI — the house and second-floor entrance" loading="lazy" />
         </div>
         <div class="pbody">
@@ -206,7 +207,7 @@ footer a:hover{color:var(--gold-soft)}
       <!-- 172 -->
       <a class="pcard" href="172-oakland.html">
         <div class="ph">
-          <span class="tag">Rooms for Rent</span>
+          <span class="tag" data-nh-tag="172">Rooms for Rent</span>
           <img src="images/172/exterior-5.jpg" alt="172 Oakland Avenue, Providence RI — exterior" loading="lazy" />
         </div>
         <div class="pbody">
@@ -274,5 +275,6 @@ footer a:hover{color:var(--gold-soft)}
 </footer>
 
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script src="availability.js" defer></script>
 </body>
 </html>

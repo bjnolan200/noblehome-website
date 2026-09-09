@@ -51,6 +51,7 @@ a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 26px}
 .eyebrow{font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+[hidden]{display:none!important}
 .btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.92rem;padding:.85rem 1.6rem;border-radius:50px;border:1.5px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer;transition:.25s;letter-spacing:.02em}
 .btn:hover{background:var(--navy-deep);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
 .btn.gold{background:var(--gold);border-color:var(--gold)}
@@ -319,7 +320,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   <div class="hero-bg"><div class="hero-grid-overlay"></div></div>
   <div class="wrap hero-split">
     <div class="hero-copy">
-    <span class="badge-avail"><span class="dot"></span> Now Leasing · Rooms Available Now</span>
+    <span class="badge-avail" data-nh-badge="172"><span class="dot"></span> Now Leasing · Rooms Available Now</span>
     <span class="eyebrow" style="display:block;margin-top:20px;color:var(--gold-soft)">Providence · 02908</span>
     <h1>The Roost — 8 Bedrooms on Oakland Avenue.</h1>
     <p class="lede">A lovingly restored 1920s farmhouse in Providence's Elmhurst neighborhood — 8 private bedrooms with keyed locks, smart TVs, and plush bedding. Chef's kitchen, entertainment lounge with foosball, central AC, washer/dryer, and tons of free parking. Individual room leases available now.</p>
@@ -534,6 +535,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
           <input type="hidden" name="subject" value="New Waitlist Signup — 172 Oakland Ave" />
           <input type="hidden" name="from_name" value="Noble Home Website" />
           <input type="hidden" name="property" value="172 Oakland Ave" />
+          <input type="hidden" name="availability" data-nh-field="172" value="Available now" />
           <input type="hidden" name="autoresponse" value="Thanks for joining the Noble Home waitlist for 172 Oakland Avenue. There is no fee and no application yet — you are simply in line. We contact people in the order they joined. When a room opens we will email you the application link; the application costs $35 and is run by Innago. Questions in the meantime? Read our step-by-step guide at noblehomeri.com/how-to-apply.pdf or call Jen at (401) 829-6011." />
           <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
           <div class="field two">
@@ -940,5 +942,6 @@ function updateTimeSlots(val) {
 }
 handleForm('form-wait','ok-wait');
 </script>
+<script src="availability.js" defer></script>
 </body>
 </html>
