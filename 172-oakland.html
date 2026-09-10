@@ -64,6 +64,12 @@ img{max-width:100%;display:block}
 .prop-bar .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .prop-bar .label{font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7d868f}
 .prop-pill{font-size:.82rem;font-weight:600;padding:.3rem .9rem;border-radius:50px;border:1.5px solid transparent;color:#aeb6bf;transition:.2s}
+.pstat{white-space:nowrap;font-style:normal;font-size:.64rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.12rem .5rem;border-radius:50px;margin-left:.4rem;background:rgba(255,255,255,.16);color:#e6eaee;vertical-align:.06em}
+.pstat[data-nh-state="available"]{background:#1a7a3f;color:#fff}
+.pstat[data-nh-state="date"]{background:#8a6210;color:#fff}
+.prop-pill.active .pstat{background:rgba(255,255,255,.28);color:#fff}
+.prop-pill.active .pstat[data-nh-state="available"]{background:#12602f}
+.prop-pill.active .pstat[data-nh-state="date"]{background:#6d4d0c}
 .prop-pill:hover{color:#fff}
 .prop-pill.active{background:var(--gold);border-color:var(--gold);color:#fff}
 
@@ -96,6 +102,10 @@ header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);bac
 @media(max-width:1030px){.nav-cta .btn:not(.gold){display:none}}
 @media(max-width:1080px){.nav-links{gap:.8rem}.nav-links a{font-size:.78rem}.nav-cta .btn{padding:.62rem .9rem;font-size:.79rem}}
 .menu-btn{display:none;background:none;border:0;cursor:pointer;font-size:1.5rem}
+@media(max-width:430px){
+  .nav-cta .btn{padding:.6rem .85rem;font-size:.76rem;letter-spacing:0}
+  .brand{font-size:1.15rem}
+}
 @media(max-width:900px){
   .nav-links{display:none;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:#fff;padding:1rem 26px 1.4rem;border-bottom:1px solid var(--line);gap:1rem}
   .nav-links.open{display:flex}
@@ -129,8 +139,13 @@ a.prop-bar-label:hover .label{color:var(--gold-soft)}
 .hero-actions .btn{background:#fff;color:var(--navy);border-color:#fff}
 .hero-actions .btn:hover{background:var(--cream)}
 .hero-actions .btn.gold{background:var(--gold);color:#fff;border-color:var(--gold)}
-.badge-avail{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:.4rem .9rem;border-radius:50px;font-size:.78rem;font-weight:500;letter-spacing:.04em}
+.badge-avail{display:inline-flex;align-items:center;gap:.55rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:.5rem 1.05rem;border-radius:50px;font-size:.88rem;font-weight:600;letter-spacing:.03em}
 .badge-avail .dot{width:8px;height:8px;border-radius:50%;background:#5fd08a;box-shadow:0 0 0 4px rgba(95,208,138,.25)}
+.badge-avail[data-nh-state="leased"]{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.22)}
+.badge-avail[data-nh-state="leased"] .dot{background:#9aa3ac;box-shadow:0 0 0 4px rgba(154,163,172,.22)}
+.badge-avail[data-nh-state="date"]{background:rgba(224,168,60,.18);border-color:rgba(224,168,60,.5)}
+.badge-avail[data-nh-state="date"] .dot{background:#e0a83c;box-shadow:0 0 0 4px rgba(224,168,60,.28)}
+.badge-avail[data-nh-state="available"]{background:rgba(95,208,138,.18);border-color:rgba(95,208,138,.5)}
 
 /* SECTION */
 section{padding:92px 0}
@@ -148,6 +163,9 @@ section{padding:92px 0}
 .spec span{color:var(--muted);font-size:.86rem}
 .ph{color:var(--gold);font-style:italic}
 @media(max-width:860px){.specs{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.specs{grid-template-columns:1fr}}
+.spec{min-width:0}
+.spec b,.spec span{overflow-wrap:anywhere}
 
 /* ROOMS GRID */
 .rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -216,6 +234,8 @@ section{padding:92px 0}
 /* FORMS */
 .forms-grid{display:grid;grid-template-columns:1fr;gap:30px;max-width:620px;margin:0 auto}
 .card-form{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:36px;box-shadow:var(--shadow-sm)}
+@media(max-width:560px){.card-form{padding:24px 20px}}
+.forms-grid,.card-form{min-width:0}
 .card-form h3{font-size:1.8rem;margin-bottom:.3rem}
 .card-form .sub{color:var(--muted);font-size:.92rem;margin-bottom:22px}
 .field{margin-bottom:16px}
@@ -282,9 +302,9 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
 <div class="prop-bar">
   <div class="wrap">
     <a href="index.html" class="prop-bar-label"><span class="label">Our Properties</span></a>
-        <a href="184-oakland.html" class="prop-pill">184 Oakland · First Floor</a>
-    <a href="186-oakland.html" class="prop-pill">186 Oakland · Second Floor</a>
-    <a href="172-oakland.html" class="prop-pill active">172 Oakland · Rooms for Rent</a>
+        <a href="184-oakland.html" class="prop-pill">184 Oakland · First Floor <em class="pstat" data-nh-pill="184" data-nh-state="leased">Leased</em></a>
+    <a href="186-oakland.html" class="prop-pill">186 Oakland · Second Floor <em class="pstat" data-nh-pill="186" data-nh-state="leased">Leased</em></a>
+    <a href="172-oakland.html" class="prop-pill active">172 Oakland · Rooms for Rent <em class="pstat" data-nh-pill="172" data-nh-state="available">Open Now</em></a>
   </div>
 </div>
 
@@ -320,7 +340,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   <div class="hero-bg"><div class="hero-grid-overlay"></div></div>
   <div class="wrap hero-split">
     <div class="hero-copy">
-    <span class="badge-avail" data-nh-badge="172"><span class="dot"></span> Now Leasing · Rooms Available Now</span>
+    <span class="badge-avail" data-nh-badge="172" data-nh-state="available"><span class="dot"></span> Now Leasing · Rooms Available Now</span>
     <span class="eyebrow" style="display:block;margin-top:20px;color:var(--gold-soft)">Providence · 02908</span>
     <h1>The Roost — 8 Bedrooms on Oakland Avenue.</h1>
     <p class="lede">A lovingly restored 1920s farmhouse in Providence's Elmhurst neighborhood — 8 private bedrooms with keyed locks, smart TVs, and plush bedding. Chef's kitchen, entertainment lounge with foosball, central AC, washer/dryer, and tons of free parking. Individual room leases available now.</p>
@@ -331,7 +351,8 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       <div class="stat"><b>By Room</b><span>Individual Leases</span></div>
     </div>
     <div class="hero-actions">
-      <a href="https://my.innago.com/a/5Kl8ADNSO2b" target="_blank" rel="noopener" class="btn gold">Apply Now</a>
+      <a href="https://my.innago.com/a/5Kl8ADNSO2b" target="_blank" rel="noopener" class="btn gold" data-nh-apply="172">Apply Now</a>
+      <a href="#waitlist" class="btn gold" data-nh-wait="172" hidden>Join the Waitlist</a>
       <a href="#viewing" class="btn gold">Schedule a Viewing</a>
       <a href="#rooms" class="btn">See the Rooms</a>
     </div>
@@ -526,9 +547,10 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
         </form>
       </div>
 
-      <div class="card-form">
+      <div class="card-form" id="waitlist">
         <h3>Not ready yet? Join the waitlist</h3>
         <p class="sub">For a room that is not open today, or a later move-in date.</p>
+        <p data-nh-line="172" style="font-weight:700;color:#8a6210;margin:-4px 0 10px" hidden></p>
         <div class="form-ok" id="ok-wait">You're on the list — check your email for a confirmation. We'll contact you in the order people joined.</div>
         <form id="form-wait" name="waitlist" method="POST" action="https://api.web3forms.com/submit">
           <input type="hidden" name="access_key" value="60088a86-9db3-4143-88dc-779cf6574b44" />
@@ -942,6 +964,6 @@ function updateTimeSlots(val) {
 }
 handleForm('form-wait','ok-wait');
 </script>
-<script src="availability.js?v=2" defer></script>
+<script src="availability.js?v=3" defer></script>
 </body>
 </html>

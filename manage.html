@@ -73,7 +73,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:30px}
   <footer>This page isn't linked from the website and search engines are told to skip it.</footer>
 </div>
 
-<script src="availability.js?v=2"></script>
+<script src="availability.js?v=3"></script>
 <script>
 var CODE = '';
 var UNITS = [];
@@ -91,10 +91,10 @@ function prettyDate(s) {
 }
 
 function publicText(status, date) {
-  if (status === 'available') return 'Now Leasing · Available Now';
+  if (status === 'available') return 'Available Now';
   if (status === 'date') {
     var d = prettyDate(date);
-    return d ? 'Leased · Next available ' + d : '(pick a date)';
+    return d ? 'Next Available ' + d : '(pick a date)';
   }
   return 'Currently Leased · Join the Waitlist';
 }

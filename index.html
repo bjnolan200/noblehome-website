@@ -48,6 +48,9 @@ h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-hei
 .prop-bar .label{font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#7d868f;transition:.2s}
 a.prop-bar-label:hover .label{color:var(--gold-soft)}
 .prop-pill{font-size:.82rem;font-weight:600;padding:.3rem .9rem;border-radius:50px;border:1.5px solid transparent;color:#aeb6bf;transition:.2s}
+.pstat{white-space:nowrap;font-style:normal;font-size:.64rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.12rem .5rem;border-radius:50px;margin-left:.4rem;background:rgba(255,255,255,.16);color:#e6eaee;vertical-align:.06em}
+.pstat[data-nh-state="available"]{background:#1a7a3f;color:#fff}
+.pstat[data-nh-state="date"]{background:#8a6210;color:#fff}
 .prop-pill:hover{color:#fff}
 .prop-pill.active{background:var(--gold);border-color:var(--gold);color:#fff}
 .help-cta{display:flex;gap:.6rem;flex-wrap:wrap}
@@ -74,6 +77,14 @@ header.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.9);back
 .pcard .ph img{width:100%;height:100%;object-fit:cover;transition:.5s}
 .pcard:hover .ph img{transform:scale(1.04)}
 .tag{position:absolute;top:14px;left:14px;background:rgba(18,26,35,.86);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.34rem .8rem;border-radius:50px;backdrop-filter:blur(4px)}
+.tag[data-nh-state="available"]{background:rgba(24,104,54,.92)}
+.tag[data-nh-state="date"]{background:rgba(147,98,14,.92)}
+.status{display:flex;align-items:center;gap:.5rem;font-size:1rem;font-weight:700;margin:-6px 0 14px;color:var(--muted)}
+.status .sdot{width:10px;height:10px;border-radius:50%;background:currentColor;flex:none;box-shadow:0 0 0 4px rgba(114,123,133,.18)}
+.status[data-nh-state="available"]{color:#1a7a3f}
+.status[data-nh-state="available"] .sdot{box-shadow:0 0 0 4px rgba(26,122,63,.18)}
+.status[data-nh-state="date"]{color:#8a6210}
+.status[data-nh-state="date"] .sdot{box-shadow:0 0 0 4px rgba(138,98,16,.18)}
 .pbody{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1}
 .pbody h2{font-size:1.75rem;margin-bottom:4px}
 .addr{font-size:.86rem;color:var(--muted);margin-bottom:14px}
@@ -105,6 +116,16 @@ footer a:hover{color:var(--gold-soft)}
 @media(max-width:640px){
   .pgrid{grid-template-columns:1fr}
   .page-head{padding:50px 0 44px}
+  .nav-cta .btn{padding:.7rem 1rem;font-size:.85rem}
+  .brand{font-size:1.15rem}
+}
+@media(max-width:430px){
+  /* The cards are directly below on a phone, so "See All Homes" is redundant.
+     Keep the button that actually goes somewhere new. */
+  .nav-cta .btn.gold{display:none}
+  .nav-cta .btn.ghost{background:var(--gold);border-color:var(--gold);color:#fff}
+  .nav-cta .btn{white-space:nowrap}
+  .status{font-size:.95rem}
 }
 </style>
 </head>
@@ -114,9 +135,9 @@ footer a:hover{color:var(--gold-soft)}
 <div class="prop-bar">
   <div class="wrap">
     <a href="index.html" class="prop-bar-label"><span class="label">Our Properties</span></a>
-        <a href="184-oakland.html" class="prop-pill">184 Oakland · First Floor</a>
-    <a href="186-oakland.html" class="prop-pill">186 Oakland · Second Floor</a>
-    <a href="172-oakland.html" class="prop-pill">172 Oakland · Rooms for Rent</a>
+        <a href="184-oakland.html" class="prop-pill">184 Oakland · First Floor <em class="pstat" data-nh-pill="184" data-nh-state="leased">Leased</em></a>
+    <a href="186-oakland.html" class="prop-pill">186 Oakland · Second Floor <em class="pstat" data-nh-pill="186" data-nh-state="leased">Leased</em></a>
+    <a href="172-oakland.html" class="prop-pill">172 Oakland · Rooms for Rent <em class="pstat" data-nh-pill="172" data-nh-state="available">Open Now</em></a>
   </div>
 </div>
 
@@ -155,13 +176,14 @@ footer a:hover{color:var(--gold-soft)}
       <!-- 184 -->
       <a class="pcard" href="184-oakland.html">
         <div class="ph">
-          <span class="tag" data-nh-tag="184">First Floor · Leased</span>
+          <span class="tag" data-nh-tag="184" data-nh-prefix="First Floor" data-nh-state="leased">First Floor · Currently Leased</span>
           <img src="images/33.jpg" alt="184 Oakland Avenue, Providence RI — front of the house" loading="lazy" />
         </div>
         <div class="pbody">
           <h2>184 Oakland Avenue</h2>
           <div class="addr">Providence, RI 02908 &middot; First Floor</div>
-          <p class="desc">The downstairs apartment — two furnished bedrooms sharing a kitchen and bath, with a private entrance. Both rooms are leased right now; join the waitlist and we will call you first when one opens.</p>
+          <div class="status" data-nh-status="184" data-nh-state="leased"><span class="sdot"></span>Currently leased — join the waitlist</div>
+          <p class="desc">The downstairs apartment — two furnished bedrooms sharing a kitchen and bath, with a private entrance.</p>
           <div class="facts">
             <span class="fact">Fully Furnished</span>
             <span class="fact">1-Month Leases</span>
@@ -181,13 +203,14 @@ footer a:hover{color:var(--gold-soft)}
       <!-- 186 -->
       <a class="pcard" href="186-oakland.html">
         <div class="ph">
-          <span class="tag" data-nh-tag="186">Second Floor · Leased</span>
+          <span class="tag" data-nh-tag="186" data-nh-prefix="Second Floor" data-nh-state="leased">Second Floor · Currently Leased</span>
           <img src="images/30.jpg" alt="186 Oakland Avenue, Providence RI — the house and second-floor entrance" loading="lazy" />
         </div>
         <div class="pbody">
           <h2>186 Oakland Avenue</h2>
           <div class="addr">Providence, RI 02908 &middot; Second Floor</div>
-          <p class="desc">The upstairs apartment in the same two-family home — two furnished bedrooms sharing a kitchen and bath. Currently leased; join the waitlist to be first in line.</p>
+          <div class="status" data-nh-status="186" data-nh-state="leased"><span class="sdot"></span>Currently leased — join the waitlist</div>
+          <p class="desc">The upstairs apartment in the same two-family home — two furnished bedrooms sharing a kitchen and bath.</p>
           <div class="facts">
             <span class="fact">Fully Furnished</span>
             <span class="fact">1-Month Leases</span>
@@ -207,13 +230,14 @@ footer a:hover{color:var(--gold-soft)}
       <!-- 172 -->
       <a class="pcard" href="172-oakland.html">
         <div class="ph">
-          <span class="tag" data-nh-tag="172">Rooms for Rent</span>
+          <span class="tag" data-nh-tag="172" data-nh-prefix="Rooms" data-nh-state="available">Rooms · Available Now</span>
           <img src="images/172/exterior-5.jpg" alt="172 Oakland Avenue, Providence RI — exterior" loading="lazy" />
         </div>
         <div class="pbody">
           <h2>172 Oakland Avenue</h2>
           <div class="addr">Providence, RI 02908</div>
-          <p class="desc">Eight furnished bedrooms in a large, amenity-rich home. Private keyed rooms with a shared kitchen, dining and living space — plus a pool table and central air. Rooms open now.</p>
+          <div class="status" data-nh-status="172" data-nh-state="available"><span class="sdot"></span>Available now</div>
+          <p class="desc">Eight furnished bedrooms in a large, amenity-rich home. Private keyed rooms with a shared kitchen, dining and living space — plus a pool table and central air.</p>
           <div class="facts">
             <span class="fact">8 Bedrooms</span>
             <span class="fact">Pool Table</span>
@@ -275,6 +299,6 @@ footer a:hover{color:var(--gold-soft)}
 </footer>
 
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
-<script src="availability.js?v=2" defer></script>
+<script src="availability.js?v=3" defer></script>
 </body>
 </html>
