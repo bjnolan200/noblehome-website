@@ -10,31 +10,46 @@
 <style>
 :root{--navy:#1b2733;--navy-deep:#121a23;--gold:#b8893b;--gold-soft:#c9a25b;--cream:#f7f4ec;--line:#e2ded4;--muted:#6b727a}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:#1b2733;line-height:1.6;padding:0 0 60px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:#1b2733;line-height:1.6;padding:0 0 70px}
 .bar{background:var(--navy-deep);color:#fff;padding:14px 0}
-.wrap{max-width:680px;margin:0 auto;padding:0 22px}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
 .bar .wrap{display:flex;align-items:center;gap:10px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:#8b939c;font-weight:600}
-h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;margin:34px 0 6px}
-.sub{color:var(--muted);margin-bottom:26px}
-.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px;margin-bottom:18px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
-label{display:block;font-weight:600;font-size:.85rem;margin-bottom:6px}
-input,select{width:100%;padding:.75rem .9rem;border:1px solid var(--line);border-radius:9px;font:inherit;font-size:1rem;background:#fff}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;margin:32px 0 6px}
+.sub{color:var(--muted);margin-bottom:24px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+label{display:block;font-weight:600;font-size:.8rem;margin-bottom:5px;color:#3a4149}
+input,select{width:100%;padding:.68rem .8rem;border:1px solid var(--line);border-radius:9px;font:inherit;font-size:.98rem;background:#fff}
 input:focus,select:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
+input[disabled],select[disabled]{background:#f4f2ec;color:#9aa0a7}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:600;font-size:.95rem;padding:.85rem 1.6rem;border-radius:50px;border:1.5px solid var(--gold);background:var(--gold);color:#fff;cursor:pointer;transition:.2s;width:100%}
 .btn:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
 .btn[disabled]{opacity:.55;cursor:not-allowed}
-.unit{border-top:1px solid var(--line);padding:22px 0}
-.unit:first-of-type{border-top:0;padding-top:0}
-.unit h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;margin-bottom:14px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:560px){.row{grid-template-columns:1fr}}
-.preview{margin-top:12px;font-size:.85rem;color:var(--muted)}
-.preview b{color:var(--navy);font-weight:600}
-.note{background:#fff8e6;border:1px solid #e6d9b0;border-radius:10px;padding:14px 16px;font-size:.88rem;color:#5c4b16;margin-bottom:20px}
-.ok{background:#e8f5e9;border:1px solid #b7dfba;color:#1f5723;border-radius:10px;padding:14px 16px;margin-bottom:18px;display:none}
-.err{background:#fdecea;border:1px solid #f5c2bd;color:#8c2019;border-radius:10px;padding:14px 16px;margin-bottom:18px;display:none}
+
+.prop{margin-bottom:16px}
+.prop-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.prop h2{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700}
+.says{font-size:.85rem;color:var(--muted);margin-bottom:16px}
+.says b{color:var(--navy);font-weight:700}
+.bulk{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.bulk select{width:auto;padding:.3rem .5rem;font-size:.78rem;border-radius:7px}
+
+.rhead,.room{display:grid;grid-template-columns:1fr 190px 155px;gap:10px;align-items:center}
+.rhead{padding-bottom:6px;border-bottom:1px solid var(--line)}
+.rhead span{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.room{padding:11px 0;border-top:1px solid #f0ede5}
+.room:first-of-type{border-top:0}
+.rname{font-weight:600;font-size:.95rem}
+@media(max-width:620px){
+  .rhead{display:none}
+  .room{grid-template-columns:1fr 1fr;gap:8px;padding:14px 0}
+  .rname{grid-column:1 / -1}
+}
+.note{background:#fff8e6;border:1px solid #e6d9b0;border-radius:10px;padding:14px 16px;font-size:.88rem;color:#5c4b16;margin-bottom:18px}
+.ok{background:#e8f5e9;border:1px solid #b7dfba;color:#1f5723;border-radius:10px;padding:14px 16px;margin-bottom:16px;display:none}
+.err{background:#fdecea;border:1px solid #f5c2bd;color:#8c2019;border-radius:10px;padding:14px 16px;margin-bottom:16px;display:none}
 .hide{display:none}
-footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:30px}
+.stamp{text-align:center;font-size:.83rem;color:var(--muted);margin-top:14px}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:28px}
 </style>
 </head>
 <body>
@@ -43,7 +58,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:30px}
 
 <div class="wrap">
   <h1>Availability</h1>
-  <p class="sub">Change what noblehomeri.com tells people about each unit. Saves instantly — no waiting, nothing to publish.</p>
+  <p class="sub">Set each bedroom. The website works out what to tell people about each property and updates instantly.</p>
 
   <div class="err" id="err"></div>
   <div class="ok" id="ok"></div>
@@ -51,8 +66,8 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:30px}
   <!-- CODE GATE -->
   <div class="card" id="gate">
     <label for="code">Access code</label>
-    <input type="password" id="code" autocomplete="current-password" placeholder="Enter the code" />
-    <p class="preview" style="margin-bottom:16px">Ask Bradford if you don't have it.</p>
+    <input type="password" id="code" inputmode="numeric" autocomplete="current-password" placeholder="Enter the code" />
+    <p class="sub" style="margin:10px 0 16px;font-size:.85rem">Ask Bradford if you don't have it.</p>
     <button class="btn" id="unlock">Unlock</button>
   </div>
 
@@ -60,142 +75,208 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:30px}
   <div id="editor" class="hide">
     <div class="note">
       <b>Only post a date once a tenant has actually given notice.</b> A date that turns out to be
-      wrong costs you more than no date at all. If a posted date passes and nobody updates it, the
-      website quietly goes back to "Currently Leased" on its own.
+      wrong costs you more than no date at all. If a posted date passes and nobody updates it, that
+      room quietly goes back to "Leased" on its own.
     </div>
 
-    <div class="card" id="units"></div>
+    <div id="props"></div>
 
     <button class="btn" id="save">Save — the website updates right away</button>
-    <p class="preview" style="text-align:center;margin-top:14px" id="stamp"></p>
+    <p class="stamp" id="stamp"></p>
   </div>
 
-  <footer>This page isn't linked from the website and search engines are told to skip it.</footer>
+  <footer>This page isn't linked in the menus and search engines are told to skip it.</footer>
 </div>
 
-<script src="availability.js?v=3"></script>
+<script src="availability.js?v=4"></script>
 <script>
-var CODE = '';
-var UNITS = [];
+var CODE  = '';
+var ROOMS = [];
+var PROPS = [];
 var $ = function (id) { return document.getElementById(id); };
 
 function say(el, msg) { el.textContent = msg; el.style.display = msg ? 'block' : 'none'; }
 function clearMsgs() { say($('ok'), ''); say($('err'), ''); }
 
-function prettyDate(s) {
-  if (!s) return '';
-  var p = s.slice(0, 10).split('-');
-  if (p.length !== 3) return '';
-  return new Date(+p[0], +p[1] - 1, +p[2])
-    .toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+function parseDate(s) {
+  if (!s) return null;
+  var p = String(s).slice(0, 10).split('-');
+  if (p.length !== 3) return null;
+  var d = new Date(+p[0], +p[1] - 1, +p[2]);
+  return isNaN(d) ? null : d;
+}
+function longDate(d) { return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric' }); }
+
+// Same rules the website uses, so the preview never disagrees with the page.
+function resolve(r) {
+  var s = (r.status || 'leased').toLowerCase();
+  if (s === 'date') {
+    var d = parseDate(r.date);
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    if (!d) return { state: 'incomplete' };
+    if (d < today) return { state: 'leased' };
+    return { state: 'date', date: d };
+  }
+  if (s === 'available') return { state: 'available' };
+  return { state: 'leased' };
 }
 
-function publicText(status, date) {
-  if (status === 'available') return 'Available Now';
-  if (status === 'date') {
-    var d = prettyDate(date);
-    return d ? 'Next Available ' + d : '(pick a date)';
-  }
+function websiteSays(rooms) {
+  if (rooms.some(function (r) { return resolve(r).state === 'incomplete'; })) return '(pick a date)';
+  var states = rooms.map(resolve);
+  var open = states.filter(function (s) { return s.state === 'available'; }).length;
+  if (open) return open > 1 ? open + ' Rooms Available Now' : 'Available Now';
+  var dates = states.filter(function (s) { return s.state === 'date'; })
+                    .map(function (s) { return s.date; })
+                    .sort(function (a, b) { return a - b; });
+  if (dates.length) return 'Next Available ' + longDate(dates[0]);
   return 'Currently Leased · Join the Waitlist';
 }
 
 function render() {
-  var box = $('units');
+  var box = $('props');
   box.innerHTML = '';
-  UNITS.forEach(function (u, i) {
-    var d = document.createElement('div');
-    d.className = 'unit';
-    d.innerHTML =
-      '<h3>' + u.label + '</h3>' +
-      '<div class="row">' +
-        '<div><label>Status</label><select data-i="' + i + '" class="st">' +
-          '<option value="leased">Leased — no date yet</option>' +
-          '<option value="date">Leased — opens on a date</option>' +
+
+  PROPS.forEach(function (p) {
+    var mine = ROOMS.filter(function (r) { return r.property === p.id; });
+    if (!mine.length) return;
+
+    var card = document.createElement('div');
+    card.className = 'card prop';
+
+    var head = '<div class="prop-head"><h2>' + p.label + '</h2>' +
+      '<span class="bulk">Set all: ' +
+        '<select data-bulk="' + p.id + '">' +
+          '<option value="">—</option>' +
+          '<option value="leased">Leased</option>' +
           '<option value="available">Available now</option>' +
-        '</select></div>' +
-        '<div><label>Date it opens</label><input type="date" class="dt" data-i="' + i + '" /></div>' +
-      '</div>' +
-      '<p class="preview">The website will say: <b class="pv"></b></p>';
-    box.appendChild(d);
-    d.querySelector('.st').value = u.status || 'leased';
-    d.querySelector('.dt').value = u.date || '';
-    d.querySelector('.dt').disabled = (u.status !== 'date');
-    d.querySelector('.pv').textContent = publicText(u.status, u.date);
+        '</select></span></div>' +
+      '<p class="says">The website will say: <b>' + websiteSays(mine) + '</b></p>' +
+      '<div class="rhead"><span>Room</span><span>Status</span><span>Opens on</span></div>';
+
+    var rows = mine.map(function (r) {
+      var i = ROOMS.indexOf(r);
+      return '<div class="room">' +
+        '<div class="rname">' + r.room + '</div>' +
+        '<select class="st" data-i="' + i + '" aria-label="Status for ' + r.room + '">' +
+          '<option value="leased">Leased</option>' +
+          '<option value="date">Opens on a date</option>' +
+          '<option value="available">Available now</option>' +
+        '</select>' +
+        '<input type="date" class="dt" data-i="' + i + '" aria-label="Date ' + r.room + ' opens" />' +
+      '</div>';
+    }).join('');
+
+    card.innerHTML = head + rows;
+    box.appendChild(card);
   });
 
+  // Set the live values after the markup exists.
   box.querySelectorAll('.st').forEach(function (sel) {
+    var r = ROOMS[+sel.dataset.i];
+    sel.value = r.status || 'leased';
     sel.addEventListener('change', function () {
-      var i = +this.dataset.i;
-      UNITS[i].status = this.value;
-      if (this.value !== 'date') UNITS[i].date = '';
+      var room = ROOMS[+this.dataset.i];
+      room.status = this.value;
+      if (this.value !== 'date') room.date = '';
       render();
     });
   });
   box.querySelectorAll('.dt').forEach(function (inp) {
+    var r = ROOMS[+inp.dataset.i];
+    inp.value = r.date || '';
+    inp.disabled = (r.status !== 'date');
     inp.addEventListener('change', function () {
-      UNITS[+this.dataset.i].date = this.value;
+      ROOMS[+this.dataset.i].date = this.value;
+      render();
+    });
+  });
+  box.querySelectorAll('[data-bulk]').forEach(function (sel) {
+    sel.addEventListener('change', function () {
+      var v = this.value, pid = this.dataset.bulk;
+      if (!v) return;
+      ROOMS.forEach(function (r) {
+        if (r.property === pid) { r.status = v; r.date = ''; }
+      });
       render();
     });
   });
 }
 
-function load() {
-  return fetch(NH_ENDPOINT).then(function (r) { return r.json(); }).then(function (d) {
-    UNITS = (d && d.units) || [];
-    render();
-  });
+function openEditor(d) {
+  ROOMS = (d && d.rooms) || [];
+  PROPS = (d && d.properties) || [];
+  $('gate').classList.add('hide');
+  $('editor').classList.remove('hide');
+  render();
 }
 
-$('unlock').addEventListener('click', function () {
+function tryCode(code, fromButton) {
   clearMsgs();
-  CODE = $('code').value.trim();
-  if (!CODE) { say($('err'), 'Type the code first.'); return; }
-  if (!NH_ENDPOINT) { say($('err'), 'This page is not connected yet — Bradford needs to finish setup.'); return; }
-  this.disabled = true; this.textContent = 'Checking…';
+  if (!code) { say($('err'), 'Type the code first.'); return; }
+  if (fromButton) { $('unlock').disabled = true; $('unlock').textContent = 'Checking…'; }
+
   fetch(NH_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ code: CODE, action: 'check' })
+    body: JSON.stringify({ code: code, action: 'check' })
   })
   .then(function (r) { return r.json(); })
   .then(function (d) {
     if (!d.ok) { say($('err'), d.error || 'That code is not right.'); return; }
-    UNITS = d.units || [];
-    $('gate').classList.add('hide');
-    $('editor').classList.remove('hide');
-    render();
+    CODE = code;
+    openEditor(d);
   })
-  .catch(function () { say($('err'), "Couldn't reach the website's availability service. Try again in a moment."); })
-  .finally(function () {
-    $('unlock').disabled = false; $('unlock').textContent = 'Unlock';
-  });
-});
+  .catch(function () { say($('err'), "Couldn't reach the availability service. Try again in a moment."); })
+  .then(done, done);
 
+  function done() { $('unlock').disabled = false; $('unlock').textContent = 'Unlock'; }
+}
+
+$('unlock').addEventListener('click', function () { tryCode($('code').value.trim(), true); });
 $('code').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('unlock').click(); });
 
 $('save').addEventListener('click', function () {
   clearMsgs();
-  var bad = UNITS.filter(function (u) { return u.status === 'date' && !u.date; });
-  if (bad.length) { say($('err'), 'Pick a date for ' + bad[0].label + ', or set it back to "no date yet".'); return; }
+  var bad = ROOMS.filter(function (r) { return r.status === 'date' && !r.date; });
+  if (bad.length) {
+    say($('err'), 'Pick a date for ' + bad[0].property + ' ' + bad[0].room + ', or set it back to "Leased".');
+    return;
+  }
   this.disabled = true; this.textContent = 'Saving…';
+
   fetch(NH_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ code: CODE, action: 'save', units: UNITS })
+    body: JSON.stringify({ code: CODE, action: 'save', rooms: ROOMS })
   })
   .then(function (r) { return r.json(); })
   .then(function (d) {
     if (!d.ok) { say($('err'), d.error || 'Something went wrong.'); return; }
-    UNITS = d.units || UNITS;
+    ROOMS = d.rooms || ROOMS;
     render();
     say($('ok'), 'Saved. The website is showing this now.');
     $('stamp').textContent = 'Last saved ' + new Date().toLocaleString('en-US');
   })
   .catch(function () { say($('err'), "Couldn't save — check your signal and try again."); })
-  .finally(function () {
-    $('save').disabled = false; $('save').textContent = 'Save — the website updates right away';
-  });
+  .then(done, done);
+
+  function done() {
+    $('save').disabled = false;
+    $('save').textContent = 'Save — the website updates right away';
+  }
 });
+
+// If you came through the Staff box on the website, you are already past the
+// code — use it once and drop it straight away.
+(function () {
+  var handed = null;
+  try {
+    handed = sessionStorage.getItem('nh_code');
+    sessionStorage.removeItem('nh_code');
+  } catch (e) {}
+  if (handed) tryCode(handed, false);
+})();
 </script>
 </body>
 </html>
