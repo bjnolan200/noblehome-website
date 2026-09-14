@@ -61,7 +61,7 @@ input:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
 .tl{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.04);overflow:hidden}
 .tl-scroll{overflow-x:auto;overflow-y:hidden}
 .tl-inner{min-width:100%}
-.tl-row{display:grid;grid-template-columns:170px 1fr;align-items:stretch}
+.tl-row{display:grid;grid-template-columns:200px 1fr;align-items:stretch}
 .tl-row+.tl-row{border-top:1px solid #f0ede5}
 .tl-row.group{background:#fbfaf6}
 .tl-row.group .rl{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;padding:10px 14px}
@@ -80,8 +80,6 @@ input:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
 .mlab{position:absolute;top:0;height:30px;display:flex;align-items:center;padding-left:7px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden}
 .mtick{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
 .gtick{position:absolute;top:0;bottom:0;width:1px;background:#f0ede5}
-.todayline{position:absolute;top:0;bottom:0;width:1px;background:var(--today);z-index:2}
-.todayflag{position:absolute;top:2px;transform:translateX(-50%);font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--today);background:var(--surface);padding:0 4px;z-index:4;white-space:nowrap}
 
 .bar-o{position:absolute;top:7px;height:24px;border-radius:4px;min-width:5px;
   display:flex;align-items:center;padding:0 7px;font-size:.72rem;font-weight:600;
@@ -199,6 +197,12 @@ function dayDiff(a,b){return Math.round((fromYmd(b)-fromYmd(a))/86400000);}
 function pretty(s){var d=fromYmd(s);return d?d.toLocaleDateString('en-US',{month:'short',day:'numeric'}):'';}
 function prettyLong(s){var d=fromYmd(s);return d?d.toLocaleDateString('en-US',{month:'long',day:'numeric'}):'';}
 function nights(n){return n+(n===1?' night':' nights');}
+function fmtChecked(v){
+  if(!v) return 'not yet';
+  var d = new Date(v);
+  if (isNaN(d)) return String(v);
+  return d.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+}
 
 /* ---- the same merge rule the website uses ---- */
 function mergedState(r, ab){
@@ -253,8 +257,12 @@ function render(){
   var toD = fromYmd(today); toD.setMonth(toD.getMonth() + MONTHS);
   var to = ymd(toD);
   var days = dayDiff(from, to);
-  var pxDay = MONTHS === 3 ? 7.2 : MONTHS === 6 ? 3.8 : 2.0;
-  var plotW = Math.max(Math.round(days * pxDay), 560);
+  // Fill the card, and only scroll when a day would get too thin to read.
+  var scroller = document.querySelector('.tl-scroll');
+  var avail = Math.max((scroller ? scroller.clientWidth : 900) - 200, 420);
+  var minPx = MONTHS === 3 ? 5.0 : MONTHS === 6 ? 2.9 : 1.7;
+  var pxDay = Math.max(minPx, avail / days);
+  var plotW = Math.round(days * pxDay);
   var pct = function(s){ return (dayDiff(from, s) / days) * 100; };
 
   /* stat tiles */
@@ -279,8 +287,8 @@ function render(){
       (dated.length ? dated[0].r.property + ' · ' + dated[0].r.room.split(' — ')[0] : 'nothing pending') + '</div></div>' +
     '<div class="stat"><div class="k">Guest nights booked</div><div class="v">' + gn +
       '</div><div class="n">next 90 days, Airbnb</div></div>' +
-    '<div class="stat"><div class="k">Airbnb last read</div><div class="v" style="font-size:1.15rem;padding-top:7px">' +
-      (checked ? checked.replace(' ', ' at ') : 'not yet') + '</div><div class="n">checks every 30 min</div></div>';
+    '<div class="stat"><div class="k">Airbnb last read</div><div class="v" style="font-size:1.25rem;padding-top:9px">' +
+      fmtChecked(checked) + '</div><div class="n">checks every 30 min</div></div>';
 
   $('stamp').textContent = 'Today is ' + prettyLong(today) + ' · showing through ' + prettyLong(to);
 
@@ -301,7 +309,7 @@ function render(){
     }
     cur = nx;
   }
-  head += '<div class="todayflag" style="left:0">Today</div></div>';
+  head += '</div>';
 
   /* rows, grouped by property */
   var html = '<div class="tl-row"><div class="rl" style="border-bottom:1px solid var(--line)"></div>' + head + '</div>';
@@ -336,7 +344,8 @@ function render(){
         var left = pct(s), w = pct(e) - pct(s);
         var wpx = (w / 100) * plotW;
         var label = '';
-        if (b.kind !== 'block' && wpx > 62) label = nights(dayDiff(s, e));
+        if (b.kind === 'guest' && wpx > 62) label = nights(dayDiff(s, e));
+        if (b.kind === 'lease' && wpx > 92) label = b.openEnd ? 'no end date posted' : 'opens ' + pretty(b.end);
         html += '<div class="bar-o ' + b.kind + (b.openEnd ? ' openend' : '') + '"' +
                 ' style="left:' + left + '%;width:' + w + '%"' +
                 ' tabindex="0" role="img"' +
@@ -344,7 +353,7 @@ function render(){
                 ' data-t="' + b.title + '" data-d="' + b.detail.replace(/"/g, '&quot;') + '">' + label + '</div>';
       });
 
-      html += '<div class="todayline" style="left:0"></div></div></div>';
+      html += '</div></div>';
     });
   });
 
@@ -397,6 +406,13 @@ function wireTips(){
   });
   document.querySelector('.tl-scroll').addEventListener('scroll', hide);
 }
+
+var rzT = null;
+window.addEventListener('resize', function(){
+  if (!DATA) return;
+  clearTimeout(rzT);
+  rzT = setTimeout(render, 160);
+});
 
 document.querySelectorAll('.seg button').forEach(function(b){
   b.addEventListener('click', function(){
