@@ -181,6 +181,10 @@ section{padding:92px 0}
 .room-card .room-body{padding:22px 20px;flex:1;display:flex;flex-direction:column;gap:8px}
 .room-card h3{font-size:1.35rem}
 .room-card .room-detail{font-size:.86rem;color:var(--muted)}
+.room-card .room-avail{font-size:.78rem;font-weight:700;letter-spacing:.01em;padding:.3rem .65rem;border-radius:50px;align-self:flex-start;border:1px solid transparent}
+.room-card .room-avail[data-nh-state="available"]{background:#e6f4ea;color:#14672f;border-color:#bfe3ca}
+.room-card .room-avail[data-nh-state="date"]{background:#fdf3dd;color:#7a5310;border-color:#ecd9a6}
+.room-card .room-avail[data-nh-state="leased"]{background:#f1f0ee;color:#6b727a;border-color:#e2ded4}
 .room-card .room-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin-top:auto;padding-top:12px}
 .room-card .room-price span{font-family:'Inter',sans-serif;font-size:.82rem;color:var(--muted);font-weight:400}
 @media(max-width:860px){.rooms-grid{grid-template-columns:repeat(2,1fr)}}
@@ -529,16 +533,14 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
           <div class="field"><label>Room Preference (optional)</label>
             <select name="room_preference">
               <option value="">No preference / let's discuss</option>
-              <option>Room 1 — Queen + Sofa Room ($1,600/mo)</option>
-              <option>Room 2 — Double Queen Suite ($1,600/mo)</option>
-              <option>Room 3 — Queen Room ($1,300/mo)</option>
-              <option>Room 4 — Queen Room ($1,300/mo)</option>
-              <option>Room 5 — Queen Room ($1,300/mo)</option>
-              <option>Room 6 — Queen Room ($1,300/mo)</option>
-              <option>Room 7 — Double Full Suite ($1,600/mo)</option>
-              <option>Room 8 — Double Full Suite ($1,600/mo)</option>
-              <option>King bed room</option>
-              <option>Room for two people</option>
+              <option data-nh-opt="172-1">Room 1 — Queen + Sofa Room ($1,600/mo)</option>
+              <option data-nh-opt="172-2">Room 2 — Double Queen Suite ($1,600/mo)</option>
+              <option data-nh-opt="172-3">Room 3 — Queen Room ($1,300/mo)</option>
+              <option data-nh-opt="172-4">Room 4 — Queen Room ($1,300/mo)</option>
+              <option data-nh-opt="172-5">Room 5 — Queen Room ($1,300/mo)</option>
+              <option data-nh-opt="172-6">Room 6 — Queen Room ($1,300/mo)</option>
+              <option data-nh-opt="172-7">Room 7 — Double Full Suite ($1,600/mo)</option>
+              <option data-nh-opt="172-8">Room 8 — Double Full Suite ($1,600/mo)</option>
             </select>
           </div>
           <div class="field"><label>Message (optional)</label><textarea name="msg" placeholder="Anything we should know?"></textarea></div>
@@ -719,28 +721,28 @@ document.querySelectorAll('#navlinks a').forEach(a =>
 /* ---- ROOMS ---- */
 const P2 = 'images/172/';
 const rooms = [
-  { num: 'Room 1', name: 'Queen + Sofa Room', beds: '1 Queen Bed + Sofa Bed', detail: 'Flexible for 1–3 occupants · keyed lock', price: '$1,600',
+  { num: 'Room 1', id: '172-1', name: 'Queen + Sofa Room', beds: '1 Queen Bed + Sofa Bed', detail: 'Flexible for 1–3 occupants · keyed lock', price: '$1,600',
     photo: P2+'room1-1.jpg',
     photos: [1,2,3,4,5,6].map(n => ({t:'Room 1', src: P2+'room1-'+n+'.jpg'})) },
-  { num: 'Room 2', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600',
+  { num: 'Room 2', id: '172-2', name: 'Double Queen Suite', beds: '2 Queen Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600',
     photo: P2+'room2-1.jpg',
     photos: [1,2,3,4,5,6].map(n => ({t:'Room 2', src: P2+'room2-'+n+'.jpg'})) },
-  { num: 'Room 3', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300',
+  { num: 'Room 3', id: '172-3', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300',
     photo: P2+'room3-1.jpg',
     photos: [1,2,3].map(n => ({t:'Room 3', src: P2+'room3-'+n+'.jpg'})) },
-  { num: 'Room 4', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300',
+  { num: 'Room 4', id: '172-4', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300',
     photo: P2+'room4-1.jpg',
     photos: [1,2,3,4,5,6].map(n => ({t:'Room 4', src: P2+'room4-'+n+'.jpg'})) },
-  { num: 'Room 5', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300',
+  { num: 'Room 5', id: '172-5', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300',
     photo: P2+'room5-1.jpg',
     photos: [1,2,3,4,5,6].map(n => ({t:'Room 5', src: P2+'room5-'+n+'.jpg'})) },
-  { num: 'Room 6', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300',
+  { num: 'Room 6', id: '172-6', name: 'Queen Room', beds: '1 Queen Bed', detail: 'Private room · blackout curtains · smart TV', price: '$1,300',
     photo: P2+'room6-1.jpg',
     photos: [1,2].map(n => ({t:'Room 6', src: P2+'room6-'+n+'.jpg'})) },
-  { num: 'Room 7', name: 'Double Full Suite', beds: '2 Full Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600',
+  { num: 'Room 7', id: '172-7', name: 'Double Full Suite', beds: '2 Full Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600',
     photo: P2+'room7-1.jpg',
     photos: [1,2,3,4,5,6].map(n => ({t:'Room 7', src: P2+'room7-'+n+'.jpg'})) },
-  { num: 'Room 8', name: 'Double Full Suite', beds: '2 Full Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600',
+  { num: 'Room 8', id: '172-8', name: 'Double Full Suite', beds: '2 Full Beds', detail: 'Sleeps up to 4 · keyed lock · smart TV', price: '$1,600',
     photo: P2+'room8-1.jpg',
     photos: [1,2,3,4,5,6,7].map(n => ({t:'Room 8', src: P2+'room8-'+n+'.jpg'})) },
 ];
@@ -762,6 +764,7 @@ rooms.forEach(r => {
     <div class="room-body">
       <h3>${r.name}</h3>
       <p class="room-detail">${r.beds} · ${r.detail}</p>
+      <p class="room-avail" data-nh-room="${r.id}" hidden></p>
       <div class="room-price">${r.price} <span>/mo</span></div>
       <a href="#viewing" class="btn gold" style="margin-top:12px;font-size:.84rem;padding:.65rem 1.2rem">Schedule a Viewing</a>
     </div>`;
@@ -964,6 +967,6 @@ function updateTimeSlots(val) {
 }
 handleForm('form-wait','ok-wait');
 </script>
-<script src="availability.js?v=4" defer></script>
+<script src="availability.js?v=5" defer></script>
 </body>
 </html>

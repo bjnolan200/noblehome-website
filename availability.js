@@ -38,9 +38,10 @@ var NH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxNO4BaVuGIyCqfR1NCId
     try {
       var s = document.createElement('style');
       s.textContent =
-        '[data-nh-badge],[data-nh-tag],[data-nh-status],[data-nh-pill]{transition:opacity .22s ease}' +
+        '[data-nh-badge],[data-nh-tag],[data-nh-status],[data-nh-pill],[data-nh-room]{transition:opacity .22s ease}' +
         '.nh-pending [data-nh-badge],.nh-pending [data-nh-tag],' +
-        '.nh-pending [data-nh-status],.nh-pending [data-nh-pill]{opacity:0}';
+        '.nh-pending [data-nh-status],.nh-pending [data-nh-pill],' +
+        '.nh-pending [data-nh-room]{opacity:0}';
       document.head.appendChild(s);
       root.classList.add('nh-pending');
       setTimeout(settle, 3000); // never leave it hidden, whatever happens
@@ -172,6 +173,43 @@ var NH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxNO4BaVuGIyCqfR1NCId
     each('[data-nh-wait="' + id + '"]',  function (el) { el.hidden = open; });
   }
 
+  // ---- one bedroom at a time ---------------------------------------------
+
+  // A room card says what that single room is doing, which is a different
+  // question from what the property as a whole is doing. "Available now" on
+  // its own implies forever, so when a guest is already booked in later we
+  // say through when.
+  function roomCopy(r) {
+    var st = resolve(r);
+    if (st.state === 'available') {
+      var until = parseDate(r.until);
+      return { state: 'available',
+               text: until ? 'Available now · through ' + longDate(until) : 'Available now' };
+    }
+    if (st.state === 'date') return { state: 'date', text: 'Available ' + longDate(st.date) };
+    return { state: 'leased', text: 'Currently occupied' };
+  }
+
+  function paintRoom(r) {
+    if (!r.id) return;
+    var t = roomCopy(r);
+
+    each('[data-nh-room="' + r.id + '"]', function (el) {
+      el.textContent = t.text;
+      el.setAttribute('data-nh-state', t.state);
+      el.hidden = false;
+    });
+
+    // The same answer inside a <option>, so nobody picks a room for a date
+    // it is not free. The original label is kept so repainting is safe.
+    each('[data-nh-opt="' + r.id + '"]', function (el) {
+      var base = el.getAttribute('data-nh-base');
+      if (base === null) { base = el.textContent; el.setAttribute('data-nh-base', base); }
+      el.textContent = base + ' — ' + t.text;
+      el.setAttribute('data-nh-state', t.state);
+    });
+  }
+
   function apply(data) {
     // Room-level service (current).
     if (data.rooms && data.rooms.length) {
@@ -180,6 +218,7 @@ var NH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxNO4BaVuGIyCqfR1NCId
         (byProp[r.property] = byProp[r.property] || []).push(r);
       });
       Object.keys(byProp).forEach(function (id) { paint(id, rollup(byProp[id])); });
+      data.rooms.forEach(paintRoom);
       return;
     }
     // Older property-level service — still understood, so a half-finished

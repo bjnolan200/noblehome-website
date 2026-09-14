@@ -37,18 +37,25 @@ input[disabled],select[disabled]{background:#f4f2ec;color:#9aa0a7}
 .bulk{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:.4rem}
 .bulk select{width:auto;padding:.3rem .5rem;font-size:.78rem;border-radius:7px}
 
-.rhead,.room{display:grid;grid-template-columns:1fr 190px 155px;gap:10px;align-items:center}
+.rhead,.room{display:grid;grid-template-columns:1fr 160px 140px 250px;gap:10px;align-items:center}
 .rhead{padding-bottom:6px;border-bottom:1px solid var(--line)}
 .rhead span{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .room{padding:11px 0;border-top:1px solid #f0ede5}
 .room:first-of-type{border-top:0}
 .rname{font-weight:600;font-size:.95rem}
+.abcell{font-size:.79rem;color:#3a4149;line-height:1.5}
+.abcell b{color:var(--navy);font-weight:700}
+.abnone{color:#9aa0a7}
+.abover{display:block;margin-top:2px;color:#7a5310;font-weight:700}
 @media(max-width:620px){
   .rhead{display:none}
   .room{grid-template-columns:1fr 1fr;gap:8px;padding:14px 0}
   .rname{grid-column:1 / -1}
+  .abcell{grid-column:1 / -1;padding-top:2px}
 }
 .note{background:#fff8e6;border:1px solid #e6d9b0;border-radius:10px;padding:14px 16px;font-size:.88rem;color:#5c4b16;margin-bottom:18px}
+.note.lanes{background:#eef3f8;border-color:#c9dae9;color:#28414f}
+.note.lanes i{font-style:normal;font-weight:600}
 .ok{background:#e8f5e9;border:1px solid #b7dfba;color:#1f5723;border-radius:10px;padding:14px 16px;margin-bottom:16px;display:none}
 .err{background:#fdecea;border:1px solid #f5c2bd;color:#8c2019;border-radius:10px;padding:14px 16px;margin-bottom:16px;display:none}
 .hide{display:none}
@@ -86,6 +93,17 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:28px}
       room quietly goes back to "Leased" on its own.
     </div>
 
+    <div class="note lanes">
+      <b>You are only editing your own column.</b> The <i>Airbnb says</i> column on the right is
+      read-only — it updates itself every 30 minutes and nothing you do here changes it. Where the
+      two disagree, the website quotes whichever keeps the room occupied longer, so it never
+      promises a room you cannot deliver.
+      <br><br>
+      Airbnb blocks that are <i>not</i> guests — the end of its booking window, or a room you
+      unlisted — are noted but ignored. They say nothing about whether a long-term tenant could
+      move in, so only you and Jen can take a room off the market for that.
+    </div>
+
     <div id="props"></div>
 
     <button class="btn" id="save">Save — the website updates right away</button>
@@ -96,11 +114,12 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:28px}
   <footer>This page isn't linked in the menus and search engines are told to skip it.</footer>
 </div>
 
-<script src="availability.js?v=4"></script>
+<script src="availability.js?v=5"></script>
 <script>
 var CODE  = '';
-var ROOMS = [];
+var ROOMS = [];   // the human lane — what you and Jen typed
 var PROPS = [];
+var AB    = {};   // the Airbnb lane — read only, written by the sync
 var $ = function (id) { return document.getElementById(id); };
 
 function say(el, msg) { el.textContent = msg; el.style.display = msg ? 'block' : 'none'; }
@@ -129,9 +148,58 @@ function resolve(r) {
   return { state: 'leased' };
 }
 
+// Mirrors the server exactly: Airbnb can only ever make a room look LESS
+// available, never more. A room you marked leased stays leased.
+function merged(r) {
+  var base = resolve(r);
+  var a = AB[r.id];
+  if (!a || base.state === 'leased' || base.state === 'incomplete') return base;
+
+  var busy = !!(a.busyNow && a.busyUntil);
+
+  if (base.state === 'available') {
+    if (busy) return { state: 'date', date: parseDate(a.nextFree), src: 'airbnb' };
+    return { state: 'available', until: a.nextBooking ? parseDate(a.nextBooking) : null };
+  }
+
+  if (base.state === 'date' && busy) {
+    var ad = parseDate(a.nextFree);
+    if (ad && ad > base.date) return { state: 'date', date: ad, src: 'airbnb' };
+  }
+  return base;
+}
+
+function abText(r) {
+  var a = AB[r.id];
+  if (!a) return '<span class="abnone">no Airbnb listing</span>';
+  if (a.note === 'never synced') return '<span class="abnone">not synced yet</span>';
+
+  var out = [];
+  if (a.busyNow && a.busyUntil) {
+    out.push('<b>Guest in now</b> — last night ' + longDate(parseDate(a.busyUntil)) +
+             ', free ' + longDate(parseDate(a.nextFree)));
+  } else if (a.nextBooking) {
+    out.push('Free — next guest ' + longDate(parseDate(a.nextBooking)));
+  } else {
+    out.push('Free — no bookings');
+  }
+
+  var blocks = (a.blocked || []).length;
+  if (blocks) {
+    out.push('<span class="abnone">' + blocks + ' Airbnb block' + (blocks > 1 ? 's' : '') +
+             ' — not guests, ignored</span>');
+  }
+
+  var m = merged(r);
+  if (m.src === 'airbnb') {
+    out.push('<span class="abover">Website shows ' + longDate(m.date) + '</span>');
+  }
+  return out.join('<br>');
+}
+
 function websiteSays(rooms) {
   if (rooms.some(function (r) { return resolve(r).state === 'incomplete'; })) return '(pick a date)';
-  var states = rooms.map(resolve);
+  var states = rooms.map(merged);
   var open = states.filter(function (s) { return s.state === 'available'; }).length;
   if (open) return open > 1 ? open + ' Rooms Available Now' : 'Available Now';
   var dates = states.filter(function (s) { return s.state === 'date'; })
@@ -160,7 +228,7 @@ function render() {
           '<option value="available">Available now</option>' +
         '</select></span></div>' +
       '<p class="says">The website will say: <b>' + websiteSays(mine) + '</b></p>' +
-      '<div class="rhead"><span>Room</span><span>Status</span><span>Opens on</span></div>';
+      '<div class="rhead"><span>Room</span><span>You &amp; Jen say</span><span>Opens on</span><span>Airbnb says</span></div>';
 
     var rows = mine.map(function (r) {
       var i = ROOMS.indexOf(r);
@@ -172,6 +240,7 @@ function render() {
           '<option value="available">Available now</option>' +
         '</select>' +
         '<input type="date" class="dt" data-i="' + i + '" aria-label="Date ' + r.room + ' opens" />' +
+        '<div class="abcell">' + abText(r) + '</div>' +
       '</div>';
     }).join('');
 
@@ -212,8 +281,13 @@ function render() {
 }
 
 function openEditor(d) {
-  ROOMS = (d && d.rooms) || [];
+  // Bind the form to the HUMAN lane. d.rooms is the merged answer the website
+  // publishes; editing that and saving it back would write Airbnb's dates into
+  // the sheet as though a person had chosen them, and the room would stay
+  // blocked long after the guest checked out.
+  ROOMS = (d && (d.manual || d.rooms)) || [];
   PROPS = (d && d.properties) || [];
+  AB    = (d && d.airbnb) || {};
   $('gate').classList.add('hide');
   $('editor').classList.remove('hide');
   render();
@@ -261,7 +335,8 @@ $('save').addEventListener('click', function () {
   .then(function (r) { return r.json(); })
   .then(function (d) {
     if (!d.ok) { say($('err'), d.error || 'Something went wrong.'); return; }
-    ROOMS = d.rooms || ROOMS;
+    ROOMS = d.manual || d.rooms || ROOMS;
+    AB    = d.airbnb || AB;
     render();
     say($('ok'), 'Saved. The website is showing this now.');
     $('stamp').textContent = 'Last saved ' + new Date().toLocaleString('en-US');
