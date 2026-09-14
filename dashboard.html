@@ -63,6 +63,7 @@ input:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
 .tl-inner{min-width:100%}
 .tl-row{display:grid;grid-template-columns:200px 1fr;align-items:stretch}
 .tl-row+.tl-row{border-top:1px solid #f0ede5}
+.tl-row:not(.group){background:var(--free)}
 .tl-row.group{background:#fbfaf6}
 .tl-row.group .rl{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;padding:10px 14px}
 .rl{padding:9px 14px;font-size:.86rem;font-weight:600;display:flex;flex-direction:column;justify-content:center;gap:1px;border-right:1px solid var(--line);background:var(--surface);position:sticky;left:0;z-index:3}
@@ -74,21 +75,21 @@ input:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
 .rl .rnow.l{color:var(--muted)}
 
 /* the plot area for one room */
-.track{position:relative;height:38px;background:var(--free);border-left:0}
-.tl-row.group .track{height:auto;background:#fbfaf6}
+.track{position:relative;min-height:46px}
+.tl-row.group .track{min-height:0;background:#fbfaf6}
 .months{position:relative;height:30px;background:var(--surface);border-bottom:1px solid var(--line)}
 .mlab{position:absolute;top:0;height:30px;display:flex;align-items:center;padding-left:7px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden}
 .mtick{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
 .gtick{position:absolute;top:0;bottom:0;width:1px;background:#f0ede5}
 
-.bar-o{position:absolute;top:7px;height:24px;border-radius:4px;min-width:5px;
+.bar-o{position:absolute;top:50%;transform:translateY(-50%);height:24px;border-radius:4px;min-width:5px;
   display:flex;align-items:center;padding:0 7px;font-size:.72rem;font-weight:600;
   white-space:nowrap;overflow:hidden;cursor:default;
   box-shadow:0 0 0 2px var(--surface)}   /* 2px surface gap, not a border */
 .bar-o:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .bar-o.guest{background:var(--guest);color:#fff}
 .bar-o.lease{background:var(--lease);color:#fff}
-.bar-o.block{background:var(--block-fill);color:#8e9299;border:1px solid var(--block-edge);box-shadow:none;height:14px;top:12px;font-size:.66rem}
+.bar-o.block{background:var(--block-fill);color:#8e9299;border:1px solid var(--block-edge);box-shadow:none;height:13px;font-size:.66rem}
 .bar-o.openend::after{content:'';position:absolute;right:0;top:0;bottom:0;width:16px;
   background:linear-gradient(90deg,transparent,var(--lease))}
 
@@ -312,14 +313,16 @@ function render(){
   head += '</div>';
 
   /* rows, grouped by property */
-  var html = '<div class="tl-row"><div class="rl" style="border-bottom:1px solid var(--line)"></div>' + head + '</div>';
+  var html = '<div class="tl-row"><div class="rl" style="border-bottom:1px solid var(--line);padding:0"></div>' + head + '</div>';
 
   props.forEach(function(p){
     var mine = rooms.filter(function(r){ return r.property === p.id; });
     if (!mine.length) return;
 
-    html += '<div class="tl-row group"><div class="rl">' + p.label + '</div>' +
-            '<div class="track" style="width:' + plotW + 'px;height:38px"></div></div>';
+    var lp = p.label.split(' \u00b7 ');
+    html += '<div class="tl-row group"><div class="rl"><span>' + lp[0] + '</span>' +
+            (lp[1] ? '<span class="rsub">' + lp[1] + '</span>' : '') + '</div>' +
+            '<div class="track" style="width:' + plotW + 'px"></div></div>';
 
     mine.forEach(function(r){
       var m = mergedState(r, ab);
@@ -345,7 +348,7 @@ function render(){
         var wpx = (w / 100) * plotW;
         var label = '';
         if (b.kind === 'guest' && wpx > 62) label = nights(dayDiff(s, e));
-        if (b.kind === 'lease' && wpx > 92) label = b.openEnd ? 'no end date posted' : 'opens ' + pretty(b.end);
+        if (b.kind === 'lease' && wpx > 80) label = b.openEnd ? 'no end date posted' : 'opens ' + pretty(b.end);
         html += '<div class="bar-o ' + b.kind + (b.openEnd ? ' openend' : '') + '"' +
                 ' style="left:' + left + '%;width:' + w + '%"' +
                 ' tabindex="0" role="img"' +
