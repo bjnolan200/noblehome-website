@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Room Calendar · Noble Home</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%231b2733'/%3E%3Cpath d='M9 27V17l11-7 11 7v10' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3Cpath d='M16 27v-6h8v6' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1b2733; --navy-deep:#121a23; --gold:#b8893b; --gold-soft:#c9a25b;
+  --cream:#f7f4ec; --line:#e2ded4; --muted:#6b727a; --ink:#1b2733;
+  --surface:#fff;
+  /* the three things a bar can mean */
+  --guest:#0b6b9e;          /* a real Airbnb reservation */
+  --lease:#b8893b;          /* you and Jen took the room off the market */
+  --block-fill:#f2f1ee;     /* Airbnb is not bookable then — not a guest */
+  --block-edge:#d5d2ca;
+  --free:#eef6f0;           /* open */
+  --free-edge:#dcebe1;
+  --today:#8c2019;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;padding:0 0 70px;-webkit-font-smoothing:antialiased}
+.bar{background:var(--navy-deep);color:#fff;padding:14px 0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:#8b939c;font-weight:600}
+.bar .back{color:var(--gold-soft);text-decoration:none;letter-spacing:.1em;white-space:nowrap}
+.bar .back:hover{color:#fff}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;margin:32px 0 6px}
+.sub{color:var(--muted);margin-bottom:24px;max-width:62ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+label{display:block;font-weight:600;font-size:.8rem;margin-bottom:5px;color:#3a4149}
+input{width:100%;padding:.68rem .8rem;border:1px solid var(--line);border-radius:9px;font:inherit;font-size:.98rem;background:#fff}
+input:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:600;font-size:.95rem;padding:.85rem 1.6rem;border-radius:50px;border:1.5px solid var(--gold);background:var(--gold);color:#fff;cursor:pointer;width:100%}
+.btn:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.btn.ghost{background:#fff;color:#3a4149;border-color:var(--line);margin-top:10px;text-decoration:none}
+.err{background:#fdecea;border:1px solid #f5c2bd;color:#8c2019;border-radius:10px;padding:14px 16px;margin-bottom:16px;display:none}
+.hide{display:none}
+
+/* ---- stat tiles: the number IS the chart ---- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+@media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.stat .k{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-size:1.9rem;font-weight:600;line-height:1.15;margin-top:6px;font-variant-numeric:proportional-nums}
+.stat .n{font-size:.8rem;color:var(--muted);margin-top:2px}
+.stat.open .v{color:#14672f}
+
+/* ---- filter row: one row, above everything it scopes ---- */
+.filters{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:50px;overflow:hidden;background:#fff}
+.seg button{border:0;background:#fff;color:#3a4149;font:inherit;font-size:.85rem;font-weight:600;padding:.5rem 1rem;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.filters .stamp{margin-left:auto;font-size:.8rem;color:var(--muted)}
+
+/* ---- the timeline ---- */
+.tl{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.04);overflow:hidden}
+.tl-scroll{overflow-x:auto;overflow-y:hidden}
+.tl-inner{min-width:100%}
+.tl-row{display:grid;grid-template-columns:170px 1fr;align-items:stretch}
+.tl-row+.tl-row{border-top:1px solid #f0ede5}
+.tl-row.group{background:#fbfaf6}
+.tl-row.group .rl{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;padding:10px 14px}
+.rl{padding:9px 14px;font-size:.86rem;font-weight:600;display:flex;flex-direction:column;justify-content:center;gap:1px;border-right:1px solid var(--line);background:var(--surface);position:sticky;left:0;z-index:3}
+.tl-row.group .rl{background:#fbfaf6}
+.rl .rsub{font-weight:400;font-size:.75rem;color:var(--muted)}
+.rl .rnow{font-weight:700;font-size:.72rem;letter-spacing:.02em}
+.rl .rnow.a{color:#14672f}
+.rl .rnow.d{color:#7a5310}
+.rl .rnow.l{color:var(--muted)}
+
+/* the plot area for one room */
+.track{position:relative;height:38px;background:var(--free);border-left:0}
+.tl-row.group .track{height:auto;background:#fbfaf6}
+.months{position:relative;height:30px;background:var(--surface);border-bottom:1px solid var(--line)}
+.mlab{position:absolute;top:0;height:30px;display:flex;align-items:center;padding-left:7px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden}
+.mtick{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.gtick{position:absolute;top:0;bottom:0;width:1px;background:#f0ede5}
+.todayline{position:absolute;top:0;bottom:0;width:1px;background:var(--today);z-index:2}
+.todayflag{position:absolute;top:2px;transform:translateX(-50%);font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--today);background:var(--surface);padding:0 4px;z-index:4;white-space:nowrap}
+
+.bar-o{position:absolute;top:7px;height:24px;border-radius:4px;min-width:5px;
+  display:flex;align-items:center;padding:0 7px;font-size:.72rem;font-weight:600;
+  white-space:nowrap;overflow:hidden;cursor:default;
+  box-shadow:0 0 0 2px var(--surface)}   /* 2px surface gap, not a border */
+.bar-o:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.bar-o.guest{background:var(--guest);color:#fff}
+.bar-o.lease{background:var(--lease);color:#fff}
+.bar-o.block{background:var(--block-fill);color:#8e9299;border:1px solid var(--block-edge);box-shadow:none;height:14px;top:12px;font-size:.66rem}
+.bar-o.openend::after{content:'';position:absolute;right:0;top:0;bottom:0;width:16px;
+  background:linear-gradient(90deg,transparent,var(--lease))}
+
+.legend{display:flex;flex-wrap:wrap;gap:16px;padding:14px 18px;border-top:1px solid var(--line);background:#fbfaf6;font-size:.82rem}
+.legend span{display:inline-flex;align-items:center;gap:7px;color:#3a4149}
+.sw{width:15px;height:11px;border-radius:3px;flex:none}
+.sw.guest{background:var(--guest)}
+.sw.lease{background:var(--lease)}
+.sw.block{background:var(--block-fill);border:1px solid var(--block-edge)}
+.sw.free{background:var(--free);border:1px solid var(--free-edge)}
+
+/* ---- the plain-english twin ---- */
+h2.sec{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;margin:34px 0 4px}
+.listnote{color:var(--muted);font-size:.88rem;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{text-align:left;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid #f0ede5;vertical-align:top;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+td.rm{font-weight:600;white-space:nowrap;font-variant-numeric:normal}
+td.bk{color:#3a4149}
+.pill{display:inline-block;font-size:.74rem;font-weight:700;padding:.2rem .55rem;border-radius:50px;white-space:nowrap}
+.pill.a{background:#e6f4ea;color:#14672f}
+.pill.d{background:#fdf3dd;color:#7a5310}
+.pill.l{background:#f1f0ee;color:#6b727a}
+.none{color:var(--muted)}
+.tblwrap{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow-x:auto;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:28px}
+
+#tip{position:fixed;z-index:99;background:var(--navy-deep);color:#fff;font-size:.78rem;line-height:1.45;
+  padding:8px 11px;border-radius:8px;pointer-events:none;opacity:0;transition:opacity .12s;max-width:250px;
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.55)}
+#tip b{color:var(--gold-soft)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <span>Noble Home · Staff Only</span>
+  <a class="back" href="manage.html">Set availability &rarr;</a>
+</div></div>
+
+<div class="wrap">
+  <h1>Room Calendar</h1>
+  <p class="sub">Every bedroom, and who is in it. Airbnb reservations arrive on their own every
+    30 minutes; the gold bars are the ones you and Jen set on the availability page.</p>
+
+  <div class="err" id="err"></div>
+
+  <div class="card" id="gate">
+    <label for="code">Access code</label>
+    <input type="password" id="code" inputmode="numeric" autocomplete="current-password" placeholder="Enter the code" />
+    <button class="btn" id="unlock" style="margin-top:14px">Unlock</button>
+  </div>
+
+  <div id="view" class="hide">
+    <div class="stats" id="stats"></div>
+
+    <div class="filters">
+      <div class="seg" role="group" aria-label="How far ahead to show">
+        <button type="button" data-mo="3">3 months</button>
+        <button type="button" data-mo="6" aria-pressed="true">6 months</button>
+        <button type="button" data-mo="12">12 months</button>
+      </div>
+      <span class="stamp" id="stamp"></span>
+    </div>
+
+    <div class="tl">
+      <div class="tl-scroll"><div class="tl-inner" id="tl"></div></div>
+      <div class="legend">
+        <span><i class="sw guest"></i> Airbnb guest booked</span>
+        <span><i class="sw lease"></i> You &amp; Jen marked it taken</span>
+        <span><i class="sw block"></i> Airbnb block — not a guest, ignored</span>
+        <span><i class="sw free"></i> Open</span>
+      </div>
+    </div>
+
+    <h2 class="sec">Room by room</h2>
+    <p class="listnote">The same thing in words. Every date here is also on the chart above.</p>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Room</th><th>Right now</th><th>Guests booked ahead</th><th>Airbnb blocks (ignored)</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <a class="btn ghost" href="manage.html">Change availability</a>
+  </div>
+
+  <footer>This page isn't linked in the menus and search engines are told to skip it.</footer>
+</div>
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script src="availability.js?v=5"></script>
+<script>
+var $ = function (id) { return document.getElementById(id); };
+var DATA = null, MONTHS = 6;
+
+function say(msg) { var e = $('err'); e.textContent = msg; e.style.display = msg ? 'block' : 'none'; }
+
+/* ---- dates as plain strings, so no timezone can shift a night ---- */
+function ymd(d){var m=d.getMonth()+1,y=d.getDate();return d.getFullYear()+'-'+(m<10?'0':'')+m+'-'+(y<10?'0':'')+y;}
+function fromYmd(s){var p=String(s).slice(0,10).split('-');return p.length===3?new Date(+p[0],+p[1]-1,+p[2]):null;}
+function addDays(s,n){var d=fromYmd(s);d.setDate(d.getDate()+n);return ymd(d);}
+function dayDiff(a,b){return Math.round((fromYmd(b)-fromYmd(a))/86400000);}
+function pretty(s){var d=fromYmd(s);return d?d.toLocaleDateString('en-US',{month:'short',day:'numeric'}):'';}
+function prettyLong(s){var d=fromYmd(s);return d?d.toLocaleDateString('en-US',{month:'long',day:'numeric'}):'';}
+function nights(n){return n+(n===1?' night':' nights');}
+
+/* ---- the same merge rule the website uses ---- */
+function mergedState(r, ab){
+  var a = ab[r.id], today = ymd(new Date());
+  var st = (r.status||'leased').toLowerCase();
+  if (st === 'leased') return {k:'l', label:'Leased'};
+  var busy = a && a.busyNow && a.busyUntil;
+  if (st === 'available'){
+    if (busy) return {k:'d', label:'Opens '+prettyLong(a.nextFree), date:a.nextFree, src:'airbnb'};
+    return {k:'a', label:'Open now'};
+  }
+  var mine = r.date || '';
+  var theirs = busy ? a.nextFree : '';
+  var d = (theirs && theirs > mine) ? theirs : mine;
+  if (!d || d <= today) return {k:'l', label:'Leased'};
+  return {k:'d', label:'Opens '+prettyLong(d), date:d, src:(theirs && theirs > mine) ? 'airbnb' : 'you'};
+}
+
+/* ---- every bar this room should draw ---- */
+function barsFor(r, ab, from, to){
+  var out = [], a = ab[r.id], today = ymd(new Date());
+
+  (a && a.ranges || []).forEach(function(g){
+    out.push({kind:'guest', start:g.start, end:g.end,
+      title:'Airbnb guest', detail:prettyLong(g.start)+' — '+prettyLong(addDays(g.end,-1))+' · '+nights(dayDiff(g.start,g.end))});
+  });
+
+  (a && a.blocked || []).forEach(function(b){
+    out.push({kind:'block', start:b.start, end:b.end,
+      title:'Airbnb block — not a guest',
+      detail:prettyLong(b.start)+' — '+prettyLong(addDays(b.end,-1))+' · Airbnb is not bookable, but a long-term tenant could move in. Ignored on the website.'});
+  });
+
+  var st = (r.status||'leased').toLowerCase();
+  if (st === 'leased'){
+    out.push({kind:'lease', start:today, end:to, openEnd:true,
+      title:'You marked this leased', detail:'No end date posted. Set one on the availability page once a tenant gives notice.'});
+  } else if (st === 'date' && r.date && r.date > today){
+    out.push({kind:'lease', start:today, end:r.date,
+      title:'You marked this taken', detail:'Occupied through '+prettyLong(addDays(r.date,-1))+', opens '+prettyLong(r.date)});
+  }
+
+  return out.filter(function(b){ return b.end > from && b.start < to; });
+}
+
+/* ---- draw ---- */
+function render(){
+  if (!DATA) return;
+  var ab = DATA.airbnb || {}, rooms = DATA.manual || DATA.rooms || [], props = DATA.properties || [];
+  var today = ymd(new Date());
+  var from = today;
+  var toD = fromYmd(today); toD.setMonth(toD.getMonth() + MONTHS);
+  var to = ymd(toD);
+  var days = dayDiff(from, to);
+  var pxDay = MONTHS === 3 ? 7.2 : MONTHS === 6 ? 3.8 : 2.0;
+  var plotW = Math.max(Math.round(days * pxDay), 560);
+  var pct = function(s){ return (dayDiff(from, s) / days) * 100; };
+
+  /* stat tiles */
+  var states = rooms.map(function(r){ return {r:r, m:mergedState(r, ab)}; });
+  var open = states.filter(function(s){ return s.m.k === 'a'; });
+  var dated = states.filter(function(s){ return s.m.k === 'd'; })
+                    .sort(function(a,b){ return a.m.date < b.m.date ? -1 : 1; });
+  var gn = 0, horizon90 = addDays(today, 90);
+  rooms.forEach(function(r){
+    ((ab[r.id]||{}).ranges||[]).forEach(function(g){
+      var s = g.start > today ? g.start : today, e = g.end < horizon90 ? g.end : horizon90;
+      if (e > s) gn += dayDiff(s, e);
+    });
+  });
+  var checked = Object.keys(ab).map(function(k){ return ab[k].checked || ''; }).sort().pop() || '';
+
+  $('stats').innerHTML =
+    '<div class="stat open"><div class="k">Open right now</div><div class="v">' + open.length +
+      '</div><div class="n">of ' + rooms.length + ' bedrooms</div></div>' +
+    '<div class="stat"><div class="k">Next room to open</div><div class="v">' +
+      (dated.length ? pretty(dated[0].m.date) : '—') + '</div><div class="n">' +
+      (dated.length ? dated[0].r.property + ' · ' + dated[0].r.room.split(' — ')[0] : 'nothing pending') + '</div></div>' +
+    '<div class="stat"><div class="k">Guest nights booked</div><div class="v">' + gn +
+      '</div><div class="n">next 90 days, Airbnb</div></div>' +
+    '<div class="stat"><div class="k">Airbnb last read</div><div class="v" style="font-size:1.15rem;padding-top:7px">' +
+      (checked ? checked.replace(' ', ' at ') : 'not yet') + '</div><div class="n">checks every 30 min</div></div>';
+
+  $('stamp').textContent = 'Today is ' + prettyLong(today) + ' · showing through ' + prettyLong(to);
+
+  /* month header */
+  var head = '<div class="months" style="width:' + plotW + 'px">';
+  var cur = fromYmd(today); cur.setDate(1);
+  while (ymd(cur) < to){
+    var s = ymd(cur) < from ? from : ymd(cur);
+    var nx = new Date(cur.getFullYear(), cur.getMonth() + 1, 1);
+    var e = ymd(nx) > to ? to : ymd(nx);
+    var left = pct(s), w = pct(e) - pct(s);
+    if (w > 0){
+      head += '<div class="mtick" style="left:' + left + '%"></div>';
+      head += '<div class="mlab" style="left:' + left + '%;width:' + w + '%">' +
+              cur.toLocaleDateString('en-US', {month:'short'}) +
+              (cur.getMonth() === 0 || ymd(cur) <= from ? " &rsquo;" + String(cur.getFullYear()).slice(2) : '') +
+              '</div>';
+    }
+    cur = nx;
+  }
+  head += '<div class="todayflag" style="left:0">Today</div></div>';
+
+  /* rows, grouped by property */
+  var html = '<div class="tl-row"><div class="rl" style="border-bottom:1px solid var(--line)"></div>' + head + '</div>';
+
+  props.forEach(function(p){
+    var mine = rooms.filter(function(r){ return r.property === p.id; });
+    if (!mine.length) return;
+
+    html += '<div class="tl-row group"><div class="rl">' + p.label + '</div>' +
+            '<div class="track" style="width:' + plotW + 'px;height:38px"></div></div>';
+
+    mine.forEach(function(r){
+      var m = mergedState(r, ab);
+      var parts = r.room.split(' — ');
+      html += '<div class="tl-row"><div class="rl">' +
+              '<span>' + parts[0] + '</span>' +
+              (parts[1] ? '<span class="rsub">' + parts[1] + '</span>' : '') +
+              '<span class="rnow ' + m.k + '">' + m.label + '</span>' +
+              '</div><div class="track" style="width:' + plotW + 'px">';
+
+      /* recessive month gridlines */
+      var g = fromYmd(today); g.setDate(1);
+      while (ymd(g) < to){
+        var gl = pct(ymd(g) < from ? from : ymd(g));
+        if (gl > 0) html += '<div class="gtick" style="left:' + gl + '%"></div>';
+        g = new Date(g.getFullYear(), g.getMonth() + 1, 1);
+      }
+
+      barsFor(r, ab, from, to).forEach(function(b){
+        var s = b.start < from ? from : b.start;
+        var e = b.end > to ? to : b.end;
+        var left = pct(s), w = pct(e) - pct(s);
+        var wpx = (w / 100) * plotW;
+        var label = '';
+        if (b.kind !== 'block' && wpx > 62) label = nights(dayDiff(s, e));
+        html += '<div class="bar-o ' + b.kind + (b.openEnd ? ' openend' : '') + '"' +
+                ' style="left:' + left + '%;width:' + w + '%"' +
+                ' tabindex="0" role="img"' +
+                ' aria-label="' + b.title + ': ' + b.detail.replace(/"/g, '') + '"' +
+                ' data-t="' + b.title + '" data-d="' + b.detail.replace(/"/g, '&quot;') + '">' + label + '</div>';
+      });
+
+      html += '<div class="todayline" style="left:0"></div></div></div>';
+    });
+  });
+
+  $('tl').innerHTML = html;
+  wireTips();
+
+  /* the words version */
+  var rowsHtml = '';
+  props.forEach(function(p){
+    rooms.filter(function(r){ return r.property === p.id; }).forEach(function(r){
+      var m = mergedState(r, ab), a = ab[r.id] || {};
+      var gs = (a.ranges || []).map(function(g){
+        return prettyLong(g.start) + '–' + prettyLong(addDays(g.end, -1)) + ' (' + nights(dayDiff(g.start, g.end)) + ')';
+      });
+      var bs = (a.blocked || []).map(function(b){
+        return prettyLong(b.start) + '–' + prettyLong(addDays(b.end, -1));
+      });
+      rowsHtml += '<tr><td class="rm">' + p.id + ' · ' + r.room.split(' — ')[0] + '</td>' +
+        '<td><span class="pill ' + m.k + '">' + m.label + '</span>' +
+          (m.src === 'airbnb' ? '<div class="none" style="font-size:.76rem;margin-top:3px">from Airbnb</div>' : '') +
+          (m.src === 'you' ? '<div class="none" style="font-size:.76rem;margin-top:3px">you set this</div>' : '') + '</td>' +
+        '<td class="bk">' + (gs.length ? gs.join('<br>') : '<span class="none">no guests booked</span>') + '</td>' +
+        '<td class="bk">' + (bs.length ? '<span class="none">' + bs.join('<br>') + '</span>'
+                                       : (ab[r.id] ? '<span class="none">none</span>'
+                                                   : '<span class="none">no Airbnb listing</span>')) + '</td></tr>';
+    });
+  });
+  $('tbody').innerHTML = rowsHtml;
+}
+
+/* ---- hover / focus layer. The table above carries every value too. ---- */
+function wireTips(){
+  var tip = $('tip');
+  function show(el){
+    tip.innerHTML = '<b>' + el.dataset.t + '</b><br>' + el.dataset.d;
+    var r = el.getBoundingClientRect();
+    tip.style.opacity = '1';
+    var tw = tip.offsetWidth;
+    var x = Math.min(Math.max(r.left + r.width / 2 - tw / 2, 10), window.innerWidth - tw - 10);
+    var y = r.top - tip.offsetHeight - 9;
+    tip.style.left = x + 'px';
+    tip.style.top = (y < 8 ? r.bottom + 9 : y) + 'px';
+  }
+  function hide(){ tip.style.opacity = '0'; }
+  document.querySelectorAll('.bar-o').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ show(el); });
+    el.addEventListener('focus', function(){ show(el); });
+    el.addEventListener('mouseleave', hide);
+    el.addEventListener('blur', hide);
+  });
+  document.querySelector('.tl-scroll').addEventListener('scroll', hide);
+}
+
+document.querySelectorAll('.seg button').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.querySelectorAll('.seg button').forEach(function(x){ x.removeAttribute('aria-pressed'); });
+    b.setAttribute('aria-pressed', 'true');
+    MONTHS = +b.dataset.mo;
+    render();
+  });
+});
+
+function unlock(code, fromButton){
+  say('');
+  if (!code) { say('Type the code first.'); return; }
+  if (fromButton) { $('unlock').disabled = true; $('unlock').textContent = 'Checking…'; }
+
+  fetch(NH_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ code: code, action: 'check' })
+  })
+  .then(function (r) { return r.json(); })
+  .then(function (d) {
+    if (!d.ok) { say(d.error || 'That code is not right.'); return; }
+    DATA = d;
+    $('gate').classList.add('hide');
+    $('view').classList.remove('hide');
+    render();
+  })
+  .catch(function () { say("Couldn't reach the availability service. Try again in a moment."); })
+  .then(done, done);
+
+  function done(){ $('unlock').disabled = false; $('unlock').textContent = 'Unlock'; }
+}
+
+$('unlock').addEventListener('click', function () { unlock($('code').value.trim(), true); });
+$('code').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('unlock').click(); });
+
+(function () {
+  var handed = null;
+  try { handed = sessionStorage.getItem('nh_code'); sessionStorage.removeItem('nh_code'); } catch (e) {}
+  if (handed) unlock(handed, false);
+})();
+</script>
+</body>
+</html>
