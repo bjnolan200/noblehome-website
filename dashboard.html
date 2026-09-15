@@ -34,6 +34,7 @@ h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;margi
 label{display:block;font-weight:600;font-size:.8rem;margin-bottom:5px;color:#3a4149}
 input{width:100%;padding:.68rem .8rem;border:1px solid var(--line);border-radius:9px;font:inherit;font-size:.98rem;background:#fff}
 input:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
+.codefield{-webkit-text-security:disc;text-security:disc;letter-spacing:.35em;font-size:1.15rem}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:600;font-size:.95rem;padding:.85rem 1.6rem;border-radius:50px;border:1.5px solid var(--gold);background:var(--gold);color:#fff;cursor:pointer;width:100%}
 .btn:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
 .btn.ghost{background:#fff;color:#3a4149;border-color:var(--line);margin-top:10px;text-decoration:none}
@@ -141,7 +142,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:28px}
 
   <div class="card" id="gate">
     <label for="code">Access code</label>
-    <input type="password" id="code" inputmode="numeric" autocomplete="current-password" placeholder="Enter the code" />
+    <input type="text" id="code" class="codefield" inputmode="numeric" autocomplete="off" name="nh-access" spellcheck="false" autocorrect="off" autocapitalize="off" aria-label="Access code" placeholder="Enter the code" />
     <button class="btn" id="unlock" style="margin-top:14px">Unlock</button>
   </div>
 

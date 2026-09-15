@@ -23,6 +23,7 @@ label{display:block;font-weight:600;font-size:.8rem;margin-bottom:5px;color:#3a4
 input,select{width:100%;padding:.68rem .8rem;border:1px solid var(--line);border-radius:9px;font:inherit;font-size:.98rem;background:#fff}
 input:focus,select:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
 input[disabled],select[disabled]{background:#f4f2ec;color:#9aa0a7}
+.codefield{-webkit-text-security:disc;text-security:disc;letter-spacing:.35em;font-size:1.15rem}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:600;font-size:.95rem;padding:.85rem 1.6rem;border-radius:50px;border:1.5px solid var(--gold);background:var(--gold);color:#fff;cursor:pointer;transition:.2s;width:100%}
 .btn:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
 .btn[disabled]{opacity:.55;cursor:not-allowed}
@@ -83,7 +84,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:28px}
   <!-- CODE GATE -->
   <div class="card" id="gate">
     <label for="code">Access code</label>
-    <input type="password" id="code" inputmode="numeric" autocomplete="current-password" placeholder="Enter the code" />
+    <input type="text" id="code" class="codefield" inputmode="numeric" autocomplete="off" name="nh-access" spellcheck="false" autocorrect="off" autocapitalize="off" aria-label="Access code" placeholder="Enter the code" />
     <p class="sub" style="margin:10px 0 16px;font-size:.85rem">Ask Bradford if you don't have it.</p>
     <button class="btn" id="unlock">Unlock</button>
   </div>

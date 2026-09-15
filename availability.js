@@ -246,6 +246,7 @@ var NH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxNO4BaVuGIyCqfR1NCId
       '#nh-staff h3{margin:0 0 4px;font-size:1.45rem;font-family:inherit}' +
       '#nh-staff p{margin:0 0 16px;font-size:.88rem;color:#6b727a}' +
       '#nh-staff input{width:100%;padding:.8rem .9rem;font-size:1.35rem;letter-spacing:.4em;text-align:center;' +
+        '-webkit-text-security:disc;text-security:disc;' +
         'border:1px solid #e2ded4;border-radius:10px;font-family:inherit;box-sizing:border-box}' +
       '#nh-staff input:focus{outline:2px solid #c9a25b;outline-offset:1px}' +
       '#nh-staff .row{display:flex;gap:.5rem;margin-top:14px}' +
@@ -262,7 +263,8 @@ var NH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxNO4BaVuGIyCqfR1NCId
       '<div class="bx" role="dialog" aria-modal="true" aria-label="Staff access">' +
         '<h3>Availability</h3>' +
         '<p>Staff only. Enter the code to update what the website says.</p>' +
-        '<input id="nh-staff-code" type="password" inputmode="numeric" autocomplete="off" ' +
+        '<input id="nh-staff-code" type="text" inputmode="numeric" autocomplete="off" ' +
+               'name="nh-access" spellcheck="false" autocorrect="off" autocapitalize="off" ' +
                'aria-label="Access code" placeholder="····" />' +
         '<div class="err" id="nh-staff-err"></div>' +
         '<div class="row">' +
