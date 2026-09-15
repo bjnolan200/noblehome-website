@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book a Showing · Noble Home — Providence, RI</title>
+<meta name="description" content="Pick a time to see a room at Noble Home on Oakland Avenue, Providence. Viewings are free and there is nothing to pay to book one." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%231b2733'/%3E%3Cpath d='M9 27V17l11-7 11 7v10' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3Cpath d='M16 27v-6h8v6' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1b2733;--navy-deep:#121a23;--gold:#b8893b;--gold-soft:#c9a25b;--cream:#f7f4ec;
+      --line:#e2ded4;--muted:#6b727a;--ink:#1b2733;--surface:#fff;--green:#14672f;--green-bg:#e6f4ea;
+      --amber:#7a5310;--amber-bg:#fdf3dd}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;
+     -webkit-font-smoothing:antialiased;padding:0 0 80px}
+.bar{background:var(--navy-deep);color:#fff;padding:13px 0}
+.wrap{max-width:760px;margin:0 auto;padding-inline:20px}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:9px;color:#fff;text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700}
+.bar a.back{color:var(--gold-soft);text-decoration:none;font-size:.82rem;letter-spacing:.08em}
+.bar a.back:hover{color:#fff}
+
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.1rem,6vw,2.9rem);font-weight:700;line-height:1.1;margin:36px 0 8px;text-wrap:balance}
+.lede{color:#3a4149;font-size:1.02rem;max-width:56ch;margin-bottom:6px}
+.free{display:inline-block;background:var(--green-bg);color:var(--green);font-weight:700;font-size:.85rem;
+      padding:.35rem .8rem;border-radius:50px;margin:12px 0 26px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px;
+      box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.step{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.num{flex:none;width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-size:.78rem;
+     font-weight:700;display:flex;align-items:center;justify-content:center;align-self:center}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700}
+.hint{color:var(--muted);font-size:.88rem;margin:2px 0 16px 34px}
+@media(max-width:560px){.hint{margin-left:0}}
+
+.prop-name{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
+.prop-name:first-child{margin-top:0}
+.rooms{display:grid;gap:8px}
+.room{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);
+      border-radius:10px;padding:12px 14px;cursor:pointer;font:inherit;transition:.15s}
+.room:hover{border-color:var(--gold-soft)}
+.room[aria-pressed="true"]{border-color:var(--gold);background:#fdfaf4;box-shadow:0 0 0 3px rgba(184,137,59,.13)}
+.room .rn{font-weight:600;font-size:.95rem}
+.room .rd{font-size:.8rem;color:var(--muted)}
+.room .tag{margin-left:auto;flex:none;font-size:.74rem;font-weight:700;padding:.24rem .6rem;border-radius:50px;white-space:nowrap}
+.tag.a{background:var(--green-bg);color:var(--green)}
+.tag.d{background:var(--amber-bg);color:var(--amber)}
+
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.day{flex:none;min-width:74px;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:9px 6px;
+     cursor:pointer;font:inherit;text-align:center;transition:.15s}
+.day:hover{border-color:var(--gold-soft)}
+.day[aria-pressed="true"]{border-color:var(--gold);background:var(--navy);color:#fff}
+.day .dw{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;opacity:.72}
+.day .dd{font-size:1.15rem;font-weight:700;line-height:1.25}
+.day .dm{font-size:.68rem;opacity:.72}
+.times{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.time{background:#fff;border:1.5px solid var(--line);border-radius:50px;padding:.5rem 1.05rem;cursor:pointer;
+      font:inherit;font-size:.9rem;font-weight:600;transition:.15s}
+.time:hover{border-color:var(--gold-soft)}
+.time[aria-pressed="true"]{border-color:var(--gold);background:var(--gold);color:#fff}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+label{display:block;font-weight:600;font-size:.79rem;margin-bottom:4px;color:#3a4149}
+input,select,textarea{width:100%;padding:.68rem .8rem;border:1px solid var(--line);border-radius:9px;font:inherit;
+                      font-size:.97rem;background:#fff;color:var(--ink)}
+textarea{min-height:72px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
+.field{margin-bottom:12px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.criteria{background:#fbfaf6;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:16px;font-size:.9rem}
+.criteria h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;margin-bottom:8px}
+.criteria ul{margin:0 0 12px 18px}
+.criteria li{margin-bottom:5px}
+.criteria p{margin-bottom:10px}
+.criteria p:last-child{margin-bottom:0}
+.fine{font-size:.82rem;color:var(--muted)}
+
+.check{display:flex;gap:10px;align-items:flex-start;margin-bottom:11px;font-size:.88rem;line-height:1.5}
+.check input{width:17px;height:17px;flex:none;margin-top:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:600;font-size:1rem;
+     padding:.95rem 1.6rem;border-radius:50px;border:1.5px solid var(--gold);background:var(--gold);color:#fff;
+     cursor:pointer;width:100%;font-family:inherit;transition:.18s}
+.btn:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:#fff;color:#3a4149;border-color:var(--line);margin-top:10px;text-decoration:none}
+
+.msg{border-radius:10px;padding:13px 16px;margin-bottom:14px;font-size:.9rem;display:none}
+.msg.err{background:#fdecea;border:1px solid #f5c2bd;color:#8c2019}
+.summary{background:var(--navy);color:#fff;border-radius:12px;padding:16px 18px;margin-bottom:16px;display:none}
+.summary .k{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft)}
+.summary .v{font-size:1.05rem;font-weight:600;margin-top:3px}
+
+.done{text-align:center;padding:14px 0 6px}
+.done .tick{width:54px;height:54px;border-radius:50%;background:var(--green-bg);color:var(--green);
+            display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:1.7rem}
+.done h2{font-size:1.9rem;margin-bottom:6px}
+.done .when{font-size:1.1rem;font-weight:600;margin-bottom:4px}
+.done .where{color:var(--muted);margin-bottom:18px}
+.done .next{text-align:left;background:#fbfaf6;border:1px solid var(--line);border-radius:10px;padding:16px 18px;font-size:.9rem}
+.done .next b{display:block;margin-bottom:6px}
+.hide{display:none}
+footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:30px;line-height:1.7}
+footer a{color:var(--muted)}
+.load{text-align:center;color:var(--muted);padding:40px 0}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <a class="brand" href="index.html">Noble Home</a>
+  <a class="back" href="index.html">&larr; All properties</a>
+</div></div>
+
+<div class="wrap">
+
+  <!-- ===== CANCEL ===== -->
+  <div id="cancelView" class="hide">
+    <h1>Cancel your showing</h1>
+    <div class="msg err" id="cancelErr"></div>
+    <div class="card" id="cancelCard">
+      <p id="cancelWhat" style="margin-bottom:16px"></p>
+      <button class="btn" id="cancelGo">Yes, cancel it</button>
+      <a class="btn ghost" href="showings.html">Keep it</a>
+    </div>
+    <div class="card hide" id="cancelDone">
+      <div class="done">
+        <div class="tick">&#10003;</div>
+        <h2>Cancelled</h2>
+        <p class="where">That slot is open again. You are welcome to book another any time.</p>
+        <a class="btn" href="showings.html">Book a different time</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BOOK ===== -->
+  <div id="bookView">
+    <h1>Book a showing</h1>
+    <p class="lede">Pick a time that works and it is yours — no back and forth. You will get an email
+      straight away and a reminder two hours before.</p>
+    <p class="free">Viewings are free &middot; nothing to pay to book</p>
+
+    <div class="msg err" id="err"></div>
+    <div class="summary" id="summary"></div>
+
+    <div id="loading" class="load">Loading available times&hellip;</div>
+
+    <form id="form" class="hide" novalidate>
+
+      <div class="card">
+        <div class="step"><span class="num">1</span><h2>Which room?</h2></div>
+        <p class="hint">Only rooms that are open, or opening soon, are listed.</p>
+        <div id="rooms"></div>
+      </div>
+
+      <div class="card">
+        <div class="step"><span class="num">2</span><h2>When suits you?</h2></div>
+        <p class="hint">Weekdays 4:30&ndash;6:00 PM, Saturday mornings 7:00&ndash;9:00 AM. Times already taken are not shown.</p>
+        <div class="days" id="days"></div>
+        <div class="times" id="times"></div>
+      </div>
+
+      <div class="card">
+        <div class="step"><span class="num">3</span><h2>About you</h2></div>
+        <p class="hint">Jen will meet you there. Nothing here is a credit check.</p>
+
+        <div class="grid2">
+          <div class="field"><label for="fn">First name</label><input id="fn" autocomplete="given-name" /></div>
+          <div class="field"><label for="ln">Last name</label><input id="ln" autocomplete="family-name" /></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="ph">Mobile number</label><input id="ph" type="tel" autocomplete="tel" placeholder="(401) 555-0123" /></div>
+          <div class="field"><label for="em">Email</label><input id="em" type="email" autocomplete="email" placeholder="you@example.com" /></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="mi">Desired move-in date</label><input id="mi" type="date" /></div>
+          <div class="field"><label for="st">How long do you plan to stay?</label>
+            <select id="st">
+              <option value="">Select</option>
+              <option>Under 3 months</option>
+              <option>3&ndash;6 months</option>
+              <option>6&ndash;12 months</option>
+              <option>12 months or more</option>
+            </select></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="oc">How many people will live there?</label>
+            <select id="oc"><option value="">Select</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select></div>
+          <div class="field"><label for="pt">Any pets?</label>
+            <select id="pt"><option value="">Select</option><option>No</option><option>Yes</option></select></div>
+        </div>
+        <div class="field"><label for="pa">How will rent be paid?</label>
+          <select id="pa">
+            <option value="">Select</option>
+            <option>Employer or travel stipend</option>
+            <option>Personal income</option>
+            <option>Combination</option>
+            <option>Other</option>
+          </select></div>
+        <div class="field"><label for="no">Anything we should know? (optional)</label><textarea id="no"></textarea></div>
+        <div class="hp"><label>Leave this empty<input id="website" tabindex="-1" autocomplete="off" /></label></div>
+      </div>
+
+      <div class="criteria">
+        <h3>What we look for</h3>
+        <p>The same standards for everyone, on a one-month stay or a one-year lease:</p>
+        <ul>
+          <li>Verifiable income of <strong>3&times; the rent</strong> &mdash; a pay stub, offer or assignment letter, benefit award letter, or bank statements</li>
+          <li>Credit score of <strong>650 or above</strong></li>
+          <li><strong>No eviction judgments</strong> in the past five years</li>
+          <li>A <strong>background check</strong> before move-in &mdash; everyone, every lease length</li>
+        </ul>
+        <p><strong>Pets are welcome</strong> &mdash; one flat <strong>$100/month</strong> fee, no matter how many.</p>
+        <p class="fine">There is no application fee. If the room is right, we send the application link afterwards.
+          It runs through Innago, where the screening company charges <strong>$35</strong> for the credit and
+          background check &mdash; paid to them, not to us, and only once you have seen the room.
+          Already have a credit report and a Rhode Island BCI check from the last 90 days? Tell us first and
+          we will use those instead, at no charge.</p>
+        <p class="fine">Noble Home follows federal and Rhode Island fair housing law. We do not discriminate on the
+          basis of race, colour, religion, sex, sexual orientation, gender identity, national origin, familial
+          status, disability, age, marital status, military status, or source of income.</p>
+      </div>
+
+      <div class="card">
+        <div class="check"><input type="checkbox" id="ok1" /><label for="ok1" style="font-weight:400;margin:0">I have read what you look for above and believe I meet it.</label></div>
+        <div class="check"><input type="checkbox" id="ok2" /><label for="ok2" style="font-weight:400;margin:0">You can text me about this showing. Reply STOP any time.</label></div>
+        <button type="submit" class="btn" id="go">Book this showing</button>
+        <p class="fine" style="text-align:center;margin-top:10px">Free to book &middot; cancel any time with one click</p>
+      </div>
+    </form>
+
+    <!-- confirmation -->
+    <div class="card hide" id="doneCard">
+      <div class="done">
+        <div class="tick">&#10003;</div>
+        <h2>You&rsquo;re booked</h2>
+        <p class="when" id="doneWhen"></p>
+        <p class="where" id="doneWhere"></p>
+        <div class="next">
+          <b>What happens now</b>
+          A confirmation is on its way to your inbox, with the address and parking. Jen will meet you
+          out front &mdash; (401) 829-6011 if you are running late. Bring a photo ID.
+          We will text a reminder two hours before.
+        </div>
+        <a class="btn ghost" href="index.html" style="margin-top:14px">Back to the properties</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Noble Home LLC &middot; Oakland Avenue, Providence, RI 02908<br>
+    Questions? Jen &mdash; <a href="tel:+14018296011">(401) 829-6011</a>
+  </footer>
+</div>
+
+<script src="availability.js?v=5"></script>
+<script>
+var DATA = null, pick = { roomId: '', date: '', time: '' };
+var $ = function (id) { return document.getElementById(id); };
+
+function show(el, on) { el.classList[on ? 'remove' : 'add']('hide'); }
+function err(msg) { var e = $('err'); e.textContent = msg || ''; e.style.display = msg ? 'block' : 'none';
+  if (msg) window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+function d(ymd) { var p = String(ymd).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+function t12(hm) { var p = hm.split(':'), h = +p[0], ap = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12; return h + ':' + p[1] + ' ' + ap; }
+function longDate(ymd) { return d(ymd).toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' }); }
+
+/* ---------- rooms ---------- */
+function drawRooms() {
+  var box = $('rooms'); box.innerHTML = '';
+  (DATA.properties || []).forEach(function (p) {
+    var mine = (DATA.rooms || []).filter(function (r) { return r.property === p.id; });
+    if (!mine.length) return;
+    var h = document.createElement('p'); h.className = 'prop-name'; h.textContent = p.label;
+    box.appendChild(h);
+    var g = document.createElement('div'); g.className = 'rooms';
+    mine.forEach(function (r) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'room'; b.setAttribute('aria-pressed', 'false');
+      var open = r.status === 'available';
+      var parts = r.room.split(' — ');
+      b.innerHTML = '<span><span class="rn">' + parts[0] + '</span>' +
+        (parts[1] ? '<br><span class="rd">' + parts[1] + '</span>' : '') + '</span>' +
+        '<span class="tag ' + (open ? 'a' : 'd') + '">' +
+        (open ? 'Available now' : 'Opens ' + d(r.date).toLocaleDateString('en-US', { month:'short', day:'numeric' })) +
+        '</span>';
+      b.addEventListener('click', function () {
+        pick.roomId = r.id;
+        box.querySelectorAll('.room').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', 'true');
+        drawSummary(); err('');
+      });
+      g.appendChild(b);
+    });
+    box.appendChild(g);
+  });
+}
+
+/* ---------- days and times ---------- */
+function drawDays() {
+  var box = $('days'); box.innerHTML = '';
+  (DATA.days || []).forEach(function (day) {
+    var dt = d(day.date);
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'day'; b.setAttribute('aria-pressed', 'false');
+    b.innerHTML = '<div class="dw">' + dt.toLocaleDateString('en-US', { weekday:'short' }) + '</div>' +
+                  '<div class="dd">' + dt.getDate() + '</div>' +
+                  '<div class="dm">' + dt.toLocaleDateString('en-US', { month:'short' }) + '</div>';
+    b.addEventListener('click', function () {
+      pick.date = day.date; pick.time = '';
+      box.querySelectorAll('.day').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      drawTimes(day.slots); drawSummary(); err('');
+    });
+    box.appendChild(b);
+  });
+}
+
+function drawTimes(slots) {
+  var box = $('times'); box.innerHTML = '';
+  slots.forEach(function (t) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'time'; b.setAttribute('aria-pressed', 'false');
+    b.textContent = t12(t);
+    b.addEventListener('click', function () {
+      pick.time = t;
+      box.querySelectorAll('.time').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      drawSummary(); err('');
+    });
+    box.appendChild(b);
+  });
+}
+
+function drawSummary() {
+  var s = $('summary');
+  if (!pick.roomId && !pick.date) { s.style.display = 'none'; return; }
+  var room = (DATA.rooms || []).filter(function (r) { return r.id === pick.roomId; })[0];
+  var bits = [];
+  if (room) bits.push(room.property + ' Oakland · ' + room.room.split(' — ')[0]);
+  if (pick.date && pick.time) bits.push(longDate(pick.date) + ' at ' + t12(pick.time));
+  else if (pick.date) bits.push(longDate(pick.date) + ' — pick a time');
+  s.innerHTML = '<div class="k">Your showing</div><div class="v">' + bits.join(' &middot; ') + '</div>';
+  s.style.display = 'block';
+}
+
+/* ---------- submit ---------- */
+$('form').addEventListener('submit', function (e) {
+  e.preventDefault(); err('');
+
+  if (!pick.roomId) return err('Pick which room you would like to see.');
+  if (!pick.date || !pick.time) return err('Pick a day and a time.');
+  if (!$('fn').value.trim() || !$('ln').value.trim()) return err('Please give us your name.');
+  if (!$('ph').value.trim()) return err('We need a mobile number to confirm and remind you.');
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($('em').value.trim())) return err('That email address does not look right.');
+  if (!$('ok1').checked) return err('Please confirm you have read what we look for.');
+  if (!$('ok2').checked) return err('We need your okay to text you about the showing.');
+
+  var btn = $('go'); btn.disabled = true; btn.textContent = 'Booking…';
+
+  fetch(NH_ENDPOINT, {
+    method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({
+      action: 'book', roomId: pick.roomId, date: pick.date, time: pick.time,
+      name: $('fn').value.trim() + ' ' + $('ln').value.trim(),
+      phone: $('ph').value.trim(), email: $('em').value.trim(),
+      moveIn: $('mi').value, staying: $('st').value, occupants: $('oc').value,
+      pets: $('pt').value, paying: $('pa').value, notes: $('no').value.trim(),
+      website: $('website').value
+    })
+  })
+  .then(function (r) { return r.json(); })
+  .then(function (res) {
+    if (!res.ok) { err(res.error || 'Something went wrong. Please try again.'); load(); return; }
+    $('doneWhen').textContent = res.when;
+    $('doneWhere').textContent = res.property + ' Oakland Avenue · ' + res.room;
+    show($('form'), false); $('summary').style.display = 'none';
+    show($('doneCard'), true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  })
+  .catch(function () { err('We could not reach the booking service. Please try again, or call Jen at (401) 829-6011.'); })
+  .then(done, done);
+
+  function done() { btn.disabled = false; btn.textContent = 'Book this showing'; }
+});
+
+/* ---------- load ---------- */
+function load() {
+  return fetch(NH_ENDPOINT + '?action=showings&t=' + Date.now(), { cache: 'no-store' })
+    .then(function (r) { return r.json(); })
+    .then(function (j) {
+      DATA = j;
+      if (!j.days || !j.days.length) {
+        $('loading').textContent = 'No viewing times are open right now. Call Jen at (401) 829-6011 and she will sort something out.';
+        return;
+      }
+      show($('loading'), false); show($('form'), true);
+      drawRooms(); drawDays();
+    })
+    .catch(function () {
+      $('loading').innerHTML = 'We could not load the times. Please refresh, or call Jen at <a href="tel:+14018296011">(401) 829-6011</a>.';
+    });
+}
+
+/* ---------- cancel mode ---------- */
+(function () {
+  var token = new URLSearchParams(location.search).get('cancel');
+  if (!token) { load(); return; }
+
+  show($('bookView'), false); show($('cancelView'), true);
+  $('cancelWhat').textContent = 'This will free up your slot so someone else can take it. Are you sure?';
+
+  $('cancelGo').addEventListener('click', function () {
+    var b = this; b.disabled = true; b.textContent = 'Cancelling…';
+    fetch(NH_ENDPOINT, {
+      method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'cancel', token: token })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (res) {
+      if (!res.ok) {
+        var e = $('cancelErr');
+        e.textContent = res.error || 'We could not cancel that. Call Jen at (401) 829-6011.';
+        e.style.display = 'block';
+        b.disabled = false; b.textContent = 'Yes, cancel it';
+        return;
+      }
+      show($('cancelCard'), false); show($('cancelDone'), true);
+    })
+    .catch(function () {
+      var e = $('cancelErr');
+      e.textContent = 'We could not reach the booking service. Call Jen at (401) 829-6011.';
+      e.style.display = 'block';
+      b.disabled = false; b.textContent = 'Yes, cancel it';
+    });
+  });
+})();
+</script>
+</body>
+</html>
