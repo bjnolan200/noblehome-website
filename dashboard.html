@@ -42,13 +42,44 @@ input:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
 .hide{display:none}
 
 /* ---- stat tiles: the number IS the chart ---- */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
-@media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:14px;margin-bottom:18px}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
 .stat .k{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .stat .v{font-size:1.9rem;font-weight:600;line-height:1.15;margin-top:6px;font-variant-numeric:proportional-nums}
 .stat .n{font-size:.8rem;color:var(--muted);margin-top:2px}
 .stat.open .v{color:#14672f}
+
+.stat.book .v{color:#0b6b9e}
+
+/* ---- who is coming, and when ---- */
+.agenda{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:18px;
+        box-shadow:0 2px 10px rgba(0,0,0,.04);overflow:hidden}
+.agenda-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;
+             padding:18px 20px 14px;border-bottom:1px solid var(--line)}
+.agenda-head h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700}
+.agenda-head .sub{font-size:.84rem;color:var(--muted)}
+.dayhead{padding:11px 20px;background:#fbfaf6;border-bottom:1px solid var(--line);
+         font-size:.72rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.dayhead.today{background:#eef6f0;color:#14672f}
+.appt{display:grid;grid-template-columns:96px 1fr auto;gap:14px;align-items:start;
+      padding:14px 20px;border-bottom:1px solid #f0ede5}
+.appt:last-child{border-bottom:0}
+.appt .t{font-weight:700;font-size:.97rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.appt .t .rem{display:block;font-size:.68rem;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.appt .who{min-width:0}
+.appt .who .nm{font-weight:600;font-size:1rem}
+.appt .who .rm{font-size:.86rem;color:#3a4149;margin-top:1px}
+.appt .who .meta{font-size:.79rem;color:var(--muted);margin-top:4px}
+.appt .contact{text-align:right;font-size:.82rem;white-space:nowrap}
+.appt .contact a{display:block;color:#0b6b9e;text-decoration:none;font-weight:600}
+.appt .contact a:hover{text-decoration:underline}
+.appt .contact .em{color:var(--muted);font-weight:400;font-size:.76rem;margin-top:2px}
+.empty{padding:26px 20px;color:var(--muted);font-size:.92rem}
+.empty b{color:var(--ink);display:block;margin-bottom:4px;font-size:1rem}
+@media(max-width:620px){
+  .appt{grid-template-columns:1fr;gap:5px}
+  .appt .contact{text-align:left}
+}
 
 /* ---- filter row: one row, above everything it scopes ---- */
 .filters{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
@@ -148,6 +179,8 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:28px}
 
   <div id="view" class="hide">
     <div class="stats" id="stats"></div>
+
+    <div class="agenda" id="agenda"></div>
 
     <div class="filters">
       <div class="seg" role="group" aria-label="How far ahead to show">
@@ -284,6 +317,11 @@ function render(){
   $('stats').innerHTML =
     '<div class="stat open"><div class="k">Open right now</div><div class="v">' + open.length +
       '</div><div class="n">of ' + rooms.length + ' bedrooms</div></div>' +
+    '<div class="stat book"><div class="k">Showings booked</div><div class="v">' +
+      ((DATA.showings || []).length) + '</div><div class="n">' +
+      (((DATA.showings || [])[0]) ? 'next ' + t12(DATA.showings[0].time) + ' ' +
+        fromYmd(DATA.showings[0].date).toLocaleDateString('en-US',{month:'short',day:'numeric'})
+        : 'none yet') + '</div></div>' +
     '<div class="stat"><div class="k">Next room to open</div><div class="v">' +
       (dated.length ? pretty(dated[0].m.date) : '—') + '</div><div class="n">' +
       (dated.length ? dated[0].r.property + ' · ' + dated[0].r.room.split(' — ')[0] : 'nothing pending') + '</div></div>' +
@@ -364,6 +402,8 @@ function render(){
   $('tl').innerHTML = html;
   wireTips();
 
+  drawAgenda(today);
+
   /* the words version */
   var rowsHtml = '';
   props.forEach(function(p){
@@ -387,6 +427,71 @@ function render(){
   });
   $('tbody').innerHTML = rowsHtml;
 }
+
+/* ---- who is coming, and when ------------------------------------------
+   A showing is a 30-minute appointment. On a six-month timeline it would be
+   less than a pixel wide, so it gets an agenda rather than a bar.            */
+function drawAgenda(today){
+  var box = $('agenda');
+  var list = (DATA.showings || []).slice();
+
+  var head = '<div class="agenda-head"><h2>Showings</h2><span class="sub">' +
+    (list.length ? list.length + (list.length === 1 ? ' booked' : ' booked') + ' from today'
+                 : 'nothing booked yet') +
+    '</span></div>';
+
+  if (!list.length){
+    box.innerHTML = head +
+      '<div class="empty"><b>No showings booked.</b>' +
+      'The booking page is live at <a href="showings.html">noblehomeri.com/showings.html</a> \u2014 ' +
+      'anyone who books there appears here straight away, and you and Jen get an email.</div>';
+    return;
+  }
+
+  var tomorrow = shiftYmd_d(today, 1);
+  var html = head, lastDate = '';
+
+  list.forEach(function(s){
+    if (s.date !== lastDate){
+      lastDate = s.date;
+      var label = s.date === today ? 'Today \u00b7 ' + prettyDay(s.date)
+                : s.date === tomorrow ? 'Tomorrow \u00b7 ' + prettyDay(s.date)
+                : prettyDay(s.date);
+      html += '<div class="dayhead' + (s.date === today ? ' today' : '') + '">' + label + '</div>';
+    }
+
+    var meta = [];
+    if (s.staying)   meta.push(s.staying);
+    if (s.occupants) meta.push(s.occupants + (s.occupants === '1' ? ' person' : ' people'));
+    if (s.pets && s.pets.toLowerCase().indexOf('yes') === 0) meta.push('has pets');
+    if (s.moveIn)    meta.push('wants ' + prettyDay(s.moveIn));
+
+    html += '<div class="appt">' +
+      '<div class="t">' + t12(s.time) +
+        (s.reminded ? '<span class="rem">reminded</span>' : '') + '</div>' +
+      '<div class="who">' +
+        '<div class="nm">' + esc(s.name) + '</div>' +
+        '<div class="rm">' + s.property + ' Oakland \u00b7 ' + esc(s.room) + '</div>' +
+        (meta.length ? '<div class="meta">' + esc(meta.join(' \u00b7 ')) + '</div>' : '') +
+        (s.notes ? '<div class="meta">\u201c' + esc(s.notes) + '\u201d</div>' : '') +
+      '</div>' +
+      '<div class="contact">' +
+        '<a href="tel:' + esc(s.phone.replace(/[^0-9+]/g,'')) + '">' + esc(s.phone) + '</a>' +
+        '<div class="em">' + esc(s.email) + '</div>' +
+      '</div>' +
+    '</div>';
+  });
+
+  box.innerHTML = html;
+}
+
+function esc(v){ return String(v == null ? '' : v)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function prettyDay(ymd){ var d = fromYmd(ymd);
+  return d ? d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}) : ymd; }
+function shiftYmd_d(s,n){ var d=fromYmd(s); d.setDate(d.getDate()+n); return ymd(d); }
+function t12(hm){ var p=String(hm).split(':'), h=+p[0], ap=h>=12?'PM':'AM';
+  h=h%12||12; return h+':'+p[1]+' '+ap; }
 
 /* ---- hover / focus layer. The table above carries every value too. ---- */
 function wireTips(){
