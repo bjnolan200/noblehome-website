@@ -147,7 +147,7 @@ footer a{color:var(--muted)}
   <div id="bookView">
     <h1>Book a showing</h1>
     <p class="lede">Pick a time that works and it is yours — no back and forth. You will get an email
-      straight away and a reminder two hours before.</p>
+      straight away and an emailed reminder two hours before.</p>
     <p class="free">Viewings are free &middot; nothing to pay to book</p>
 
     <div class="msg err" id="err"></div>
@@ -167,6 +167,7 @@ footer a{color:var(--muted)}
         <div class="step"><span class="num">2</span><h2>When suits you?</h2></div>
         <p class="hint">Weekdays 4:30&ndash;6:00 PM, Saturday mornings 7:00&ndash;9:00 AM. Times already taken are not shown.</p>
         <div class="days" id="days"></div>
+        <p class="hint" id="daysNote" style="display:none;color:#8a6d3b;margin-top:2px"></p>
         <div class="times" id="times"></div>
       </div>
 
@@ -223,7 +224,7 @@ footer a{color:var(--muted)}
       </details>
 
       <div class="card">
-        <div class="check"><input type="checkbox" id="ok2" /><label for="ok2" style="font-weight:400;margin:0">Text me the confirmation and reminder as well &mdash; optional. Reply STOP any time.</label></div>
+        <div class="check"><input type="checkbox" id="ok2" /><label for="ok2" style="font-weight:400;margin:0">Text me too, once text reminders go live &mdash; coming soon. Optional; reply STOP any time.</label></div>
         <button type="submit" class="btn" id="go">Book this showing</button>
         <p class="fine" style="text-align:center;margin-top:10px">Free to book &middot; cancel any time with one click</p>
       </div>
@@ -238,9 +239,10 @@ footer a{color:var(--muted)}
         <p class="where" id="doneWhere"></p>
         <div class="next">
           <b>What happens now</b>
-          A confirmation is on its way to your inbox, with the address and parking. Jen will meet you
-          out front &mdash; (401) 829-6011 if you are running late. Bring a photo ID.
-          We will text a reminder two hours before.
+          A confirmation is on its way to your inbox with the address. There is free parking in the
+          driveway, and Jen will meet you at the front door &mdash; (401) 829-6011 if you are running
+          late. Bring a photo ID. We will email you a reminder two hours before; text reminders are
+          coming soon.
         </div>
         <a class="btn ghost" href="index.html" style="margin-top:14px">Back to the properties</a>
       </div>
@@ -259,13 +261,32 @@ var DATA = null, pick = { roomId: '', date: '', time: '' };
 var $ = function (id) { return document.getElementById(id); };
 
 function show(el, on) { el.classList[on ? 'remove' : 'add']('hide'); }
-function err(msg) { var e = $('err'); e.textContent = msg || ''; e.style.display = msg ? 'block' : 'none';
-  if (msg) window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function err(msg, focusId) {
+  var e = $('err'); e.textContent = msg || ''; e.style.display = msg ? 'block' : 'none';
+  if (!msg) return;
+  /* Send them to the thing that needs fixing, not back to the top of the page. */
+  var f = focusId ? $(focusId) : null;
+  if (f) { f.scrollIntoView({ block: 'center', behavior: 'smooth' }); try { f.focus({ preventScroll: true }); } catch (x) { f.focus(); } }
+  else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+}
 
 function d(ymd) { var p = String(ymd).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
 function t12(hm) { var p = hm.split(':'), h = +p[0], ap = h >= 12 ? 'PM' : 'AM';
   h = h % 12 || 12; return h + ':' + p[1] + ' ' + ap; }
 function longDate(ymd) { return d(ymd).toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' }); }
+function shortDate(ymd) { return d(ymd).toLocaleDateString('en-US', { month:'short', day:'numeric' }); }
+
+/* Somebody is staying in the room that night — start inclusive, end is the
+   checkout morning, so the room is free again on the end date. */
+function roomBusyOn(room, ymd) {
+  var b = (room && room.busy) || [];
+  for (var i = 0; i < b.length; i++) { if (ymd >= b[i].start && ymd < b[i].end) return true; }
+  return false;
+}
+function pickedRoom() {
+  var m = (DATA.rooms || []).filter(function (r) { return r.id === pick.roomId; });
+  return m[0] || null;
+}
 
 /* ---------- rooms ---------- */
 function drawRooms() {
@@ -296,12 +317,17 @@ function drawRooms() {
       b.innerHTML = '<span><span class="rn">' + parts[0] + '</span>' +
         (parts[1] ? '<br><span class="rd">' + parts[1] + '</span>' : '') + '</span>' +
         '<span class="tag ' + (open ? 'a' : 'd') + '">' +
-        (open ? 'Available now' : 'Opens ' + d(r.date).toLocaleDateString('en-US', { month:'short', day:'numeric' })) +
+        (open ? (r.until ? 'Now \u2014 to ' + shortDate(r.until) : 'Available now')
+              : 'Opens ' + shortDate(r.date)) +
         '</span>';
       b.addEventListener('click', function () {
         pick.roomId = r.id;
         box.querySelectorAll('.room').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
         b.setAttribute('aria-pressed', 'true');
+        /* Days a guest is staying in this room are no longer on offer, so the
+           picked day may no longer exist. */
+        drawDays();
+        if (pick.date && roomBusyOn(r, pick.date)) { pick.date = ''; pick.time = ''; $('times').innerHTML = ''; }
         drawSummary(); err('');
       });
       g.appendChild(b);
@@ -313,7 +339,11 @@ function drawRooms() {
 /* ---------- days and times ---------- */
 function drawDays() {
   var box = $('days'); box.innerHTML = '';
+  var room = pickedRoom();
+  var hidden = 0;
   (DATA.days || []).forEach(function (day) {
+    /* A viewing cannot happen in a room somebody is sleeping in that night. */
+    if (room && roomBusyOn(room, day.date)) { hidden++; return; }
     var dt = d(day.date);
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'day'; b.setAttribute('aria-pressed', 'false');
@@ -328,6 +358,19 @@ function drawDays() {
     });
     box.appendChild(b);
   });
+
+  var note = $('daysNote');
+  if (room && hidden) {
+    note.textContent = 'Some days are missing for ' + room.room.split(' \u2014 ')[0] +
+      ' \u2014 there is a guest staying then. Pick another day, or another room.';
+    note.style.display = 'block';
+  } else {
+    note.textContent = ''; note.style.display = 'none';
+  }
+  if (!box.children.length) {
+    note.textContent = 'That room is taken every day we can show it. Pick another room, or call Jen on (401) 829-6011.';
+    note.style.display = 'block';
+  }
 }
 
 function drawTimes(slots) {
@@ -362,11 +405,11 @@ function drawSummary() {
 $('form').addEventListener('submit', function (e) {
   e.preventDefault(); err('');
 
-  if (!pick.roomId) return err('Pick which room you would like to see.');
-  if (!pick.date || !pick.time) return err('Pick a day and a time.');
-  if (!$('fn').value.trim()) return err('Please give us your name.');
-  if (!$('ph').value.trim()) return err('We need a mobile number to confirm and remind you.');
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($('em').value.trim())) return err('That email address does not look right.');
+  if (!pick.roomId) { $('rooms').scrollIntoView({ block:'center', behavior:'smooth' }); return err('Pick which room you would like to see.'); }
+  if (!pick.date || !pick.time) { $('days').scrollIntoView({ block:'center', behavior:'smooth' }); return err('Pick a day and a time.'); }
+  if (!$('fn').value.trim()) return err('Please give us your name.', 'fn');
+  if (!$('ph').value.trim()) return err('We need a mobile number to confirm and remind you.', 'ph');
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($('em').value.trim())) return err('That email address does not look right.', 'em');
 
   var btn = $('go'); btn.disabled = true; btn.textContent = 'Booking…';
 
@@ -421,7 +464,15 @@ function load() {
   if (!token) { load(); return; }
 
   show($('bookView'), false); show($('cancelView'), true);
-  $('cancelWhat').textContent = 'This will free up your slot so someone else can take it. Are you sure?';
+  /* The link carries the details so the page can say what it is about to cancel. */
+  var q = new URLSearchParams(location.search);
+  var what = '';
+  if (q.get('d')) {
+    what = longDate(q.get('d')) + (q.get('t') ? ' at ' + t12(q.get('t')) : '') +
+           (q.get('r') ? ' \u2014 ' + q.get('r') : '');
+  }
+  $('cancelWhat').innerHTML = (what ? '<b>' + what + '</b><br>' : '') +
+    'This will free up your slot so someone else can take it. Are you sure?';
 
   $('cancelGo').addEventListener('click', function () {
     var b = this; b.disabled = true; b.textContent = 'Cancelling…';

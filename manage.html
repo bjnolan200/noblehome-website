@@ -310,6 +310,8 @@ function tryCode(code, fromButton) {
   .then(function (r) { return r.json(); })
   .then(function (d) {
     if (!d.ok) { say($('err'), d.error || 'That code is not right.'); return; }
+    /* Remember it for this browser session so it is typed once, not on every page. */
+    try { sessionStorage.setItem('nh_code', code); } catch (e) {}
     CODE = code;
     openEditor(d);
   })
@@ -354,14 +356,11 @@ $('save').addEventListener('click', function () {
   }
 });
 
-// If you came through the Staff box on the website, you are already past the
-// code — use it once and drop it straight away.
+// Already past the code somewhere else in this browser session — the staff box
+// on the website, or the room calendar — so do not ask again.
 (function () {
   var handed = null;
-  try {
-    handed = sessionStorage.getItem('nh_code');
-    sessionStorage.removeItem('nh_code');
-  } catch (e) {}
+  try { handed = sessionStorage.getItem('nh_code'); } catch (e) {}
   if (handed) tryCode(handed, false);
 })();
 </script>

@@ -72,6 +72,10 @@ input:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
 .appt .who .meta{font-size:.79rem;color:var(--muted);margin-top:4px}
 .appt .contact{text-align:right;font-size:.82rem;white-space:nowrap}
 .appt .contact a{display:block;color:#0b6b9e;text-decoration:none;font-weight:600}
+.appt .contact .cancel{margin-top:8px;background:#fff;border:1px solid var(--line);border-radius:7px;
+  padding:.3rem .6rem;font:inherit;font-size:.78rem;color:#8a3a3a;cursor:pointer}
+.appt .contact .cancel:hover{background:#fdf5f5;border-color:#e2c9c9}
+.appt .contact .cancel[disabled]{opacity:.5;cursor:default}
 .appt .contact a:hover{text-decoration:underline}
 .appt .contact .em{color:var(--muted);font-weight:400;font-size:.76rem;margin-top:2px}
 .empty{padding:26px 20px;color:var(--muted);font-size:.92rem}
@@ -478,11 +482,35 @@ function drawAgenda(today){
       '<div class="contact">' +
         '<a href="tel:' + esc(s.phone.replace(/[^0-9+]/g,'')) + '">' + esc(s.phone) + '</a>' +
         '<div class="em">' + esc(s.email) + '</div>' +
+        (s.token ? '<button type="button" class="cancel" data-token="' + esc(s.token) +
+                   '" data-who="' + esc(s.name) + '">Cancel this showing</button>' : '') +
       '</div>' +
     '</div>';
   });
 
   box.innerHTML = html;
+
+  /* Cancelling for somebody who phoned Jen. Same route the guest's own link
+     uses, so they are told and the slot reopens. */
+  box.querySelectorAll('.cancel').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (!window.confirm('Cancel ' + b.dataset.who + "'s showing? The slot opens up again.")) return;
+      b.disabled = true; b.textContent = 'Cancelling\u2026';
+      fetch(NH_ENDPOINT, {
+        method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'cancel', token: b.dataset.token })
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res.ok) { b.disabled = false; b.textContent = 'Cancel this showing';
+          window.alert(res.error || 'That did not work. Try again in a moment.'); return; }
+        var code = ''; try { code = sessionStorage.getItem('nh_code') || ''; } catch (e) {}
+        if (code) { unlock(code, false); } else { b.textContent = 'Cancelled'; }
+      })
+      .catch(function () { b.disabled = false; b.textContent = 'Cancel this showing';
+        window.alert('Could not reach the booking service. Try again in a moment.'); });
+    });
+  });
 }
 
 function esc(v){ return String(v == null ? '' : v)
@@ -545,6 +573,8 @@ function unlock(code, fromButton){
   .then(function (r) { return r.json(); })
   .then(function (d) {
     if (!d.ok) { say(d.error || 'That code is not right.'); return; }
+    /* Remember it for this browser session so Jen types it once, not on every page. */
+    try { sessionStorage.setItem('nh_code', code); } catch (e) {}
     DATA = d;
     $('gate').classList.add('hide');
     $('view').classList.remove('hide');
@@ -561,7 +591,7 @@ $('code').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('u
 
 (function () {
   var handed = null;
-  try { handed = sessionStorage.getItem('nh_code'); sessionStorage.removeItem('nh_code'); } catch (e) {}
+  try { handed = sessionStorage.getItem('nh_code'); } catch (e) {}
   if (handed) unlock(handed, false);
 })();
 </script>
