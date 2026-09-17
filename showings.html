@@ -78,6 +78,12 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--gold-soft);outli
 .criteria li{margin-bottom:5px}
 .criteria p{margin-bottom:10px}
 .criteria p:last-child{margin-bottom:0}
+details.criteria summary{cursor:pointer;list-style:none;line-height:1.55}
+details.criteria summary::-webkit-details-marker{display:none}
+details.criteria summary::marker{content:''}
+details.criteria summary:after{content:' Read the detail';color:#8a7f6a;text-decoration:underline;white-space:nowrap}
+details.criteria[open] summary:after{content:' Hide'}
+details.criteria .crit-more{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
 .fine{font-size:.82rem;color:var(--muted)}
 
 .check{display:flex;gap:10px;align-items:flex-start;margin-bottom:11px;font-size:.88rem;line-height:1.5}
@@ -168,10 +174,7 @@ footer a{color:var(--muted)}
         <div class="step"><span class="num">3</span><h2>About you</h2></div>
         <p class="hint">Jen will meet you there. Nothing here is a credit check.</p>
 
-        <div class="grid2">
-          <div class="field"><label for="fn">First name</label><input id="fn" autocomplete="given-name" /></div>
-          <div class="field"><label for="ln">Last name</label><input id="ln" autocomplete="family-name" /></div>
-        </div>
+        <div class="field"><label for="fn">Your name</label><input id="fn" autocomplete="name" placeholder="First and last" /></div>
         <div class="grid2">
           <div class="field"><label for="ph">Mobile number</label><input id="ph" type="tel" autocomplete="tel" placeholder="(401) 555-0123" /></div>
           <div class="field"><label for="em">Email</label><input id="em" type="email" autocomplete="email" placeholder="you@example.com" /></div>
@@ -193,41 +196,34 @@ footer a{color:var(--muted)}
           <div class="field"><label for="pt">Any pets?</label>
             <select id="pt"><option value="">Select</option><option>No</option><option>Yes</option></select></div>
         </div>
-        <div class="field"><label for="pa">How will rent be paid?</label>
-          <select id="pa">
-            <option value="">Select</option>
-            <option>Employer or travel stipend</option>
-            <option>Personal income</option>
-            <option>Combination</option>
-            <option>Other</option>
-          </select></div>
         <div class="field"><label for="no">Anything we should know? (optional)</label><textarea id="no"></textarea></div>
         <div class="hp"><label>Leave this empty<input id="website" tabindex="-1" autocomplete="off" /></label></div>
       </div>
 
-      <div class="criteria">
-        <h3>What we look for</h3>
-        <p>The same standards for everyone, on a one-month stay or a one-year lease:</p>
-        <ul>
-          <li>Verifiable income of <strong>3&times; the rent</strong> &mdash; a pay stub, offer or assignment letter, benefit award letter, or bank statements</li>
-          <li>Credit score of <strong>650 or above</strong></li>
-          <li><strong>No eviction judgments</strong> in the past five years</li>
-          <li>A <strong>background check</strong> before move-in &mdash; everyone, every lease length</li>
-        </ul>
-        <p><strong>Pets are welcome</strong> &mdash; one flat <strong>$100/month</strong> fee, no matter how many.</p>
-        <p class="fine">There is no application fee. If the room is right, we send the application link afterwards.
-          It runs through Innago, where the screening company charges <strong>$35</strong> for the credit and
-          background check &mdash; paid to them, not to us, and only once you have seen the room.
-          Already have a credit report and a Rhode Island BCI check from the last 90 days? Tell us first and
-          we will use those instead, at no charge.</p>
-        <p class="fine">Noble Home follows federal and Rhode Island fair housing law. We do not discriminate on the
-          basis of race, colour, religion, sex, sexual orientation, gender identity, national origin, familial
-          status, disability, age, marital status, military status, or source of income.</p>
-      </div>
+      <details class="criteria">
+        <summary>Income <strong>3&times; the rent</strong>, credit <strong>650+</strong>, no evictions in five
+          years, and a background check before move-in. <strong>Pets welcome</strong> &mdash; flat $100/month.</summary>
+        <div class="crit-more">
+          <p>The same standards apply to everyone, whether it is a one-month stay or a one-year lease:</p>
+          <ul>
+            <li>Verifiable income of <strong>3&times; the rent</strong> &mdash; a pay stub, offer or assignment letter, benefit award letter, or bank statements</li>
+            <li>Credit score of <strong>650 or above</strong></li>
+            <li><strong>No eviction judgments</strong> in the past five years</li>
+            <li>A <strong>background check</strong> before move-in &mdash; everyone, every lease length</li>
+          </ul>
+          <p class="fine">There is nothing to pay to book a viewing, and no application fee. If the room is
+            right, we send the application link afterwards. It runs through Innago, where the screening
+            company charges <strong>$35</strong> for the credit and background check &mdash; paid to them, not
+            to us, and only once you have seen the room. Already have a credit report and a Rhode Island BCI
+            check from the last 90 days? Tell us first and we will use those instead, at no charge.</p>
+          <p class="fine">Noble Home follows federal and Rhode Island fair housing law. We do not discriminate
+            on the basis of race, colour, religion, sex, sexual orientation, gender identity, national origin,
+            familial status, disability, age, marital status, military status, or source of income.</p>
+        </div>
+      </details>
 
       <div class="card">
-        <div class="check"><input type="checkbox" id="ok1" /><label for="ok1" style="font-weight:400;margin:0">I have read what you look for above and believe I meet it.</label></div>
-        <div class="check"><input type="checkbox" id="ok2" /><label for="ok2" style="font-weight:400;margin:0">You can text me about this showing. Reply STOP any time.</label></div>
+        <div class="check"><input type="checkbox" id="ok2" /><label for="ok2" style="font-weight:400;margin:0">Text me the confirmation and reminder as well &mdash; optional. Reply STOP any time.</label></div>
         <button type="submit" class="btn" id="go">Book this showing</button>
         <p class="fine" style="text-align:center;margin-top:10px">Free to book &middot; cancel any time with one click</p>
       </div>
@@ -274,8 +270,20 @@ function longDate(ymd) { return d(ymd).toLocaleDateString('en-US', { weekday:'lo
 /* ---------- rooms ---------- */
 function drawRooms() {
   var box = $('rooms'); box.innerHTML = '';
-  (DATA.properties || []).forEach(function (p) {
-    var mine = (DATA.rooms || []).filter(function (r) { return r.property === p.id; });
+  /* Soonest first. Someone who needs a room next week should not have to
+     scroll past three months of future openings to reach the ones open today. */
+  var rank = function (r) { return r.status === 'available' ? '0000-00-00' : (r.date || '9999-12-31'); };
+  var soonest = function (pid) {
+    var s = '9999-12-31';
+    (DATA.rooms || []).forEach(function (r) { if (r.property === pid && rank(r) < s) s = rank(r); });
+    return s;
+  };
+  (DATA.properties || []).slice().sort(function (a, b) {
+    var sa = soonest(a.id), sb = soonest(b.id);
+    return sa < sb ? -1 : (sa > sb ? 1 : 0);
+  }).forEach(function (p) {
+    var mine = (DATA.rooms || []).filter(function (r) { return r.property === p.id; })
+      .sort(function (x, y) { return rank(x) < rank(y) ? -1 : (rank(x) > rank(y) ? 1 : 0); });
     if (!mine.length) return;
     var h = document.createElement('p'); h.className = 'prop-name'; h.textContent = p.label;
     box.appendChild(h);
@@ -356,11 +364,9 @@ $('form').addEventListener('submit', function (e) {
 
   if (!pick.roomId) return err('Pick which room you would like to see.');
   if (!pick.date || !pick.time) return err('Pick a day and a time.');
-  if (!$('fn').value.trim() || !$('ln').value.trim()) return err('Please give us your name.');
+  if (!$('fn').value.trim()) return err('Please give us your name.');
   if (!$('ph').value.trim()) return err('We need a mobile number to confirm and remind you.');
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($('em').value.trim())) return err('That email address does not look right.');
-  if (!$('ok1').checked) return err('Please confirm you have read what we look for.');
-  if (!$('ok2').checked) return err('We need your okay to text you about the showing.');
 
   var btn = $('go'); btn.disabled = true; btn.textContent = 'Booking…';
 
@@ -368,10 +374,11 @@ $('form').addEventListener('submit', function (e) {
     method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify({
       action: 'book', roomId: pick.roomId, date: pick.date, time: pick.time,
-      name: $('fn').value.trim() + ' ' + $('ln').value.trim(),
+      name: $('fn').value.trim(),
       phone: $('ph').value.trim(), email: $('em').value.trim(),
       moveIn: $('mi').value, staying: $('st').value, occupants: $('oc').value,
-      pets: $('pt').value, paying: $('pa').value, notes: $('no').value.trim(),
+      pets: $('pt').value, paying: '',
+      notes: ($('ok2').checked ? 'Texts OK. ' : '') + $('no').value.trim(),
       website: $('website').value
     })
   })

@@ -332,8 +332,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       <a href="https://my.innago.com" target="_blank" rel="noopener">Tenant Login</a>
     </nav>
     <div class="nav-cta">
-      <a href="https://my.innago.com/a/5Kl8ADNSO2b" target="_blank" rel="noopener" class="btn ghost">Apply Now</a>
-      <a href="#viewing" class="btn gold">Schedule a Viewing</a>
+      <a href="showings.html" class="btn gold">Book a Viewing</a>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
   </div>
@@ -355,9 +354,8 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       <div class="stat"><b>By Room</b><span>Individual Leases</span></div>
     </div>
     <div class="hero-actions">
-      <a href="https://my.innago.com/a/5Kl8ADNSO2b" target="_blank" rel="noopener" class="btn gold" data-nh-apply="172">Apply Now</a>
-      <a href="#waitlist" class="btn gold" data-nh-wait="172" hidden>Join the Waitlist</a>
-      <a href="#viewing" class="btn gold">Schedule a Viewing</a>
+      <a href="showings.html" class="btn gold">Book a Viewing</a>
+      <a href="#waitlist" class="btn" data-nh-wait="172" hidden>Join the Waitlist</a>
       <a href="#rooms" class="btn">See the Rooms</a>
     </div>
     </div>
@@ -496,12 +494,12 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Get Started</span>
-      <h2>Schedule a viewing.</h2>
+      <h2>Can&rsquo;t make any of those times?</h2>
       <p>Interested in a room? Request a tour with Jen and we'll be in touch promptly.</p>
     </div>
     <div class="forms-grid">
       <div class="card-form">
-        <h3>Schedule a Viewing</h3>
+        <h3>Book a Viewing</h3>
         <p class="sub">Request a tour of 172 Oakland Avenue with Jen, our property manager.</p>
         <div class="form-ok" id="ok-view">Thanks — your viewing request has been sent to Jen. We'll be in touch shortly.</div>
         <form id="form-view" name="viewing-request-172" method="POST" action="https://api.web3forms.com/submit">
@@ -684,7 +682,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
       <div class="f-links">
         <a href="#rooms">Available Rooms</a>
         <a href="#amenities">Amenities</a>
-        <a href="#viewing">Schedule a Viewing</a>
+        <a href="showings.html">Book a Viewing</a>
         <a href="184-oakland.html">184 Oakland Ave</a>
         <a href="186-oakland.html">186 Oakland Ave</a>
         <a href="https://my.innago.com/a/5Kl8ADNSO2b" target="_blank" rel="noopener">Apply</a>
@@ -766,7 +764,7 @@ rooms.forEach(r => {
       <p class="room-detail">${r.beds} · ${r.detail}</p>
       <p class="room-avail" data-nh-room="${r.id}" hidden></p>
       <div class="room-price">${r.price} <span>/mo</span></div>
-      <a href="#viewing" class="btn gold" style="margin-top:12px;font-size:.84rem;padding:.65rem 1.2rem">Schedule a Viewing</a>
+      <a href="showings.html" class="btn gold" style="margin-top:12px;font-size:.84rem;padding:.65rem 1.2rem">Book a Viewing</a>
     </div>`;
   if (hasPhotos) {
     const imgDiv = card.querySelector('.room-img-clickable');

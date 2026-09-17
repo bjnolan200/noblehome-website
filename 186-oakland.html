@@ -304,7 +304,10 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
     <div class="nav-cta">
       <a href="#faq" class="btn ghost">Questions?</a>
       <a href="#waitlist" class="btn gold" data-nh-wait="186">Join the Waitlist</a>
-      <a href="https://my.innago.com/a/5Kl8ADNSO2b" target="_blank" rel="noopener" class="btn gold" data-nh-apply="186" hidden>Apply Now</a>
+      <!-- data-nh-apply is availability.js's "show when a room is open" hook. It now
+           reveals Book a Viewing, not Apply: per policy the application link is only
+           ever sent after someone has seen the room. -->
+      <a href="showings.html" class="btn gold" data-nh-apply="186" hidden>Book a Viewing</a>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
   </div>
@@ -327,7 +330,7 @@ footer .f-bot{padding-top:22px;display:flex;justify-content:space-between;flex-w
     </div>
     <div class="hero-actions">
       <a href="#waitlist" class="btn gold" data-nh-wait="186">Join the Waitlist</a>
-      <a href="https://my.innago.com/a/5Kl8ADNSO2b" target="_blank" rel="noopener" class="btn gold" data-nh-apply="186" hidden>Apply Now</a>
+      <a href="showings.html" class="btn gold" data-nh-apply="186" hidden>Book a Viewing</a>
       <a href="#gallery" class="btn">Explore the Home</a>
     </div>
     </div>

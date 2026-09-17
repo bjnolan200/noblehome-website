@@ -15,7 +15,7 @@
      data-nh-pill="184"    the small chip in the property switcher bar
      data-nh-line="184"    a sentence in the waitlist section
      data-nh-field="184"   hidden field carried into the waitlist email
-     data-nh-apply="184"   Apply button — shown only when a room is open
+     data-nh-apply="184"   Book a Viewing button — shown only when a room is open
      data-nh-wait="184"    Join the Waitlist button — shown otherwise
      data-nh-staff         opens the staff code box (footer link)
    Every hook also gets data-nh-state="available|date|leased" so the CSS can
