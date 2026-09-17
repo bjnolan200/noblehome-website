@@ -75,6 +75,7 @@ input:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
 .appt .contact .cancel{margin-top:8px;background:#fff;border:1px solid var(--line);border-radius:7px;
   padding:.3rem .6rem;font:inherit;font-size:.78rem;color:#8a3a3a;cursor:pointer}
 .appt .contact .cancel:hover{background:#fdf5f5;border-color:#e2c9c9}
+.appt .contact .cancel.arm{background:#8a3a3a;border-color:#8a3a3a;color:#fff}
 .appt .contact .cancel[disabled]{opacity:.5;cursor:default}
 .appt .contact a:hover{text-decoration:underline}
 .appt .contact .em{color:var(--muted);font-weight:400;font-size:.76rem;margin-top:2px}
@@ -483,7 +484,7 @@ function drawAgenda(today){
         '<a href="tel:' + esc(s.phone.replace(/[^0-9+]/g,'')) + '">' + esc(s.phone) + '</a>' +
         '<div class="em">' + esc(s.email) + '</div>' +
         (s.token ? '<button type="button" class="cancel" data-token="' + esc(s.token) +
-                   '" data-who="' + esc(s.name) + '">Cancel this showing</button>' : '') +
+                   '">Cancel this showing</button>' : '') +
       '</div>' +
     '</div>';
   });
@@ -493,8 +494,16 @@ function drawAgenda(today){
   /* Cancelling for somebody who phoned Jen. Same route the guest's own link
      uses, so they are told and the slot reopens. */
   box.querySelectorAll('.cancel').forEach(function (b) {
+    var armed = false, timer = null;
     b.addEventListener('click', function () {
-      if (!window.confirm('Cancel ' + b.dataset.who + "'s showing? The slot opens up again.")) return;
+      /* Two taps rather than a browser popup: clearer on a phone, and nothing
+         is cancelled by a stray tap. */
+      if (!armed) {
+        armed = true; b.classList.add('arm'); b.textContent = 'Tap again to confirm';
+        timer = setTimeout(function () { armed = false; b.classList.remove('arm'); b.textContent = 'Cancel this showing'; }, 5000);
+        return;
+      }
+      clearTimeout(timer);
       b.disabled = true; b.textContent = 'Cancelling\u2026';
       fetch(NH_ENDPOINT, {
         method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -502,13 +511,13 @@ function drawAgenda(today){
       })
       .then(function (r) { return r.json(); })
       .then(function (res) {
-        if (!res.ok) { b.disabled = false; b.textContent = 'Cancel this showing';
-          window.alert(res.error || 'That did not work. Try again in a moment.'); return; }
+        if (!res.ok) { b.disabled = false; armed = false; b.classList.remove('arm');
+          b.textContent = 'Could not cancel \u2014 try again'; return; }
         var code = ''; try { code = sessionStorage.getItem('nh_code') || ''; } catch (e) {}
         if (code) { unlock(code, false); } else { b.textContent = 'Cancelled'; }
       })
-      .catch(function () { b.disabled = false; b.textContent = 'Cancel this showing';
-        window.alert('Could not reach the booking service. Try again in a moment.'); });
+      .catch(function () { b.disabled = false; armed = false; b.classList.remove('arm');
+        b.textContent = 'No connection \u2014 try again'; });
     });
   });
 }
