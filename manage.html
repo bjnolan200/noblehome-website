@@ -48,8 +48,9 @@ input[disabled],select[disabled]{background:#f4f2ec;color:#9aa0a7}
 .abcell b{color:var(--navy);font-weight:700}
 .abnone{color:#9aa0a7}
 .abover{display:block;margin-top:2px;color:#7a5310;font-weight:700}
-.rname .who{display:block;width:100%;margin-top:6px;padding:.35rem .55rem;font-size:.8rem;font-weight:400;border:1px solid var(--line);border-radius:7px}
-.rname .who::placeholder{color:#9aa0a7}
+.whocell{grid-column:1 / -1;margin-top:-2px}
+.whocell .who{display:block;width:100%;max-width:360px;padding:.35rem .55rem;font-size:.8rem;font-weight:400;border:1px solid var(--line);border-radius:7px}
+.whocell .who::placeholder{color:#9aa0a7}
 @media(max-width:620px){
   .rhead{display:none}
   .room{grid-template-columns:1fr 1fr;gap:8px;padding:14px 0}
@@ -252,10 +253,7 @@ function render() {
     var rows = mine.map(function (r) {
       var i = ROOMS.indexOf(r);
       return '<div class="room">' +
-        '<div class="rname">' + r.room +
-          '<input type="text" class="who" data-id="' + r.id + '" maxlength="80" autocomplete="off"' +
-          ' placeholder="Who is in it? (staff only)" aria-label="Who is in ' + r.room + '" />' +
-        '</div>' +
+        '<div class="rname">' + r.room + '</div>' +
         '<select class="st" data-i="' + i + '" aria-label="Status for ' + r.room + '">' +
           '<option value="leased">Leased</option>' +
           '<option value="date">Opens on a date</option>' +
@@ -263,6 +261,8 @@ function render() {
         '</select>' +
         '<input type="date" class="dt" data-i="' + i + '" aria-label="Date ' + r.room + ' opens" />' +
         '<div class="abcell">' + abText(r) + '</div>' +
+        '<div class="whocell"><input type="text" class="who" data-id="' + r.id + '" maxlength="80" autocomplete="off"' +
+          ' placeholder="Who is in it? Tenant name (staff only)" aria-label="Who is in ' + r.room + '" /></div>' +
       '</div>';
     }).join('');
 
