@@ -265,13 +265,37 @@ function mergedState(r, ab){
   return {k:'d', label:'Opens '+prettyLong(d), date:d, src:(theirs && theirs > mine) ? 'airbnb' : 'you'};
 }
 
+/* ---- who is in the room (staff only; the public website never gets names) ---- */
+function safeName(v){ return String(v == null ? '' : v).replace(/[<>&"]/g, '').trim(); }
+function shortName(n){ var p = safeName(n).split(' '); return p.length > 1 ? p[0] + ' ' + p[p.length-1].charAt(0) + '.' : p[0]; }
+/* The Airbnb guest for one booking, matched on the exact check-in and checkout. */
+function guestFor(id, g){
+  var list = ((DATA.guests || {}).airbnb || {})[id] || [];
+  for (var i = 0; i < list.length; i++){
+    if (list[i].start === g.start && list[i].end === g.end) return list[i];
+  }
+  return null;
+}
+function manualName(id){ return safeName(((DATA.guests || {}).manual || {})[id] || ''); }
+function guestNote(who, roomLabel){
+  if (!who || !who.name) return ' · Name not found in the Airbnb emails';
+  var n = '';
+  if (who.verified === 'yes') n = ' · Name confirmed in the Airbnb messages';
+  else if (who.verified === 'differs') n = ' · Messages are signed ' + safeName(who.msgName) + ', check this';
+  if (who.roomHint && roomLabel.indexOf('Room ' + who.roomHint) === -1) n += ' · Messages mention Room ' + safeName(who.roomHint);
+  return n;
+}
+
 /* ---- every bar this room should draw ---- */
 function barsFor(r, ab, from, to){
   var out = [], a = ab[r.id], today = ymd(new Date());
 
   (a && a.ranges || []).forEach(function(g){
-    out.push({kind:'guest', start:g.start, end:g.end,
-      title:'Airbnb guest', detail:prettyLong(g.start)+' — '+prettyLong(addDays(g.end,-1))+' · '+nights(dayDiff(g.start,g.end))});
+    var who = guestFor(r.id, g), name = who && who.name ? safeName(who.name) : '';
+    out.push({kind:'guest', start:g.start, end:g.end, name:name,
+      title: name || 'Airbnb guest',
+      detail:prettyLong(g.start)+' — '+prettyLong(addDays(g.end,-1))+' · '+nights(dayDiff(g.start,g.end)) +
+             guestNote(who, r.room || '')});
   });
 
   (a && a.blocked || []).forEach(function(b){
@@ -280,13 +304,13 @@ function barsFor(r, ab, from, to){
       detail:prettyLong(b.start)+' — '+prettyLong(addDays(b.end,-1))+' · Airbnb is not bookable, but a long-term tenant could move in. Ignored on the website.'});
   });
 
-  var st = (r.status||'leased').toLowerCase();
+  var st = (r.status||'leased').toLowerCase(), who2 = manualName(r.id);
   if (st === 'leased'){
-    out.push({kind:'lease', start:today, end:to, openEnd:true,
-      title:'You marked this leased', detail:'No end date posted. Set one on the availability page once a tenant gives notice.'});
+    out.push({kind:'lease', start:today, end:to, openEnd:true, name:who2,
+      title: who2 ? who2 + ' — leased' : 'You marked this leased', detail:'No end date posted. Set one on the availability page once a tenant gives notice.'});
   } else if (st === 'date' && r.date && r.date > today){
-    out.push({kind:'lease', start:today, end:r.date,
-      title:'You marked this taken', detail:'Occupied through '+prettyLong(addDays(r.date,-1))+', opens '+prettyLong(r.date)});
+    out.push({kind:'lease', start:today, end:r.date, name:who2,
+      title: who2 ? who2 + ' — until ' + pretty(r.date) : 'You marked this taken', detail:'Occupied through '+prettyLong(addDays(r.date,-1))+', opens '+prettyLong(r.date)});
   }
 
   return out.filter(function(b){ return b.end > from && b.start < to; });
@@ -395,13 +419,23 @@ function render(){
         var left = pct(s), w = pct(e) - pct(s);
         var wpx = (w / 100) * plotW;
         var label = '';
-        if (b.kind === 'guest' && wpx > 62) label = nights(dayDiff(s, e));
-        if (b.kind === 'lease' && wpx > 80) label = b.openEnd ? 'no end date posted' : 'opens ' + pretty(b.end);
+        var nn = nights(dayDiff(b.start, b.end));
+        if (b.kind === 'guest'){
+          if (b.name && wpx > 150) label = shortName(b.name) + ' · ' + nn;
+          else if (b.name && wpx > 70) label = shortName(b.name).split(' ')[0];
+          else if (wpx > 62) label = nights(dayDiff(s, e));
+        }
+        if (b.kind === 'lease'){
+          var tail = b.openEnd ? 'no end date posted' : 'opens ' + pretty(b.end);
+          if (b.name && wpx > 170) label = shortName(b.name) + ' · ' + tail;
+          else if (b.name && wpx > 70) label = shortName(b.name);
+          else if (wpx > 80) label = tail;
+        }
         html += '<div class="bar-o ' + b.kind + (b.openEnd ? ' openend' : '') + '"' +
                 ' style="left:' + left + '%;width:' + w + '%"' +
                 ' tabindex="0" role="img"' +
                 ' aria-label="' + b.title + ': ' + b.detail.replace(/"/g, '') + '"' +
-                ' data-t="' + b.title + '" data-d="' + b.detail.replace(/"/g, '&quot;') + '">' + label + '</div>';
+                ' data-t="' + esc(b.title) + '" data-d="' + b.detail.replace(/"/g, '&quot;') + '">' + label + '</div>';
       });
 
       html += '</div></div>';
@@ -419,15 +453,21 @@ function render(){
     rooms.filter(function(r){ return r.property === p.id; }).forEach(function(r){
       var m = mergedState(r, ab), a = ab[r.id] || {};
       var gs = (a.ranges || []).map(function(g){
-        return prettyLong(g.start) + '–' + prettyLong(addDays(g.end, -1)) + ' (' + nights(dayDiff(g.start, g.end)) + ')';
+        var who = guestFor(r.id, g);
+        return (who && who.name ? '<b>' + esc(safeName(who.name)) + '</b> · ' : '') +
+          prettyLong(g.start) + '–' + prettyLong(addDays(g.end, -1)) + ' (' + nights(dayDiff(g.start, g.end)) + ')' +
+          (who && who.roomHint && (r.room || '').indexOf('Room ' + who.roomHint) === -1
+            ? ' <span class="none">· messages mention Room ' + esc(safeName(who.roomHint)) + '</span>' : '');
       });
+      var mn = manualName(r.id);
       var bs = (a.blocked || []).map(function(b){
         return prettyLong(b.start) + '–' + prettyLong(addDays(b.end, -1));
       });
       rowsHtml += '<tr><td class="rm">' + p.id + ' · ' + r.room.split(' — ')[0] + '</td>' +
         '<td><span class="pill ' + m.k + '">' + m.label + '</span>' +
           (m.src === 'airbnb' ? '<div class="none" style="font-size:.76rem;margin-top:3px">from Airbnb</div>' : '') +
-          (m.src === 'you' ? '<div class="none" style="font-size:.76rem;margin-top:3px">you set this</div>' : '') + '</td>' +
+          (m.src === 'you' ? '<div class="none" style="font-size:.76rem;margin-top:3px">you set this</div>' : '') +
+          (mn ? '<div style="font-size:.8rem;margin-top:3px;font-weight:600">' + esc(mn) + '</div>' : '') + '</td>' +
         '<td class="bk">' + (gs.length ? gs.join('<br>') : '<span class="none">no guests booked</span>') + '</td>' +
         '<td class="bk">' + (bs.length ? '<span class="none">' + bs.join('<br>') + '</span>'
                                        : (ab[r.id] ? '<span class="none">none</span>'

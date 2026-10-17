@@ -48,6 +48,8 @@ input[disabled],select[disabled]{background:#f4f2ec;color:#9aa0a7}
 .abcell b{color:var(--navy);font-weight:700}
 .abnone{color:#9aa0a7}
 .abover{display:block;margin-top:2px;color:#7a5310;font-weight:700}
+.rname .who{display:block;width:100%;margin-top:6px;padding:.35rem .55rem;font-size:.8rem;font-weight:400;border:1px solid var(--line);border-radius:7px}
+.rname .who::placeholder{color:#9aa0a7}
 @media(max-width:620px){
   .rhead{display:none}
   .room{grid-template-columns:1fr 1fr;gap:8px;padding:14px 0}
@@ -124,6 +126,8 @@ var CODE  = '';
 var ROOMS = [];   // the human lane — what you and Jen typed
 var PROPS = [];
 var AB    = {};   // the Airbnb lane — read only, written by the sync
+var NAMES = {};   // who is in each room, typed here — staff only, never on the website
+var GUESTS = {};  // Airbnb guest names, matched from the confirmation emails
 var $ = function (id) { return document.getElementById(id); };
 
 function say(el, msg) { el.textContent = msg; el.style.display = msg ? 'block' : 'none'; }
@@ -173,6 +177,17 @@ function merged(r) {
   return base;
 }
 
+function escHtml(v) {
+  return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+// The Airbnb guest staying tonight, if the confirmation email was found.
+function guestNow(id) {
+  var t = new Date(); t.setHours(0, 0, 0, 0);
+  var today = t.getFullYear() + '-' + ('0' + (t.getMonth() + 1)).slice(-2) + '-' + ('0' + t.getDate()).slice(-2);
+  var g = (GUESTS[id] || []).filter(function (x) { return x.start <= today && x.end > today && x.name; })[0];
+  return g ? ': ' + escHtml(g.name) : '';
+}
+
 function abText(r) {
   var a = AB[r.id];
   if (!a) return '<span class="abnone">no Airbnb listing</span>';
@@ -180,7 +195,7 @@ function abText(r) {
 
   var out = [];
   if (a.busyNow && a.busyUntil) {
-    out.push('<b>Guest in now</b> — last night ' + longDate(parseDate(a.busyUntil)) +
+    out.push('<b>Guest in now' + guestNow(r.id) + '</b> — last night ' + longDate(parseDate(a.busyUntil)) +
              ', free ' + longDate(parseDate(a.nextFree)));
   } else if (a.nextBooking) {
     out.push('Free — next guest ' + longDate(parseDate(a.nextBooking)));
@@ -237,7 +252,10 @@ function render() {
     var rows = mine.map(function (r) {
       var i = ROOMS.indexOf(r);
       return '<div class="room">' +
-        '<div class="rname">' + r.room + '</div>' +
+        '<div class="rname">' + r.room +
+          '<input type="text" class="who" data-id="' + r.id + '" maxlength="80" autocomplete="off"' +
+          ' placeholder="Who is in it? (staff only)" aria-label="Who is in ' + r.room + '" />' +
+        '</div>' +
         '<select class="st" data-i="' + i + '" aria-label="Status for ' + r.room + '">' +
           '<option value="leased">Leased</option>' +
           '<option value="date">Opens on a date</option>' +
@@ -272,6 +290,10 @@ function render() {
       render();
     });
   });
+  box.querySelectorAll('.who').forEach(function (inp) {
+    inp.value = NAMES[inp.dataset.id] || '';
+    inp.addEventListener('input', function () { NAMES[this.dataset.id] = this.value.trim(); });
+  });
   box.querySelectorAll('[data-bulk]').forEach(function (sel) {
     sel.addEventListener('change', function () {
       var v = this.value, pid = this.dataset.bulk;
@@ -292,6 +314,8 @@ function openEditor(d) {
   ROOMS = (d && (d.manual || d.rooms)) || [];
   PROPS = (d && d.properties) || [];
   AB    = (d && d.airbnb) || {};
+  NAMES  = (d && d.guests && d.guests.manual) || {};
+  GUESTS = (d && d.guests && d.guests.airbnb) || {};
   $('gate').classList.add('hide');
   $('editor').classList.remove('hide');
   render();
@@ -336,13 +360,14 @@ $('save').addEventListener('click', function () {
   fetch(NH_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ code: CODE, action: 'save', rooms: ROOMS })
+    body: JSON.stringify({ code: CODE, action: 'save', rooms: ROOMS, names: NAMES })
   })
   .then(function (r) { return r.json(); })
   .then(function (d) {
     if (!d.ok) { say($('err'), d.error || 'Something went wrong.'); return; }
     ROOMS = d.manual || d.rooms || ROOMS;
     AB    = d.airbnb || AB;
+    if (d.guests) { NAMES = d.guests.manual || {}; GUESTS = d.guests.airbnb || {}; }
     render();
     say($('ok'), 'Saved. The website is showing this now.');
     $('stamp').textContent = 'Last saved ' + new Date().toLocaleString('en-US');
