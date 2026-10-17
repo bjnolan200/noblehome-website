@@ -129,6 +129,8 @@ input:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
 .bar-o:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 .bar-o.guest{background:var(--guest);color:#fff}
 .bar-o.lease{background:var(--lease);color:#fff}
+.bar-o.innago{background:#2f7d6d;color:#fff}
+.rl .rwho.warn{color:#b3261e}
 .bar-o.block{background:var(--block-fill);color:#8e9299;border:1px solid var(--block-edge);box-shadow:none;height:13px;font-size:.66rem}
 .bar-o.openend::after{content:'';position:absolute;right:0;top:0;bottom:0;width:16px;
   background:linear-gradient(90deg,transparent,var(--lease))}
@@ -256,6 +258,15 @@ function mergedState(r, ab){
   var a = ab[r.id], today = ymd(new Date());
   var st = (r.status||'leased').toLowerCase();
   if (st === 'leased') return {k:'l', label:'Leased'};
+  /* An Innago tenant can only make the room less available, as on the website */
+  var inn = DATA && DATA.guests ? innagoNow(r.id, today) : null;
+  if (inn){
+    if (!inn.end && st === 'available') return {k:'l', label:'Leased (Innago)'};
+    if (inn.end && (st === 'available' || (st === 'date' && inn.end > (r.date || '')))) {
+      r = {id:r.id, status:'date', date:inn.end};
+      st = 'date';
+    }
+  }
   var busy = a && a.busyNow && a.busyUntil;
   if (st === 'available'){
     if (busy) return {k:'d', label:'Opens '+prettyLong(a.nextFree), date:a.nextFree, src:'airbnb'};
@@ -295,6 +306,32 @@ function moneyHtml(who){
     'Jen, manager (' + pct + '%) <b>' + usd(m.manager) + '</b>' + paid + '<br>' +
     'Bradford, owner <b>' + usd(m.owner) + '</b>' + opaid + '</span>';
 }
+/* ---- Innago: long-term tenants and their rent ---- */
+function innagoFor(id){ return ((DATA.guests || {}).innago || {})[id] || []; }
+function innagoNow(id, today){
+  return innagoFor(id).filter(function(l){ return l.start && l.start <= today && (!l.end || l.end > today); })[0] || null;
+}
+function perWord(p){ return p === 'week' ? '/week' : p === 'stay' ? ' for the stay' : '/month'; }
+function innagoMoneyHtml(l){
+  if (!l || l.rent == null) return '';
+  var thisMonth = ymd(new Date()).slice(0, 7);
+  var current = !l.month || l.month === thisMonth;
+  var inv = current && l.invoiced != null ? l.invoiced : l.rent;
+  var paid = current && l.paid != null ? l.paid : 0;
+  var base = paid > 0 ? paid : inv;
+  var pct = Math.round((l.rate || 0) * 1000) / 10;
+  var tag = function(t){ return ' <span style="opacity:.75">(' + t + ')</span>'; };
+  var state = paid >= inv - 0.5 ? 'paid' : paid > 0 ? usd(paid) + ' of ' + usd(inv) + ' paid' : 'not paid yet';
+  return '<br><span style="display:inline-block;margin-top:5px">' +
+    'Rent <b>' + usd(l.rent) + '</b>' + perWord(l.per) + '<br>' +
+    'Current invoice ' + usd(inv) + tag(state) + (l.via ? ' via ' + safeName(l.via) : '') + '<br>' +
+    'Jen, manager (' + pct + '%) <b>' + usd(base * (l.rate || 0)) + '</b>' + tag(paid >= inv - 0.5 ? 'earned' : 'when paid') + '<br>' +
+    'Bradford, owner <b>' + usd(base * (1 - (l.rate || 0))) + '</b></span>';
+}
+function innagoDetail(l){
+  var when = l.end ? prettyLong(l.start) + ' — ' + prettyLong(addDays(l.end, -1)) : 'Since ' + prettyLong(l.start) + ' · month to month';
+  return when + (l.note && !/^month to month$/i.test(l.note) ? ' · ' + safeName(l.note) : '') + ' · Innago' + innagoMoneyHtml(l);
+}
 function manualName(id){ return safeName(((DATA.guests || {}).manual || {})[id] || ''); }
 function guestNote(who, roomLabel){
   if (!who || !who.name) return ' · Name not found in the Airbnb emails';
@@ -316,6 +353,16 @@ function whoTip(w, g){
 function whoLine(r, ab, today){
   var ranges = ((ab[r.id] || {}).ranges || []).slice().sort(function(a,b){ return a.start < b.start ? -1 : 1; });
   var now = ranges.filter(function(g){ return g.start <= today && g.end > today; })[0];
+  var inn = innagoNow(r.id, today);
+  if (now && inn){
+    var wa = guestFor(r.id, now);
+    return '<span class="rwho warn">⚠ Airbnb has ' + esc(wa && wa.name ? safeName(wa.name) : 'a guest') +
+           ', Innago has ' + esc(safeName(inn.tenant)) + '</span>';
+  }
+  if (inn){
+    return '<span class="rwho tipme" tabindex="0" data-t="' + esc(safeName(inn.tenant)) + '" data-d="' + esc(innagoDetail(inn)) + '">' +
+           esc(safeName(inn.tenant)) + ' <i>· ' + (inn.end ? 'out ' + pretty(addDays(inn.end, -1)) : usd(inn.rent) + perWord(inn.per)) + '</i></span>';
+  }
   if (now){
     var w = guestFor(r.id, now);
     return '<span class="rwho' + (w && w.money ? ' tipme' : '') + '"' + whoTip(w, now) + '>' +
@@ -352,8 +399,17 @@ function barsFor(r, ab, from, to){
       detail:prettyLong(b.start)+' — '+prettyLong(addDays(b.end,-1))+' · Airbnb is not bookable, but a long-term tenant could move in. Ignored on the website.'});
   });
 
+  innagoFor(r.id).forEach(function(l){
+    if (!l.start) return;
+    out.push({kind:'innago', start:l.start, end:l.end || to, openEnd:!l.end, name:safeName(l.tenant),
+      title: safeName(l.tenant), detail: innagoDetail(l)});
+  });
+  var hasInnago = !!innagoNow(r.id, today);
+
   var st = (r.status||'leased').toLowerCase(), who2 = manualName(r.id);
-  if (st === 'leased'){
+  if (hasInnago) {
+    /* the Innago bar already shows who is there and until when */
+  } else if (st === 'leased'){
     out.push({kind:'lease', start:today, end:to, openEnd:true, name:who2,
       title: who2 ? who2 + ' — leased' : 'You marked this leased', detail:'No end date posted. Set one on the availability page once a tenant gives notice.'});
   } else if (st === 'date' && r.date && r.date > today){
@@ -474,6 +530,10 @@ function render(){
           else if (b.name && wpx > 70) label = shortName(b.name).split(' ')[0];
           else if (wpx > 62) label = nights(dayDiff(s, e));
         }
+        if (b.kind === 'innago'){
+          if (wpx > 150) label = shortName(b.name) + ' · ' + (b.openEnd ? 'month to month' : 'to ' + pretty(addDays(b.end, -1)));
+          else if (wpx > 60) label = shortName(b.name).split(' ')[0];
+        }
         if (b.kind === 'lease'){
           var tail = b.openEnd ? 'no end date posted' : 'opens ' + pretty(b.end);
           if (b.name && wpx > 170) label = shortName(b.name) + ' · ' + tail;
@@ -512,6 +572,12 @@ function render(){
             ? ' <span class="none">· messages mention Room ' + esc(safeName(who.roomHint)) + '</span>' : '');
       });
       var mn = manualName(r.id);
+      var inl = innagoFor(r.id).map(function(l){
+        return '<b>' + esc(safeName(l.tenant)) + '</b> · Innago · ' +
+          (l.end ? prettyLong(l.start) + '–' + prettyLong(addDays(l.end, -1)) : 'month to month') +
+          ' <span class="none">· ' + usd(l.rent) + perWord(l.per) + '</span>';
+      });
+      gs = inl.concat(gs);
       var bs = (a.blocked || []).map(function(b){
         return prettyLong(b.start) + '–' + prettyLong(addDays(b.end, -1));
       });
