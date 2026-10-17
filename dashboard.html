@@ -110,6 +110,8 @@ input:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
 .rl .rnow.a{color:#14672f}
 .rl .rnow.d{color:#7a5310}
 .rl .rnow.l{color:var(--muted)}
+.rl .rwho{font-size:.74rem;color:var(--navy);font-weight:600;line-height:1.3;margin-top:1px}
+.rl .rwho i{font-style:normal;font-weight:400;color:var(--muted)}
 
 /* the plot area for one room */
 .track{position:relative;min-height:46px}
@@ -286,6 +288,26 @@ function guestNote(who, roomLabel){
   return n;
 }
 
+/* The line under each room name: who is in it now, or who arrives next. */
+function whoLine(r, ab, today){
+  var ranges = ((ab[r.id] || {}).ranges || []).slice().sort(function(a,b){ return a.start < b.start ? -1 : 1; });
+  var now = ranges.filter(function(g){ return g.start <= today && g.end > today; })[0];
+  if (now){
+    var w = guestFor(r.id, now);
+    return '<span class="rwho">' + esc(w && w.name ? safeName(w.name) : 'Airbnb guest') +
+           ' <i>· out ' + pretty(now.end) + '</i></span>';
+  }
+  var mn = manualName(r.id);
+  if (mn) return '<span class="rwho">' + esc(mn) + '</span>';
+  var next = ranges.filter(function(g){ return g.start > today; })[0];
+  if (next){
+    var w2 = guestFor(r.id, next);
+    return '<span class="rwho"><i>Next:</i> ' + esc(w2 && w2.name ? safeName(w2.name) : 'Airbnb guest') +
+           ' <i>· ' + pretty(next.start) + '</i></span>';
+  }
+  return '';
+}
+
 /* ---- every bar this room should draw ---- */
 function barsFor(r, ab, from, to){
   var out = [], a = ab[r.id], today = ymd(new Date());
@@ -403,6 +425,7 @@ function render(){
               '<span>' + parts[0] + '</span>' +
               (parts[1] ? '<span class="rsub">' + parts[1] + '</span>' : '') +
               '<span class="rnow ' + m.k + '">' + m.label + '</span>' +
+              whoLine(r, ab, today) +
               '</div><div class="track" style="width:' + plotW + 'px">';
 
       /* recessive month gridlines */
