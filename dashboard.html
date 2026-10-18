@@ -314,6 +314,7 @@ function innagoNow(id, today){
 function perWord(p){ return p === 'week' ? '/week' : p === 'stay' ? ' for the stay' : '/month'; }
 function innagoMoneyHtml(l){
   if (!l || l.rent == null) return '';
+  if (l.rent === 0) return '<br><span style="display:inline-block;margin-top:5px">Owner\u2019s room \u2014 no rent</span>';
   var thisMonth = ymd(new Date()).slice(0, 7);
   var current = !l.month || l.month === thisMonth;
   var inv = current && l.invoiced != null ? l.invoiced : l.rent;
@@ -325,12 +326,15 @@ function innagoMoneyHtml(l){
   return '<br><span style="display:inline-block;margin-top:5px">' +
     'Rent <b>' + usd(l.rent) + '</b>' + perWord(l.per) + '<br>' +
     'Current invoice ' + usd(inv) + tag(state) + (l.via ? ' via ' + safeName(l.via) : '') + '<br>' +
-    'Jen, manager (' + pct + '%) <b>' + usd(base * (l.rate || 0)) + '</b>' + tag(paid >= inv - 0.5 ? 'earned' : 'when paid') + '<br>' +
-    'Bradford, owner <b>' + usd(base * (1 - (l.rate || 0))) + '</b></span>';
+    'Jen, manager (' + pct + '% of rent) <b>' + usd(base * (l.rate || 0)) + '</b>' + tag(paid >= inv - 0.5 ? 'earned' : 'when paid') + '<br>' +
+    'Bradford, owner <b>' + usd(base * (1 - (l.rate || 0))) + '</b> of the rent' +
+    (l.cleaning ? '<br>Cleaning fee paid <b>' + usd(l.cleaning) + '</b>' + tag('all to Bradford, no manager %') : '') +
+    (l.deposit ? '<br>Security deposit paid <b>' + usd(l.deposit) + '</b>' + tag('held, refundable, no manager %') : '') +
+    '</span>';
 }
 function innagoDetail(l){
   var when = l.end ? prettyLong(l.start) + ' — ' + prettyLong(addDays(l.end, -1)) : 'Since ' + prettyLong(l.start) + ' · month to month';
-  return when + (l.note && !/^month to month$/i.test(l.note) ? ' · ' + safeName(l.note) : '') + ' · Innago' + innagoMoneyHtml(l);
+  return when + (l.note && !/^month to month$/i.test(l.note) ? ' · ' + safeName(l.note) : '') + (l.rent === 0 ? '' : ' · Innago') + innagoMoneyHtml(l);
 }
 function manualName(id){ return safeName(((DATA.guests || {}).manual || {})[id] || ''); }
 function guestNote(who, roomLabel){
@@ -361,7 +365,7 @@ function whoLine(r, ab, today){
   }
   if (inn){
     return '<span class="rwho tipme" tabindex="0" data-t="' + esc(safeName(inn.tenant)) + '" data-d="' + esc(innagoDetail(inn)) + '">' +
-           esc(safeName(inn.tenant)) + ' <i>· ' + (inn.end ? 'out ' + pretty(addDays(inn.end, -1)) : usd(inn.rent) + perWord(inn.per)) + '</i></span>';
+           esc(safeName(inn.tenant)) + ' <i>· ' + (inn.end ? 'out ' + pretty(addDays(inn.end, -1)) : inn.rent === 0 ? 'owner' : usd(inn.rent) + perWord(inn.per)) + '</i></span>';
   }
   if (now){
     var w = guestFor(r.id, now);
