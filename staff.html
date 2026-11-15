@@ -61,6 +61,9 @@ input:focus,textarea:focus{outline:2px solid var(--gold-soft);outline-offset:1px
 .lage{font-size:.8rem;color:var(--muted)}
 .facts{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
 .chip{font-size:.78rem;background:#f2efe7;border:1px solid var(--line);border-radius:20px;padding:2px 10px;color:#3a4149}
+.chip.web{background:#eef3f8;border-color:#c9dae9;color:#28414f}
+.contact{font-size:.9rem;margin:2px 0 8px}
+.contact a{color:var(--navy);font-weight:600}
 .chip.hot{background:#fdecea;border-color:#f5c2bd;color:var(--red)}
 .reason{font-size:.86rem;color:#6b4508;margin:4px 0 10px}
 .note{font-style:italic;color:#4a4a4a;background:#faf8f3;border-radius:8px;padding:10px 12px;margin:6px 0 12px;white-space:pre-wrap;font-size:.92rem}
@@ -183,6 +186,7 @@ function factChips(l) {
   if (l.pets === 'yes') c.push('pets');
   if (l.pets === 'no') c.push('no pets');
   var out = c.map(function (x) { return '<span class="chip">' + esc(x) + '</span>'; });
+  if (l.kind === 'viewing' || l.kind === 'waitlist') out.unshift('<span class="chip web">website</span>');
   if (l.start && l.start < todayYmd()) out.push('<span class="chip hot">move-in date passed</span>');
   return out.join('');
 }
@@ -195,22 +199,28 @@ function card(l) {
        '<span class="lage">' + esc(ago(l.received)) + (l.sentAt ? ' · answered ' + esc(ago(l.sentAt)) : '') + '</span></div>';
   h += '<div class="facts">' + factChips(l) + '</div>';
   if (l.reason && l.status !== 'auto-sent') h += '<div class="reason">' + esc(l.reason) + '</div>';
+  if (l.email || l.phone) {
+    h += '<div class="contact">' +
+      (l.phone ? '<a href="tel:' + esc(String(l.phone).replace(/[^\d+]/g, '')) + '">' + esc(l.phone) + '</a>' : '') +
+      (l.phone && l.email ? ' · ' : '') +
+      (l.email ? '<a href="mailto:' + esc(l.email) + '">' + esc(l.email) + '</a>' : '') + '</div>';
+  }
   if (l.note) h += '<div class="note">' + esc(l.note) + '</div>';
 
-  if (waiting || l.status === 'area') {
-    var open = waiting ? '' : '<details><summary>Show suggested reply</summary>';
+  if (waiting || l.status === 'area' || l.status === 'waitlist') {
+    var open = waiting ? '' : '<details><summary>' + (l.status === 'waitlist' ? 'Write to them' : 'Show suggested reply') + '</summary>';
     h += open + '<label>Reply' + (waiting ? ' (edit anything before sending)' : '') + '</label>' +
          '<textarea class="reply">' + esc(l.reply || '') + '</textarea>';
     h += '<div class="actions">';
-    if (l.canSend) h += '<button class="btn" data-act="send">Send</button>';
-    else h += '<button class="btn" data-act="copy">Copy reply &amp; open Furnished Finder</button>';
-    if (l.canSend) h += '<a class="btn ghost" href="' + esc(l.link) + '" target="_blank" rel="noopener">Open on Furnished Finder</a>';
+    if (l.canSend) h += '<button class="btn" data-act="send">' + (l.link ? 'Send' : 'Send email') + '</button>';
+    else if (l.link) h += '<button class="btn" data-act="copy">Copy reply &amp; open Furnished Finder</button>';
+    if (l.canSend && l.link) h += '<a class="btn ghost" href="' + esc(l.link) + '" target="_blank" rel="noopener">Open on Furnished Finder</a>';
     h += '<button class="btn ghost" data-act="skip">' + (waiting ? 'Skip' : 'Dismiss') + '</button>';
     h += '</div>' + (waiting ? '' : '</details>');
   } else {
     if (l.reply) h += '<details><summary>' + (l.status === 'skipped' ? 'Skipped. Show suggested reply' : 'What was sent') + '</summary><div class="sent">' + esc(l.reply) + '</div></details>';
     h += '<div class="actions">';
-    h += '<a class="btn ghost" href="' + esc(l.link) + '" target="_blank" rel="noopener">Open on Furnished Finder</a>';
+    if (l.link) h += '<a class="btn ghost" href="' + esc(l.link) + '" target="_blank" rel="noopener">Open on Furnished Finder</a>';
     if (l.status === 'skipped') h += '<button class="btn ghost" data-act="undo">Put back</button>';
     h += '</div>';
   }
@@ -223,6 +233,7 @@ function renderLeads() {
   var auto = LEADS.filter(function (l) { return l.status === 'auto-sent' || l.status === 'sent'; });
   var area = LEADS.filter(function (l) { return l.status === 'area'; });
   var skip = LEADS.filter(function (l) { return l.status === 'skipped'; });
+  var wait = LEADS.filter(function (l) { return l.status === 'waitlist'; });
 
   // Oldest waiting first: the person who has waited longest goes to the top.
   // Anyone whose move-in date has already passed sinks to the bottom.
@@ -244,6 +255,10 @@ function renderLeads() {
   h += '<div class="sec"><h2>Answered</h2><span>bot replies and yours, newest first</span></div>';
   h += auto.length ? auto.slice(0, 25).map(card).join('') : '<div class="card empty">Nothing yet.</div>';
 
+  if (wait.length) {
+    h += '<details style="margin-top:18px"><summary class="sec" style="display:block"><b>Waitlist (' + wait.length + ')</b>, people who joined on the website. Write when a room opens.</summary>' +
+         wait.map(card).join('') + '</details>';
+  }
   if (area.length) {
     h += '<details style="margin-top:18px"><summary class="sec" style="display:block"><b>Area requests (' + area.length + ')</b>, sent to every host nearby. Optional.</summary>' +
          area.slice(0, 25).map(card).join('') + '</details>';
