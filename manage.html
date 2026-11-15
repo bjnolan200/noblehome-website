@@ -69,6 +69,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:28px}
 /* Shown inside the tabbed staff page (staff.html): no bar, no title, no links out */
 html.embed body{background:transparent;padding-bottom:10px}
 html.embed .bar,html.embed h1,html.embed footer,html.embed .btn.ghost[href]{display:none!important}
+html.embed-auth #gate{display:none!important}
 </style>
 </head>
 <body>
@@ -78,6 +79,8 @@ html.embed .bar,html.embed h1,html.embed footer,html.embed .btn.ghost[href]{disp
 (function () {
   if (!/[?&]embed=1/.test(location.search) || window.top === window) return;
   document.documentElement.className += ' embed';
+  // The staff page already took the code: don't flash the code box while it is re-checked.
+  try { if (sessionStorage.getItem('nh_code')) document.documentElement.className += ' embed-auth'; } catch (e) {}
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href]');
     if (!a) return;
