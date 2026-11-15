@@ -65,14 +65,35 @@ input[disabled],select[disabled]{background:#f4f2ec;color:#9aa0a7}
 .hide{display:none}
 .stamp{text-align:center;font-size:.83rem;color:var(--muted);margin-top:14px}
 footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:28px}
+
+/* Shown inside the tabbed staff page (staff.html): no bar, no title, no links out */
+html.embed body{background:transparent;padding-bottom:10px}
+html.embed .bar,html.embed h1,html.embed footer,html.embed .btn.ghost[href]{display:none!important}
 </style>
 </head>
 <body>
+<script>
+/* Inside staff.html's tabs: hide the page chrome and send any link to the
+   other staff pages to the right tab instead of opening it inside the frame. */
+(function () {
+  if (!/[?&]embed=1/.test(location.search) || window.top === window) return;
+  document.documentElement.className += ' embed';
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var h = a.getAttribute('href');
+    var go = /^manage\.html/.test(h) ? 'rooms' : /^dashboard\.html/.test(h) ? 'calendar' : null;
+    e.preventDefault();
+    window.top.location.href = go ? 'staff.html#' + go : h;
+  });
+})();
+</script>
+
 
 <div class="bar"><div class="wrap">
   <span>Noble Home · Staff Only</span>
   <span style="display:flex;gap:16px;align-items:center">
-    <a class="back" href="dashboard.html">Room calendar &rarr;</a>
+    <a class="back" href="staff.html">Staff home &rarr;</a>
     <a class="back" href="index.html">&larr; Back to website</a>
   </span>
 </div></div>
@@ -121,7 +142,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:28px}
   <footer>This page isn't linked in the menus and search engines are told to skip it.</footer>
 </div>
 
-<script src="availability.js?v=5"></script>
+<script src="availability.js?v=6"></script>
 <script>
 var CODE  = '';
 var ROOMS = [];   // the human lane — what you and Jen typed

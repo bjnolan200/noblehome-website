@@ -303,7 +303,7 @@ var NH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxNO4BaVuGIyCqfR1NCId
         if (!d.ok) { err.textContent = d.error || 'That code is not right.'; return; }
         // Hand the code to the staff page for this tab only, then go there.
         try { sessionStorage.setItem('nh_code', code); } catch (e) {}
-        location.href = 'manage.html';
+        location.href = 'staff.html';
       })
       .catch(function () { err.textContent = "Couldn't reach the service. Try again in a moment."; })
       .then(function () { go.disabled = false; go.textContent = 'Continue'; },

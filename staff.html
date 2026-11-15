@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Staff · Noble Home</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%231b2733'/%3E%3Cpath d='M9 27V17l11-7 11 7v10' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3Cpath d='M16 27v-6h8v6' stroke='%23c9a25b' stroke-width='2.2' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="apple-touch-icon" href="og-image.png" />
+<meta name="apple-mobile-web-app-title" content="Noble Staff" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1b2733;--navy-deep:#121a23;--gold:#b8893b;--gold-soft:#c9a25b;--cream:#f7f4ec;--line:#e2ded4;--muted:#6b727a;--red:#8c2019;--green:#1f5723}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:#1b2733;line-height:1.55;padding:0 0 60px}
+.bar{background:var(--navy-deep);color:#fff;padding:14px 0}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:#8b939c;font-weight:600}
+.bar a{color:var(--gold-soft);text-decoration:none;letter-spacing:.1em;white-space:nowrap}
+.bar a:hover{color:#fff}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.3rem;font-weight:700;margin:26px 0 4px}
+.sub{color:var(--muted);margin-bottom:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+label{display:block;font-weight:600;font-size:.8rem;margin-bottom:5px;color:#3a4149}
+input,textarea{width:100%;padding:.68rem .8rem;border:1px solid var(--line);border-radius:9px;font:inherit;font-size:.95rem;background:#fff}
+textarea{min-height:190px;resize:vertical;line-height:1.5}
+input:focus,textarea:focus{outline:2px solid var(--gold-soft);outline-offset:1px}
+.codefield{-webkit-text-security:disc;text-security:disc;letter-spacing:.35em;font-size:1.15rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;font-weight:600;font-size:.92rem;padding:.7rem 1.3rem;border-radius:50px;border:1.5px solid var(--gold);background:var(--gold);color:#fff;cursor:pointer;transition:.15s;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:#fff;color:#3a4149;border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--gold-soft);color:var(--navy)}
+.btn.wide{width:100%}
+.hide{display:none!important}
+.err,.ok{border-radius:10px;padding:12px 15px;margin-bottom:14px;font-size:.92rem}
+.err{background:#fdecea;border:1px solid #f5c2bd;color:var(--red)}
+.ok{background:#e8f5e9;border:1px solid #b7dfba;color:var(--green)}
+
+/* tabs */
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin:4px 0 18px;overflow-x:auto;position:sticky;top:0;background:var(--cream);z-index:5;padding-top:6px}
+.tabs button{font:inherit;font-weight:600;font-size:.95rem;color:var(--muted);background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--gold)}
+.badge{display:inline-block;min-width:22px;padding:1px 7px;border-radius:20px;background:var(--red);color:#fff;font-size:.75rem;margin-left:6px;text-align:center}
+.badge.zero{background:#c9cdd2}
+
+/* warnings */
+.warn{background:#fff4e5;border:1px solid #f0cf9a;color:#6b4508;border-radius:10px;padding:12px 15px;margin-bottom:14px;font-size:.9rem}
+.warn b{color:#4a2f04}
+.warn a{color:#4a2f04;font-weight:600}
+
+/* leads */
+.sec{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:22px 0 10px}
+.sec h2{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700}
+.sec span{color:var(--muted);font-size:.85rem}
+.lead{border-left:4px solid var(--gold)}
+.lead.done{border-left-color:#9fbfa3}
+.lead.area,.lead.skipped{border-left-color:#c9cdd2}
+.lhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.lname{font-weight:700;font-size:1.08rem}
+.lage{font-size:.8rem;color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{font-size:.78rem;background:#f2efe7;border:1px solid var(--line);border-radius:20px;padding:2px 10px;color:#3a4149}
+.chip.hot{background:#fdecea;border-color:#f5c2bd;color:var(--red)}
+.reason{font-size:.86rem;color:#6b4508;margin:4px 0 10px}
+.note{font-style:italic;color:#4a4a4a;background:#faf8f3;border-radius:8px;padding:10px 12px;margin:6px 0 12px;white-space:pre-wrap;font-size:.92rem}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.sent{white-space:pre-wrap;font-size:.88rem;color:#3a4149;background:#f6f8f6;border-radius:8px;padding:10px 12px;margin-top:8px}
+details summary{cursor:pointer;color:var(--muted);font-size:.86rem;margin-top:6px}
+.empty{color:var(--muted);text-align:center;padding:22px}
+.msg{font-size:.86rem;margin-top:8px}
+.msg.bad{color:var(--red)} .msg.good{color:var(--green)}
+
+/* embedded pages */
+iframe.panel{width:100%;border:0;display:block;min-height:600px;background:transparent}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:28px}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <span>Noble Home · Staff</span>
+  <a href="index.html">&larr; Website</a>
+</div></div>
+
+<div class="wrap">
+  <h1>Staff</h1>
+  <p class="sub" id="sub">Leads, rooms and showings, in one place.</p>
+
+  <div class="err hide" id="err"></div>
+
+  <div class="card" id="gate">
+    <label for="code">Access code</label>
+    <input type="text" id="code" class="codefield" inputmode="numeric" autocomplete="off" name="nh-access" spellcheck="false" autocorrect="off" autocapitalize="off" aria-label="Access code" placeholder="Enter the code" />
+    <button class="btn wide" id="unlock" style="margin-top:14px">Unlock</button>
+  </div>
+
+  <div id="app" class="hide">
+    <div id="warns"></div>
+
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="leads" aria-selected="true">Leads <span class="badge zero" id="badge">0</span></button>
+      <button role="tab" data-tab="rooms" aria-selected="false">Rooms</button>
+      <button role="tab" data-tab="calendar" aria-selected="false">Calendar &amp; showings</button>
+    </nav>
+
+    <section id="tab-leads">
+      <div id="leads"></div>
+    </section>
+    <section id="tab-rooms" class="hide"></section>
+    <section id="tab-calendar" class="hide"></section>
+  </div>
+
+  <footer>Not linked in the menus; search engines are told to skip it.</footer>
+</div>
+
+<script src="availability.js?v=6"></script>
+<script>
+(function () {
+var $ = function (id) { return document.getElementById(id); };
+var CODE = null, DATA = null, LEADS = [];
+var PROP = { '172': '172 Oakland', '184': '184 Oakland', '186': '186 Oakland' };
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+function showErr(t) { var e = $('err'); e.textContent = t; e.classList.toggle('hide', !t); }
+
+function post(body) {
+  body.code = CODE;
+  return fetch(NH_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(body)
+  }).then(function (r) { return r.json(); });
+}
+
+// ---- dates ---------------------------------------------------------------
+function todayYmd() {
+  var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+}
+function pretty(ymd) {
+  if (!ymd) return '';
+  var p = String(ymd).slice(0, 10).split('-');
+  var d = new Date(+p[0], +p[1] - 1, +p[2]);
+  if (isNaN(d)) return ymd;
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: (+p[0] !== new Date().getFullYear() ? 'numeric' : undefined) });
+}
+function ago(stamp) {
+  if (!stamp) return '';
+  var t = new Date(String(stamp).replace(' ', 'T'));
+  if (isNaN(t)) return stamp;
+  var h = (Date.now() - t.getTime()) / 36e5;
+  if (h < 1) return 'just now';
+  if (h < 24) return Math.round(h) + 'h ago';
+  var d = Math.round(h / 24);
+  return d + (d === 1 ? ' day ago' : ' days ago');
+}
+function hoursOld(stamp) {
+  var t = new Date(String(stamp).replace(' ', 'T'));
+  return isNaN(t) ? 0 : (Date.now() - t.getTime()) / 36e5;
+}
+
+// ---- warnings: room dates that have already passed -------------------------
+function renderWarnings() {
+  var rooms = (DATA && DATA.manual) || [];
+  var today = todayYmd();
+  var stale = rooms.filter(function (r) { return r.status === 'date' && r.date && r.date < today; });
+  if (!stale.length) { $('warns').innerHTML = ''; return; }
+  $('warns').innerHTML = '<div class="warn"><b>Check these rooms:</b> ' +
+    stale.map(function (r) { return esc(r.property + ' ' + r.room.split(' — ')[0]) + ' says it opens ' + esc(pretty(r.date)) + ', which has passed'; }).join('; ') +
+    '. The website and the bot go by these dates. <a href="#" data-go="rooms">Fix in Rooms</a></div>';
+}
+
+// ---- leads ---------------------------------------------------------------
+function factChips(l) {
+  var c = [];
+  if (l.property) c.push(PROP[l.property] || l.property);
+  if (l.start) c.push(pretty(l.start) + (l.end ? ' → ' + pretty(l.end) : ''));
+  if (l.party) c.push(l.party + (l.party == 1 ? ' person' : ' people'));
+  if (l.pets === 'yes') c.push('pets');
+  if (l.pets === 'no') c.push('no pets');
+  var out = c.map(function (x) { return '<span class="chip">' + esc(x) + '</span>'; });
+  if (l.start && l.start < todayYmd()) out.push('<span class="chip hot">move-in date passed</span>');
+  return out.join('');
+}
+
+function card(l) {
+  var waiting = l.status === 'needs-you';
+  var cls = 'card lead' + (waiting ? '' : (l.status === 'area' ? ' area' : (l.status === 'skipped' ? ' skipped' : ' done')));
+  var h = '<div class="' + cls + '" data-id="' + esc(l.id) + '">';
+  h += '<div class="lhead"><span class="lname">' + esc(l.name || 'Someone') + '</span>' +
+       '<span class="lage">' + esc(ago(l.received)) + (l.sentAt ? ' · answered ' + esc(ago(l.sentAt)) : '') + '</span></div>';
+  h += '<div class="facts">' + factChips(l) + '</div>';
+  if (l.reason && l.status !== 'auto-sent') h += '<div class="reason">' + esc(l.reason) + '</div>';
+  if (l.note) h += '<div class="note">' + esc(l.note) + '</div>';
+
+  if (waiting || l.status === 'area') {
+    var open = waiting ? '' : '<details><summary>Show suggested reply</summary>';
+    h += open + '<label>Reply' + (waiting ? ' (edit anything before sending)' : '') + '</label>' +
+         '<textarea class="reply">' + esc(l.reply || '') + '</textarea>';
+    h += '<div class="actions">';
+    if (l.canSend) h += '<button class="btn" data-act="send">Send</button>';
+    else h += '<button class="btn" data-act="copy">Copy reply &amp; open Furnished Finder</button>';
+    if (l.canSend) h += '<a class="btn ghost" href="' + esc(l.link) + '" target="_blank" rel="noopener">Open on Furnished Finder</a>';
+    h += '<button class="btn ghost" data-act="skip">' + (waiting ? 'Skip' : 'Dismiss') + '</button>';
+    h += '</div>' + (waiting ? '' : '</details>');
+  } else {
+    if (l.reply) h += '<details><summary>' + (l.status === 'skipped' ? 'Skipped. Show suggested reply' : 'What was sent') + '</summary><div class="sent">' + esc(l.reply) + '</div></details>';
+    h += '<div class="actions">';
+    h += '<a class="btn ghost" href="' + esc(l.link) + '" target="_blank" rel="noopener">Open on Furnished Finder</a>';
+    if (l.status === 'skipped') h += '<button class="btn ghost" data-act="undo">Put back</button>';
+    h += '</div>';
+  }
+  h += '<div class="msg"></div></div>';
+  return h;
+}
+
+function renderLeads() {
+  var need = LEADS.filter(function (l) { return l.status === 'needs-you'; });
+  var auto = LEADS.filter(function (l) { return l.status === 'auto-sent' || l.status === 'sent'; });
+  var area = LEADS.filter(function (l) { return l.status === 'area'; });
+  var skip = LEADS.filter(function (l) { return l.status === 'skipped'; });
+
+  // Oldest waiting first: the person who has waited longest goes to the top.
+  // Anyone whose move-in date has already passed sinks to the bottom.
+  var today = todayYmd();
+  need.sort(function (a, b) {
+    var sa = a.start && a.start < today ? 1 : 0, sb = b.start && b.start < today ? 1 : 0;
+    if (sa !== sb) return sa - sb;
+    return a.received < b.received ? -1 : 1;
+  });
+
+  var b = $('badge');
+  b.textContent = need.length;
+  b.classList.toggle('zero', !need.length);
+
+  var h = '';
+  h += '<div class="sec"><h2>Waiting for you</h2><span>' + need.length + '</span></div>';
+  h += need.length ? need.map(card).join('') : '<div class="card empty">Nobody is waiting. Nice.</div>';
+
+  h += '<div class="sec"><h2>Answered</h2><span>bot replies and yours, newest first</span></div>';
+  h += auto.length ? auto.slice(0, 25).map(card).join('') : '<div class="card empty">Nothing yet.</div>';
+
+  if (area.length) {
+    h += '<details style="margin-top:18px"><summary class="sec" style="display:block"><b>Area requests (' + area.length + ')</b>, sent to every host nearby. Optional.</summary>' +
+         area.slice(0, 25).map(card).join('') + '</details>';
+  }
+  if (skip.length) {
+    h += '<details style="margin-top:12px"><summary><b>Skipped (' + skip.length + ')</b></summary>' + skip.slice(0, 25).map(card).join('') + '</details>';
+  }
+  $('leads').innerHTML = h;
+}
+
+function act(el, action) {
+  var cardEl = el.closest('.lead');
+  var id = cardEl.getAttribute('data-id');
+  var msg = cardEl.querySelector('.msg');
+  var ta = cardEl.querySelector('textarea.reply');
+  var lead = LEADS.filter(function (l) { return l.id === id; })[0] || {};
+
+  if (action === 'copy') {
+    var txt = ta ? ta.value : '';
+    var done = function () { msg.className = 'msg good'; msg.textContent = 'Copied. Paste it into the conversation, then press Skip here to clear it.'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, done); else { ta.select(); document.execCommand('copy'); done(); }
+    window.open(lead.link, '_blank', 'noopener');
+    return;
+  }
+
+  var body = { action: 'lead-' + action, id: id };
+  if (action === 'send') {
+    body.text = ta ? ta.value : '';
+    if (el.getAttribute('data-armed') === '1') body.again = true;
+  }
+  var label = el.textContent;
+  el.disabled = true; el.textContent = action === 'send' ? 'Sending…' : 'Saving…';
+  msg.className = 'msg'; msg.textContent = '';
+
+  post(body).then(function (d) {
+    if (!d.ok) {
+      msg.className = 'msg bad'; msg.textContent = d.error || 'Something went wrong.';
+      if (d.already) el.setAttribute('data-armed', '1');
+      el.disabled = false; el.textContent = label;
+      return;
+    }
+    LEADS = d.leads || LEADS;
+    renderLeads();
+  }).catch(function () {
+    msg.className = 'msg bad'; msg.textContent = "Couldn't reach the service. Check your signal and try again.";
+    el.disabled = false; el.textContent = label;
+  });
+}
+
+document.addEventListener('click', function (e) {
+  var a = e.target.closest('[data-act]');
+  if (a) { e.preventDefault(); act(a, a.getAttribute('data-act')); return; }
+  var g = e.target.closest('[data-go]');
+  if (g) { e.preventDefault(); showTab(g.getAttribute('data-go')); }
+});
+
+// ---- tabs ----------------------------------------------------------------
+var FRAMES = { rooms: 'manage.html?embed=1', calendar: 'dashboard.html?embed=1' };
+
+function fitFrame(f) {
+  try {
+    var doc = f.contentDocument;
+    var resize = function () { f.style.height = Math.max(600, doc.documentElement.scrollHeight + 10) + 'px'; };
+    resize();
+    if (window.ResizeObserver) new ResizeObserver(resize).observe(doc.body);
+    else setInterval(resize, 1000);
+  } catch (err) {}
+}
+
+function showTab(name) {
+  [].forEach.call(document.querySelectorAll('.tabs button'), function (b) {
+    b.setAttribute('aria-selected', b.getAttribute('data-tab') === name ? 'true' : 'false');
+  });
+  ['leads', 'rooms', 'calendar'].forEach(function (t) { $('tab-' + t).classList.toggle('hide', t !== name); });
+  if (FRAMES[name] && !$('tab-' + name).firstChild) {
+    var f = document.createElement('iframe');
+    f.className = 'panel'; f.src = FRAMES[name]; f.title = name;
+    f.addEventListener('load', function () { fitFrame(f); });
+    $('tab-' + name).appendChild(f);
+  }
+  if (name === 'leads' && FRAMES_DIRTY) { FRAMES_DIRTY = false; refresh(); }
+  try { history.replaceState(null, '', '#' + name); } catch (e) {}
+}
+var FRAMES_DIRTY = false;
+document.querySelector('.tabs').addEventListener('click', function (e) {
+  var b = e.target.closest('button[data-tab]');
+  if (!b) return;
+  if (b.getAttribute('data-tab') !== 'leads') FRAMES_DIRTY = true;  // rooms may change; re-read on return
+  showTab(b.getAttribute('data-tab'));
+});
+
+// ---- start ---------------------------------------------------------------
+function open(d) {
+  DATA = d;
+  LEADS = d.leads || [];
+  $('gate').classList.add('hide');
+  $('app').classList.remove('hide');
+  renderWarnings();
+  renderLeads();
+  if (!d.leads) showErr('The leads list is not switched on yet. Ask Claude to deploy the latest Apps Script version.');
+}
+
+function refresh() {
+  post({ action: 'check' }).then(function (d) { if (d.ok) open(d); });
+}
+
+function tryCode(code, fromButton) {
+  showErr('');
+  if (!code) { showErr('Type the code first.'); return; }
+  CODE = code;
+  if (fromButton) { $('unlock').disabled = true; $('unlock').textContent = 'Checking…'; }
+  post({ action: 'check' }).then(function (d) {
+    if (!d.ok) { showErr(d.error || 'That code is not right.'); CODE = null; try { sessionStorage.removeItem('nh_code'); } catch (e) {} return; }
+    try { sessionStorage.setItem('nh_code', code); } catch (e) {}
+    open(d);
+    var start = (location.hash || '').replace('#', '');
+    if (start === 'rooms' || start === 'calendar') showTab(start);
+  }).catch(function () {
+    showErr("Couldn't reach the service. Try again in a moment.");
+  }).then(done, done);
+  function done() { $('unlock').disabled = false; $('unlock').textContent = 'Unlock'; }
+}
+
+$('unlock').addEventListener('click', function () { tryCode($('code').value.trim(), true); });
+$('code').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('unlock').click(); });
+
+(function () {
+  var handed = null;
+  try { handed = sessionStorage.getItem('nh_code'); } catch (e) {}
+  if (handed) tryCode(handed, false);
+})();
+})();
+</script>
+</body>
+</html>
